@@ -1,1 +1,53 @@
-# Se7en
+# NullByte-Toolkit
+NullByte-Toolkit is a performance optimized toolkit for the .Net-Framework with nativ WIN-API call libery*
+
+
+- [ ] AI
+
+  - [ ] ##### Black-Box #####
+- [ ] WinApi 
+  - [ ] Kernel32
+  - [ ] User32
+- [ ] Ui - WinFrom - more control and management over a control, support
+  - [x] TextBox
+  - [x] CircleBar
+  - [ ] Multiply value CircleBar
+  - [x] ProgressBar
+  - [x] SmoothLine (support color gradient)
+  - [x] ToggleButton
+  - [x] CloseButton
+  - [x] Custom WinForm
+  - [x] Custom Button
+  - [ ] ScrollView
+  - [ ] Node - Wire Modul
+- [ ] Network
+  - [ ] Socks5
+    - [ ] Host name support
+      - [x] IPv4
+      - [x] Ipv6
+      - [x] DNS
+    - [ ] Auth support
+      - [x] None
+  - [ ] TCP/IP-Client
+  - [ ] TCP/IP-Server
+  - [ ] UDP/IP-Client
+  - [ ] UDP/IP-Server
+  - [ ] SSH - Client
+  - [ ] SSH - Server
+  - [ ] FTP - Client
+  - [ ] FTP - Server
+  - [ ] HttpClient
+  - [ ] HttpsClient
+    - [ ] SSL/TLS Support 
+- [ ] Security
+  - [x] BlowFish
+  - [ ] etc.
+- [ ] Math
+  - [ ] Vactor calulations
+  - [ ] 3D Stuff
+  - [ ] Analyse stuff
+- [ ] Performace Pack
+  - [x] Unsafe linq
+  - [x] Custom list - (MemoryList<T> : unmanaged )
+  - [x] Custom Pointer - (struct Ptr)
+- [ ]  Custom Drawing tools
