@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using Se7en.UI.Utils;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Se7en.UI
@@ -20,14 +21,12 @@ namespace Se7en.UI
             set { if (value != Lb_WinFormTitle.Text) Lb_WinFormTitle.Text = value; }
         }
 
-        public WinFrom()
-        {
+        public WinFrom() {
             InitializeComponent();
-
+            new DragAndDroper(this, Lb_WinFormTitle);
         }
 
-        private void Bt_WinFromClose_Click(object sender, System.EventArgs e)
-        {
+        private void Bt_WinFromClose_Click(object sender, System.EventArgs e) {
             Application.Exit();
         }
     }

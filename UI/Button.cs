@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Se7en.UI
 {
-    public class Button : System.Windows.Forms.Button
+    public class SButton : Button
     {
         private Bitmap _Buffer;
         private bool _MouseEntered;

@@ -28,6 +28,7 @@
             this.textBox2 = new Se7en.UI.TextBox();
             this.textBox3 = new Se7en.UI.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox2
@@ -71,14 +72,14 @@
             this.textBox3.LineMarginLeft = 0;
             this.textBox3.LineMarginRight = 0;
             this.textBox3.LineMarginToText = 1;
-            this.textBox3.Location = new System.Drawing.Point(306, 291);
+            this.textBox3.Location = new System.Drawing.Point(523, 6);
             this.textBox3.Multiline = false;
             this.textBox3.Name = "textBox3";
             this.textBox3.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.textBox3.PasswortChar = '\0';
             this.textBox3.Patter = null;
             this.textBox3.PatterError = System.Drawing.Color.Red;
-            this.textBox3.Size = new System.Drawing.Size(329, 17);
+            this.textBox3.Size = new System.Drawing.Size(213, 17);
             this.textBox3.TabIndex = 5;
             this.textBox3.Text = null;
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -86,9 +87,11 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(122, 115);
+            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.Size = new System.Drawing.Size(739, 28);
             this.panel1.TabIndex = 6;
             // 
             // FileExplorer
@@ -97,14 +100,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(739, 574);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Name = "FileExplorer";
             this.Text = "FileExplorer";
             this.Load += new System.EventHandler(this.FileExplorer_Load);
             this.Controls.SetChildIndex(this.textBox2, 0);
-            this.Controls.SetChildIndex(this.textBox3, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

@@ -30,11 +30,10 @@
         {
             Se7en.UI.ColorFadeItem colorFadeItem1 = new Se7en.UI.ColorFadeItem();
             Se7en.UI.ColorFadeItem colorFadeItem2 = new Se7en.UI.ColorFadeItem();
-            System.Windows.Forms.Panel Pl_WinForm;
             this.Lb_WinFormTitle = new System.Windows.Forms.Label();
             this.Bt_WinFromClose = new Se7en.UI.CloseButton();
             this.smoothLine1 = new Se7en.UI.SmoothLine();
-            Pl_WinForm = new System.Windows.Forms.Panel();
+            Pl_WinForm = new System.Windows.Forms.Panel(); 
             Pl_WinForm.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,8 +106,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.ClientSize = new System.Drawing.Size(603, 421);
-            this.Controls.Add(Pl_WinForm);
+            this.Controls.Add(this.Pl_WinForm);
             this.Controls.Add(this.smoothLine1);
+            this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Font = new System.Drawing.Font("Fira Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -125,5 +125,6 @@
         private CloseButton Bt_WinFromClose;
         private System.Windows.Forms.Label Lb_WinFormTitle;
         private SmoothLine smoothLine1;
+        private System.Windows.Forms.Panel Pl_WinForm;
     }
 }

@@ -23,6 +23,12 @@ namespace Se7en.Net
             _TcpListener.BeginAcceptTcpClient(AcceptClient, null);
         }
 
+        public void Stop() {
+            if (_TcpListener != null) {
+                _TcpListener.Stop();
+            }
+        }
+
         private void AcceptClient(IAsyncResult result)
         {
             TcpClient client = _TcpListener.EndAcceptTcpClient(result);
@@ -31,13 +37,19 @@ namespace Se7en.Net
             {
                 _Clients.Add(ipClient);
                 ipClient.ResiveMessage += ClienMessageResieve;
+                ipClient.ClientDisconnected += IpClient_ClientDisconnected; ;
                 ipClient.ClientDisconnected += ClientDisconnected;
+                ClientConnected?.Invoke(ipClient);
             }
             else
             {
                 client.Close();
             }
             _TcpListener.BeginAcceptTcpClient(AcceptClient, null);
+        }
+
+        private void IpClient_ClientDisconnected(TcpIpClient arg1) {
+            Clients.Remove(arg1);
         }
 
         public abstract bool AccessRequest(TcpIpClient client);
