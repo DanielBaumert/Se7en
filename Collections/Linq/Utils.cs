@@ -8,6 +8,38 @@ namespace Se7en.Collections.Linq
     public static class Utils
     {
 
+        //update 
+        public unsafe static void ParallelForEach<T>(this T[] source, UnsafeAction<T> action, int step = 1) where T : unmanaged {
+            T* sourcePtr = source.GetSourcePtr();
+            Parallel.ForEach(SteppedIterator.Create(0, source.Length, step), i => action(sourcePtr + i));
+        }
+        public unsafe static void ParallelForEach<T>(this T[] source, UnsafeAction<T, int> action, int step = 1) where T : unmanaged {
+            T* sourcePtr = source.GetSourcePtr();
+            Parallel.ForEach(SteppedIterator.Create(0, source.Length, step), i => action(sourcePtr + i, i));
+        }
+        public unsafe static void ForEach<T>(this T[] source, UnsafeAction<T> action, int step = 1) where T : unmanaged {
+            T* sourcePtr = source.GetSourcePtr();
+            for(int i = 0; i < source.Length; i += step) {
+                action(sourcePtr + i);
+            }
+        }
+
+        public unsafe static void ForEach<T>(this T[] source, UnsafeAction<T, int> action, int step = 1) where T : unmanaged {
+            T* sourcePtr = source.GetSourcePtr();
+            for(int i = 0; i < source.Length; i += step) {
+                action(sourcePtr + i, i);
+            }
+        }
+
+        public static IEnumerable<TOut> SelectWhere<T, TOut>(this T[] source, Func<T, bool> compare, Func<T, int, TOut> selector) where T : unmanaged {
+            for(int i = 0; i < source.Length; i++) {
+                T element = source[i];
+                if(compare(element))
+                    yield return selector(element, i);
+            }
+        }
+       
+        //end update
         public unsafe static void ForEach<T>(this MemoryList<T> source, UnsafeAction<T> action, int step = 1) where T : unmanaged
         {
             for (int i = 0; i < source.Count; i += step)
