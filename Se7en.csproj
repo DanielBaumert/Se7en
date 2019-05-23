@@ -8,10 +8,11 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Se7en</RootNamespace>
     <AssemblyName>Se7en</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,8 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\AiNetworker.cs" />
-    <Compile Include="AI\Connector.cs" />
+    <Compile Include="AI\IActivationFunction.cs" />
+    <Compile Include="AI\IInputFunction.cs" />
+    <Compile Include="AI\INeuron.cs" />
+    <Compile Include="AI\InputSynapse.cs" />
+    <Compile Include="AI\ISynapse.cs" />
+    <Compile Include="AI\NeuralLayer.cs" />
+    <Compile Include="AI\NeuralLayerFactory.cs" />
+    <Compile Include="AI\NeuralNetwork.cs" />
+    <Compile Include="AI\Neuron.cs" />
+    <Compile Include="AI\RectifiedActivationFuncion.cs" />
+    <Compile Include="AI\SigmoidActivationFunction.cs" />
+    <Compile Include="AI\StepActivationFunction.cs" />
+    <Compile Include="AI\Synapse.cs" />
+    <Compile Include="AI\WeightedSumFunction.cs" />
     <Compile Include="Collections\Linq\Utils.cs" />
     <Compile Include="Collections\Linq\SteppedIterator.cs" />
     <Compile Include="Collections\Set.cs" />
@@ -57,11 +70,16 @@
     <Compile Include="Exceptions\NotAcceptableAuthenticationTypeException.cs" />
     <Compile Include="Collections\MemoryList.cs" />
     <Compile Include="Exceptions\UnhandledAddressTypeException.cs" />
+    <Compile Include="Graphic\PixelFormat.cs" />
+    <Compile Include="Graphic\SBitmap.cs" />
+    <Compile Include="Graphic\SPoint.cs" />
+    <Compile Include="Graphic\SRect2.cs" />
+    <Compile Include="Graphic\SSize.cs" />
+    <Compile Include="Graphic\SVector2.cs" />
     <Compile Include="Math\LUDecomposition.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="Math\Matrix.cs" />
     <Compile Include="Math\PolyFit.cs" />
-    <Compile Include="Math\Vector2D.cs" />
     <Compile Include="Net\AuthenticationType.cs" />
     <Compile Include="Net\ConnectionMode.cs" />
     <Compile Include="Exceptions\HostUnreachableException.cs" />
@@ -78,6 +96,16 @@
     <Compile Include="Net\TcpIpClient.cs" />
     <Compile Include="Net\TcpIpServer.cs" />
     <Compile Include="Net\UserAgent.cs" />
+    <Compile Include="OpenCvSharp\Cv2.cs" />
+    <Compile Include="OpenCvSharp\DisposableCvObject.cs" />
+    <Compile Include="OpenCvSharp\DisposableObject.cs" />
+    <Compile Include="OpenCvSharp\ICvPtrHolder.cs" />
+    <Compile Include="OpenCvSharp\InputArray.cs" />
+    <Compile Include="OpenCvSharp\MatType.cs" />
+    <Compile Include="OpenCvSharp\NativeMethods.cs" />
+    <Compile Include="OpenCvSharp\OpenCvSharpException.cs" />
+    <Compile Include="OpenCvSharp\OutputArray.cs" />
+    <Compile Include="OpenCvSharp\UtilMap.cs" />
     <Compile Include="Security\Crypt\BlowFish.cs" />
     <Compile Include="Process.cs" />
     <Compile Include="UI\Button.cs">
@@ -91,9 +119,6 @@
     </Compile>
     <Compile Include="UI\ColorFadeItem.cs" />
     <Compile Include="UI\Direction.cs" />
-    <Compile Include="UI\Drawing\Bitmap.cs" />
-    <Compile Include="Math\Point2D.cs" />
-    <Compile Include="UI\Drawing\Rect2D.cs" />
     <Compile Include="UI\FileExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,7 +155,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Utils\DragAndDroper.cs" />
-    <Compile Include="UI\Drawing\Size2D.cs" />
     <Compile Include="UI\WinFrom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +183,7 @@
     <Compile Include="WinApi\Utils.cs" />
     <Compile Include="WinApi\WConst.cs" />
     <Compile Include="WinApi\Winmm.cs" />
+    <Compile Include="Windows\NativWindow.cs" />
     <Compile Include="Windows\PermissionController.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -192,8 +217,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Drawing\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -80,9 +80,25 @@ namespace Se7en.WinApi
         public static extern IntPtr GetTopWindow(IntPtr hWnd);
         [DllImport(ImportKey, CharSet = CharSet.Auto, SetLastError = true)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-        [DllImport(ImportKey)]
+        public static extern int GetWindowText(IntPtr hWnd, out StringBuilder lpString, int nMaxCount);
+        [DllImport(ImportKey, EntryPoint = "GetWindowTextLengthA")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern int GetWindowTextLength(IntPtr hWnd);
+        [DllImport(ImportKey)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern bool UpdateWindow(IntPtr hwnd);
+        [DllImport(ImportKey, EntryPoint = "FindWindowExA")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+        [DllImport(ImportKey, EntryPoint = "GetWindowTextA")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern int GetWindowText(IntPtr hwnd, string lpString, int cch);
+        // https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-windowfromdc
+        [DllImport(ImportKey)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr WindowFromDC(IntPtr hdc);
+        [DllImport(ImportKey)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr GetActiveWindow();
     }
 }

@@ -1,5 +1,4 @@
-﻿using Se7en.Math;
-using Se7en.UI.Drawing;
+﻿using Se7en.Graphic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
@@ -44,8 +43,8 @@ namespace Se7en.UI
                 }
             }
         }
-        private Rectangle2D _Client;
-        public Rectangle2D Client {
+        private SRect2 _Client;
+        public SRect2 Client {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => _Client;
             set {
@@ -55,7 +54,7 @@ namespace Se7en.UI
                 }
             }
         }
-        public Point2D Position {
+        public SPoint2 Position {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => _Client.Position;
             set {
@@ -85,7 +84,7 @@ namespace Se7en.UI
                 }
             }
         }
-        public Size2D Size {
+        public SSize2 Size {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => _Client.Size;
             set {
@@ -121,8 +120,8 @@ namespace Se7en.UI
 
 
         public abstract void OnPaint(PaintEventArgs args);
-        public abstract void OnSizeChanged(Size2D newSize);
-        public abstract void OnPositionChanged(Point2D newSize);
+        public abstract void OnSizeChanged(SSize2 newSize);
+        public abstract void OnPositionChanged(SPoint2 newSize);
     }
 
 }

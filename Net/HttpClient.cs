@@ -8,7 +8,7 @@ namespace Se7en.Net
     public class HttpClient : INet
     {
         private readonly string NewLine = "\r\n";
-        private Regex _DomainSrc = new Regex(@"^(?:https?:\/\/)?((?!\_|\-)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9])");
+        private readonly Regex _DomainSrc = new Regex(@"^(?:https?:\/\/)?((?!\_|\-)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9])");
         public TcpClient Client { get; private set; }
         public NetworkStream NetworkStream { get; private set; }
         public BinaryWriter StreamWriter { get; private set; }

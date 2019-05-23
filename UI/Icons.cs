@@ -1,6 +1,6 @@
 ﻿#define CLOSE_ICON
+using Se7en.Graphic;
 using Se7en.Math;
-using Se7en.UI.Drawing;
 using System.Drawing.Drawing2D;
 using System.Threading;
 
@@ -10,9 +10,9 @@ namespace Se7en.UI
     {
 
 #if CLOSE_ICON
-        public static void CloseIcon(int width, int x, int y, Size2D size, ref GraphicsPath path) => CloseIcon(width, x, y, size.Width, size.Height, ref path);
-        public static void CloseIcon(int width, Point2D position, int w, int h, ref GraphicsPath path) => CloseIcon(width, position.X, position.Y, w, h, ref path);
-        public static void CloseIcon(int width, Point2D position, Size2D size, ref GraphicsPath path) => CloseIcon(width, position.X, position.Y, size.Width, size.Height, ref path); 
+        public static void CloseIcon(int width, int x, int y, SSize2 size, ref GraphicsPath path) => CloseIcon(width, x, y, size.Width, size.Height, ref path);
+        public static void CloseIcon(int width, SPoint2 position, int w, int h, ref GraphicsPath path) => CloseIcon(width, position.X, position.Y, w, h, ref path);
+        public static void CloseIcon(int width, SPoint2 position, SSize2 size, ref GraphicsPath path) => CloseIcon(width, position.X, position.Y, size.Width, size.Height, ref path); 
         public static void CloseIcon(int width, int x, int y, int w, int h, ref GraphicsPath path)
         {
             int ch2 = width / 2;
