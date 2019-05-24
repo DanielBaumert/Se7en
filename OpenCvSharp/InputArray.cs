@@ -1,6 +1,6 @@
 using System;
 
-namespace Se7en.OpenCvSharp
+namespace OptTwlCtrl.OpenCvSharp
 {
     /// <summary>
 	/// Proxy datatype for passing Mat's and vector&lt;&gt;'s as input parameters
@@ -18,6 +18,14 @@ namespace Se7en.OpenCvSharp
 			GC.KeepAlive(mat);
 			obj = mat;
 		}
+
+        /// <summary>
+        /// Releases unmanaged resources
+        /// </summary>
+        protected override void DisposeUnmanaged() {
+            NativeMethods.core_InputArray_delete(ptr);
+            base.DisposeUnmanaged();
+        }
 
         public static implicit operator InputArray(UtilMap mat) => new InputArray(mat);
     }

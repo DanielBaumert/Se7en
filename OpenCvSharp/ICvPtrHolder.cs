@@ -1,6 +1,6 @@
 using System;
 
-namespace Se7en.OpenCvSharp
+namespace OptTwlCtrl.OpenCvSharp
 {
     /// <summary>
 	/// Represents a OpenCV-based class which has a native pointer. 

@@ -1,6 +1,6 @@
 using System;
 
-namespace Se7en.OpenCvSharp
+namespace OptTwlCtrl.OpenCvSharp
 {
     /// <summary>
 	/// Proxy datatype for passing Mat's and List&lt;&gt;'s as output parameters
@@ -37,6 +37,15 @@ namespace Se7en.OpenCvSharp
             AssignResult();
             Dispose();
         }
+
+        /// <summary>
+        /// Releases unmanaged resources
+        /// </summary>
+        protected override void DisposeUnmanaged() {
+            NativeMethods.core_OutputArray_delete(ptr);
+            base.DisposeUnmanaged();
+        }
+
         public static implicit operator OutputArray(UtilMap mat) => new OutputArray(mat);
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace Se7en.OpenCvSharp
+namespace OptTwlCtrl.OpenCvSharp
 {
     public abstract class DisposableObject : IDisposable
 	{

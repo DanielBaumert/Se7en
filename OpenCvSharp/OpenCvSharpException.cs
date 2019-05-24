@@ -1,6 +1,6 @@
 using System;
 
-namespace Se7en.OpenCvSharp
+namespace OptTwlCtrl.OpenCvSharp
 {
     /// <summary>
 	/// The exception that is thrown by OpenCvSharp. 
