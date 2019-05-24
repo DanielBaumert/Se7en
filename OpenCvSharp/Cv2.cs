@@ -1,6 +1,6 @@
 using System;
 
-namespace OptTwlCtrl.OpenCvSharp
+namespace Se7en.OpenCvSharp
 {
     public class Cv2
     {
