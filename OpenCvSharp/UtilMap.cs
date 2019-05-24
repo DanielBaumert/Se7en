@@ -1,4 +1,8 @@
-public class UtilMap : DisposableObject
+using System;
+
+namespace Se7en.OpenCvSharp
+{
+    public class UtilMap : DisposableObject
     {
         public IntPtr DataStart { get => _DataStart(Ptr); }
         public IntPtr Ptr;
@@ -45,3 +49,4 @@ public class UtilMap : DisposableObject
         
 
     }
+}
