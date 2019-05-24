@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace OptTwlCtrl.OpenCvSharp
+namespace Se7en.OpenCvSharp
 {
 
 

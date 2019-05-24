@@ -1,6 +1,6 @@
 using System;
 
-namespace OptTwlCtrl.OpenCvSharp
+namespace Se7en.OpenCvSharp
 {
     /// <summary>
 	/// Proxy datatype for passing Mat's and vector&lt;&gt;'s as input parameters
@@ -14,7 +14,7 @@ namespace OptTwlCtrl.OpenCvSharp
 			if (mat == null) {
 				throw new ArgumentNullException("mat");
 			}
-			ptr = UtilMap.InputArray(mat.Ptr);
+			ptr = UtilMap._InputArray(mat.Ptr);
 			GC.KeepAlive(mat);
 			obj = mat;
 		}
@@ -23,7 +23,9 @@ namespace OptTwlCtrl.OpenCvSharp
         /// Releases unmanaged resources
         /// </summary>
         protected override void DisposeUnmanaged() {
-            NativeMethods.core_InputArray_delete(ptr);
+            if (ptr != IntPtr.Zero) {
+                NativeMethods.core_InputArray_delete(ptr);
+            }
             base.DisposeUnmanaged();
         }
 

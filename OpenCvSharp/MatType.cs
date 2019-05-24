@@ -1,6 +1,6 @@
 using System;
 
-namespace OptTwlCtrl.OpenCvSharp
+namespace Se7en.OpenCvSharp
 {
     /// <summary>
 	/// Matrix data type (depth and number of channels)
