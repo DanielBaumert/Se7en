@@ -1,0 +1,12 @@
+D:\Documents\Develop\Se7en\obj\Release\Se7en.Properties.Resources.resources
+D:\Documents\Develop\Se7en\obj\Release\Se7en.UI.FileExplorer.resources
+D:\Documents\Develop\Se7en\obj\Release\Se7en.UI.TextBox.resources
+D:\Documents\Develop\Se7en\obj\Release\Se7en.UI.WinFrom.resources
+D:\Documents\Develop\Se7en\obj\Release\Se7en.csproj.GenerateResource.cache
+D:\Documents\Develop\Se7en\obj\Release\Se7en.csproj.CoreCompileInputs.cache
+D:\Documents\Develop\Se7en\bin\Release\Se7en.dll.config
+D:\Documents\Develop\Se7en\bin\Release\Se7en.dll
+D:\Documents\Develop\Se7en\bin\Release\Se7en.pdb
+D:\Documents\Develop\Se7en\obj\Release\Se7en.dll
+D:\Documents\Develop\Se7en\obj\Release\Se7en.pdb
+D:\Documents\Develop\Se7en\obj\Release\Se7en.csprojAssemblyReference.cache

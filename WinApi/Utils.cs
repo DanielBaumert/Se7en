@@ -15,7 +15,7 @@ namespace Se7en.WinApi {
         public static string GetWindowTitle(ref IntPtr hWnd) {
             int length = User32.GetWindowTextLength(hWnd);
             StringBuilder sb = new StringBuilder(length + 1);
-            User32.GetWindowText(hWnd, sb, sb.Capacity);
+            User32.GetWindowText(hWnd, out sb, sb.Capacity);
             return sb.ToString();
         }
 

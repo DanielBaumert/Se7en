@@ -171,6 +171,7 @@
     <Compile Include="WinApi\Gdi32.cs" />
     <Compile Include="WinApi\GetWindowType.cs" />
     <Compile Include="WinApi\GlobalAllocFlag.cs" />
+    <Compile Include="WinApi\InputType.cs" />
     <Compile Include="WinApi\Kernel32.cs" />
     <Compile Include="WinApi\LoadLibraryFlag.cs" />
     <Compile Include="WinApi\ModuleFlag.cs" />
@@ -181,8 +182,10 @@
     <Compile Include="WinApi\TernaryRasterOperations.cs" />
     <Compile Include="WinApi\User32.cs" />
     <Compile Include="WinApi\Utils.cs" />
+    <Compile Include="WinApi\VirtualKeys.cs" />
     <Compile Include="WinApi\WConst.cs" />
     <Compile Include="WinApi\Winmm.cs" />
+    <Compile Include="WinApi\WindowsMessage.cs" />
     <Compile Include="Windows\NativWindow.cs" />
     <Compile Include="Windows\PermissionController.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

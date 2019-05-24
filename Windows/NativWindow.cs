@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Se7en.Windows {
     public class NativWindow {
-        public bool FindFirstWindowByTitle(IntPtr hwnd, string windowTitle, ref IntPtr hcwnd) {
+        public static bool FindFirstWindowByTitle(IntPtr hwnd, string windowTitle, ref IntPtr hcwnd) {
             while(GetNextChild(ref hwnd, ref hcwnd)) {
                 if(GetWindowTitle(hcwnd) == windowTitle) {
                     return true;

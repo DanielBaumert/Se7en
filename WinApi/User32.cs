@@ -97,8 +97,36 @@ namespace Se7en.WinApi
         [DllImport(ImportKey)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr WindowFromDC(IntPtr hdc);
-        [DllImport(ImportKey)]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DllImport(ImportKey), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr GetActiveWindow();
+        [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, IntPtr wParam, StringBuilder lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, ref IntPtr lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, IntPtr lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, int lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, StringBuilder lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto)]
+        public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto)]
+        public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, ref IntPtr lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto)]
+        public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, IntPtr lParam);
+        [DllImport(ImportKey, CharSet = CharSet.Auto)]
+        public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, int lParam);
+        /// <summary>
+        /// Synthesizes keystrokes, mouse motions, and button clicks.
+        /// </summary>
+        [DllImport(ImportKey, CharSet = CharSet.Auto)]
+        public static extern uint SendInput(uint nInputs, [MarshalAs(UnmanagedType.LPArray), In] InputType[] pInputs, int cbSize);
     }
 }

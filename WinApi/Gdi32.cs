@@ -93,5 +93,7 @@ namespace Se7en.WinApi
         [DllImport(IMPORTKEY, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject([In] IntPtr hObject);
+
+
     }
 }
