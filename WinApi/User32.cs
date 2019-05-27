@@ -128,5 +128,25 @@ namespace Se7en.WinApi
         /// </summary>
         [DllImport(ImportKey, CharSet = CharSet.Auto)]
         public static extern uint SendInput(uint nInputs, [MarshalAs(UnmanagedType.LPArray), In] InputType[] pInputs, int cbSize);
+
+        [DllImport(ImportKey, CharSet = CharSet.Auto)]
+        public static extern uint MapVirtualKeyEx(uint uCode, MapVirtualKeyMapTypes uMapType, IntPtr dwhkl);
+        /// <summary>
+        /// The MapVirtualKey function translates (maps) a virtual-key code into a scan
+        /// code or character value, or translates a scan code into a virtual-key code    
+        /// </summary>
+        /// <param name="uCode">[in] Specifies the virtual-key code or scan code for a key.
+        /// How this value is interpreted depends on the value of the uMapType parameter
+        /// </param>
+        /// <param name="uMapType">[in] Specifies the translation to perform. The value of this
+        /// parameter depends on the value of the uCode parameter.
+        /// </param>
+        /// <returns>Either a scan code, a virtual-key code, or a character value, depending on
+        /// the value of uCode and uMapType. If there is no translation, the return value is zero
+        /// </returns>
+        [DllImport(ImportKey, CharSet = CharSet.Auto)]
+        public static extern int MapVirtualKey(MapVirtualKeyMapTypes uCode, uint uMapType);
+
+
     }
 }
