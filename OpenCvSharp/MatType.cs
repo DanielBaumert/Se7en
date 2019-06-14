@@ -7,85 +7,33 @@ namespace Se7en.OpenCvSharp
 	/// </summary>
 	public struct MatType : IEquatable<MatType>, IEquatable<int>
 	{
-		
-		public MatType(int value)
-		{
-			this.Value = value;
-		}
 
-		public static implicit operator int(MatType self)
-		{
-			return self.Value;
-		}
+        public MatType(int value) => Value = value;
 
-		public static implicit operator MatType(int value)
-		{
-			return new MatType(value);
-		}
-		public int Depth
-		{
-			get
-			{
-				return this.Value & 7;
-			}
-		}
-		public bool IsInteger
-		{
-			get
-			{
-				return this.Depth < 5;
-			}
-		}
+        public static implicit operator int(MatType self) => self.Value;
 
-		public int Channels
-		{
-			get
-			{
-				return (this.Value >> 3) + 1;
-			}
-		}
+        public static implicit operator MatType(int value) => new MatType(value);
+        public int Depth => Value & 7;
+        public bool IsInteger => Depth < 5;
+        public int Channels => (Value >> 3) + 1;
 
-		public bool Equals(MatType other)
-		{
-			return this.Value == other.Value;
-		}
+        public bool Equals(MatType other) => Value == other.Value;
 
-		public bool Equals(int other)
-		{
-			return this.Value == other;
-		}
+        public bool Equals(int other) => Value == other;
 
-		public override bool Equals(object other)
-		{
-			return other != null && !(other.GetType() != typeof(MatType)) && this.Equals((MatType)other);
-		}
+        public override bool Equals(object other) => other != null && !(other.GetType() != typeof(MatType)) && this.Equals((MatType)other);
 
-		public static bool operator ==(MatType self, MatType other)
-		{
-			return self.Equals(other);
-		}
+        public static bool operator ==(MatType self, MatType other) => self.Equals(other);
 
-		public static bool operator !=(MatType self, MatType other)
-		{
-			return !self.Equals(other);
-		}
+        public static bool operator !=(MatType self, MatType other) => !self.Equals(other);
 
-		public static bool operator ==(MatType self, int other)
-		{
-			return self.Equals(other);
-		}
+        public static bool operator ==(MatType self, int other) => self.Equals(other);
 
-		public static bool operator !=(MatType self, int other)
-		{
-			return !self.Equals(other);
-		}
+        public static bool operator !=(MatType self, int other) => !self.Equals(other);
 
-		public override int GetHashCode()
-		{
-			return this.Value.GetHashCode();
-		}
+        public override int GetHashCode() => this.Value.GetHashCode();
 
-		public override string ToString()
+        public override string ToString()
 		{
 			string s;
 			switch (this.Depth)
@@ -131,25 +79,13 @@ namespace Se7en.OpenCvSharp
 			});
 		}
 
-        public static MatType CV_8UC(int ch) => MatType.MakeType(0, ch);
-
-        public static MatType CV_8SC(int ch) => MatType.MakeType(1, ch);
-
-        public static MatType CV_16UC(int ch) => MatType.MakeType(2, ch);
-
-        // Token: 0x060008CF RID: 2255 RVA: 0x0001BAA7 File Offset: 0x00019CA7
-        public static MatType CV_16SC(int ch) => MatType.MakeType(3, ch);
-
-        // Token: 0x060008D0 RID: 2256 RVA: 0x0001BAB0 File Offset: 0x00019CB0
-        public static MatType CV_32SC(int ch) => MatType.MakeType(4, ch);
-
-        // Token: 0x060008D1 RID: 2257 RVA: 0x0001BAB9 File Offset: 0x00019CB9
-        public static MatType CV_32FC(int ch) => MatType.MakeType(5, ch);
-
-        // Token: 0x060008D2 RID: 2258 RVA: 0x0001BAC2 File Offset: 0x00019CC2
-        public static MatType CV_64FC(int ch) => MatType.MakeType(6, ch);
-
-        // Token: 0x060008D3 RID: 2259 RVA: 0x0001BACC File Offset: 0x00019CCC
+        public static MatType CV_8UC(int ch) => MakeType(0, ch);
+        public static MatType CV_8SC(int ch) => MakeType(1, ch);
+        public static MatType CV_16UC(int ch) => MakeType(2, ch);
+        public static MatType CV_16SC(int ch) => MakeType(3, ch);
+        public static MatType CV_32SC(int ch) => MakeType(4, ch);
+        public static MatType CV_32FC(int ch) => MakeType(5, ch);
+        public static MatType CV_64FC(int ch) => MakeType(6, ch);
         public static MatType MakeType(int depth, int channels)
 		{
 			if (channels <= 0 || channels >= 512)
@@ -168,9 +104,11 @@ namespace Se7en.OpenCvSharp
 		/// </summary>
 		public int Value;
 
-		private const int CV_CN_MAX = 512;
+#pragma warning disable IDE0051 // Nicht verwendete private Member entfernen
+        private const int CV_CN_MAX = 512;
 
-		private const int CV_CN_SHIFT = 3;
+
+        private const int CV_CN_SHIFT = 3;
 
 		private const int CV_DEPTH_MAX = 8;
 
@@ -213,145 +151,145 @@ namespace Se7en.OpenCvSharp
 		/// type depth constants
 		/// </summary>
 		public const int CV_USRTYPE1 = 7;
+#pragma warning restore IDE0051 // Nicht verwendete private Member entfernen
+		/// <summary>
+		/// predefined type constants
+		/// </summary>
+		public static readonly MatType CV_8UC1 = CV_8UC(1);
+                                                 
+		/// <summary>                            
+		/// predefined type constants            
+		/// </summary>                           
+		public static readonly MatType CV_8UC2 = CV_8UC(2);
+                                                 
+		/// <summary>                            
+		/// predefined type constants            
+		/// </summary>                           
+		public static readonly MatType CV_8UC3 = CV_8UC(3);
+                                                 
+		/// <summary>                            
+		/// predefined type constants            
+		/// </summary>                           
+		public static readonly MatType CV_8UC4 = CV_8UC(4);
+                                                 
+		/// <summary>                            
+		/// predefined type constants            
+		/// </summary>                           
+		public static readonly MatType CV_8SC1 = CV_8SC(1);
+                                                 
+		/// <summary>                            
+		/// predefined type constants            
+		/// </summary>                           
+		public static readonly MatType CV_8SC2 = CV_8SC(2);
+                                                 
+		/// <summary>                            
+		/// predefined type constants            
+		/// </summary>                           
+		public static readonly MatType CV_8SC3 = CV_8SC(3);
+                                                 
+		/// <summary>                            
+		/// predefined type constants            
+		/// </summary>                           
+		public static readonly MatType CV_8SC4 = CV_8SC(4);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_8UC1 = MatType.CV_8UC(1);
+		public static readonly MatType CV_16UC1 = CV_16UC(1);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_8UC2 = MatType.CV_8UC(2);
+		public static readonly MatType CV_16UC2 = CV_16UC(2);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_8UC3 = MatType.CV_8UC(3);
+		public static readonly MatType CV_16UC3 = CV_16UC(3);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_8UC4 = MatType.CV_8UC(4);
+		public static readonly MatType CV_16UC4 = CV_16UC(4);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_8SC1 = MatType.CV_8SC(1);
+		public static readonly MatType CV_16SC1 = CV_16SC(1);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_8SC2 = MatType.CV_8SC(2);
+		public static readonly MatType CV_16SC2 = CV_16SC(2);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_8SC3 = MatType.CV_8SC(3);
+		public static readonly MatType CV_16SC3 = CV_16SC(3);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_8SC4 = MatType.CV_8SC(4);
+		public static readonly MatType CV_16SC4 = CV_16SC(4);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_16UC1 = MatType.CV_16UC(1);
+		public static readonly MatType CV_32SC1 = CV_32SC(1);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_16UC2 = MatType.CV_16UC(2);
+		public static readonly MatType CV_32SC2 = CV_32SC(2);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_16UC3 = MatType.CV_16UC(3);
+		public static readonly MatType CV_32SC3 = CV_32SC(3);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_16UC4 = MatType.CV_16UC(4);
+		public static readonly MatType CV_32SC4 = CV_32SC(4);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_16SC1 = MatType.CV_16SC(1);
+		public static readonly MatType CV_32FC1 = CV_32FC(1);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_16SC2 = MatType.CV_16SC(2);
+		public static readonly MatType CV_32FC2 = CV_32FC(2);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_16SC3 = MatType.CV_16SC(3);
+		public static readonly MatType CV_32FC3 = CV_32FC(3);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_16SC4 = MatType.CV_16SC(4);
+		public static readonly MatType CV_32FC4 = CV_32FC(4);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_32SC1 = MatType.CV_32SC(1);
+		public static readonly MatType CV_64FC1 = CV_64FC(1);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_32SC2 = MatType.CV_32SC(2);
+		public static readonly MatType CV_64FC2 = CV_64FC(2);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_32SC3 = MatType.CV_32SC(3);
+		public static readonly MatType CV_64FC3 = CV_64FC(3);
 
 		/// <summary>
 		/// predefined type constants
 		/// </summary>
-		public static readonly MatType CV_32SC4 = MatType.CV_32SC(4);
-
-		/// <summary>
-		/// predefined type constants
-		/// </summary>
-		public static readonly MatType CV_32FC1 = MatType.CV_32FC(1);
-
-		/// <summary>
-		/// predefined type constants
-		/// </summary>
-		public static readonly MatType CV_32FC2 = MatType.CV_32FC(2);
-
-		/// <summary>
-		/// predefined type constants
-		/// </summary>
-		public static readonly MatType CV_32FC3 = MatType.CV_32FC(3);
-
-		/// <summary>
-		/// predefined type constants
-		/// </summary>
-		public static readonly MatType CV_32FC4 = MatType.CV_32FC(4);
-
-		/// <summary>
-		/// predefined type constants
-		/// </summary>
-		public static readonly MatType CV_64FC1 = MatType.CV_64FC(1);
-
-		/// <summary>
-		/// predefined type constants
-		/// </summary>
-		public static readonly MatType CV_64FC2 = MatType.CV_64FC(2);
-
-		/// <summary>
-		/// predefined type constants
-		/// </summary>
-		public static readonly MatType CV_64FC3 = MatType.CV_64FC(3);
-
-		/// <summary>
-		/// predefined type constants
-		/// </summary>
-		public static readonly MatType CV_64FC4 = MatType.CV_64FC(4);
+		public static readonly MatType CV_64FC4 = CV_64FC(4);
 	}
 }
