@@ -6,24 +6,32 @@ namespace Se7en.Math {
 
     [StructLayout(LayoutKind.Explicit, Size = 12)]
     public struct Vector3f {
-
-        public float this[int index] {
-            get => index switch
+        public float this[int index]
+        {
+            get
             {
-                0 => X,
-                1 => Y,
-                2 => Z,
-                _ => throw new IndexOutOfRangeException("index")
-            };
+                return index switch
+                    {
+                    0 => X,
+                    1 => Y,
+                    2 => Z,
+                    _ => throw new IndexOutOfRangeException("index")
+                    };
+            }
             set {
-                if (index == 0)
-                    X = value;
-                else if (index == 1)
-                    Y = value;
-                else if (index == 2)
-                    Z = value;
-                else
-                    throw new IndexOutOfRangeException("index");
+                switch (index) {
+                    case 0:
+                        X = value;
+                        break;
+                    case 1:
+                        Y = value;
+                        break;
+                    case 2:
+                        Z = value;
+                        break;
+                    default:
+                        throw new IndexOutOfRangeException("index");
+                };
             }
         }
 

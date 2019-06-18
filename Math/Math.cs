@@ -6,16 +6,31 @@ namespace Se7en.Math {
     public static class Math {
         public const float PI = 3.1415926535897932384626433832795F;
 
-        public static int Mod(this int n, int m) => n & (m - 1);
+        public static int Mod(this int n, int m)
+        {
+            return ((int)(n / (float)m) * n);
+        }
 
-        public static float Sin(int x)
-            => (float)System.Math.Sin(x);
+        public static int ModPow2(this int n, int mPow2)
+        {
+            return n & (mPow2 - 1);
+        }
 
-        public static float Cos(int x)
-             => (float)System.Math.Cos(x);
+        public static uint Mod2(this uint n) {
+            return ((n << 31) >> 31);
+        }
 
-        public static float Tan(int x)
-            => (float)System.Math.Tan(x);
+        public static uint Mod4(this uint n) {
+            return ((n << 30) >> 30);
+        }
+
+        public static uint Mod8(this uint n) {
+            return ((n << 29) >> 29);
+        }
+
+        public static uint Mod16(this uint n) {
+            return ((n << 28) >> 28);
+        }
 
         #region Min
 
@@ -117,7 +132,7 @@ namespace Se7en.Math {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this byte value)
-            => value < 0 ? -1 : value > 0 ? 1 : 0;
+            => value == 0 ? 0 : 1;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this short value)
@@ -125,7 +140,7 @@ namespace Se7en.Math {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this float value)
-            => value < 0 ? -1 : value > 0 ? 1 : value == 0 ? 0 : throw new ArithmeticException("Arithmetic_NaN");
+            => value < 0 ? -1 : value > 0 ? 1 : float.IsNaN(value) ? throw new ArithmeticException("Arithmetic_NaN") : 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this int value)
@@ -137,27 +152,27 @@ namespace Se7en.Math {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this double value)
-             => value < 0 ? -1 : value > 0 ? 1 : value == 0 ? 0 : throw new ArithmeticException("Arithmetic_NaN");
+             => value < 0 ? -1 : value > 0 ? 1 : double.IsNaN(value) ? throw new ArithmeticException("Arithmetic_N") : 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this decimal value)
             => value < 0 ? -1 : value > 0 ? 1 : 0;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this sbyte value)
             => value < 0 ? -1 : value > 0 ? 1 : 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this ushort value)
-            => value < 0 ? -1 : value > 0 ? 1 : 0;
+            => value > 0 ? 1 : 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this uint value)
-            => value < 0 ? -1 : value > 0 ? 1 : 0;
+            => value > 0 ? 1 : 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(this ulong value)
-            => value < 0 ? -1 : value > 0 ? 1 : value == 0 ? 0 : throw new ArithmeticException("Arithmetic_NaN");
+            => value > 0 ? 1 : 0;
 
         #endregion Sign
     }

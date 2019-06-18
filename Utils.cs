@@ -25,14 +25,8 @@ namespace Se7en {
     public unsafe delegate void UnsafeActionPrtArray<TTarget, TIn1, Tin2>(TTarget*[] target, TIn1* sourceA, Tin2 sourceB) where TTarget : unmanaged where TIn1 : unmanaged;
 
     public static class Utils {
+        //TODO salat
         public static Random Random = new Random();
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe T* GetSourcePtr<T>(this T[] source) where T : unmanaged {
-            fixed (T* sourcePtr = source) {
-                return sourcePtr;
-            }
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe int ToInt(this bool value) => *(byte*)&value;

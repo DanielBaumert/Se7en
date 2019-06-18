@@ -2,7 +2,7 @@
 
 namespace Se7en.Graphic {
 
-    [StructLayout(LayoutKind.Explicit, Size = 8)]
+    [StructLayout(LayoutKind.Explicit, Size = 4)]
     public unsafe struct Color {
 
         [FieldOffset(0)]

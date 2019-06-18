@@ -9,29 +9,36 @@ namespace Se7en.Collections.Linq {
     public static class Linq {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static void ParallelForEach<T>(this T[] source, UnsafeAction<T> action, int step = 1) where T : unmanaged {
-            T* sourcePtr = source.GetSourcePtr();
-            Parallel.ForEach(SteppedIterator.Create(0, source.Length, step), i => action(sourcePtr + i));
+        public static unsafe void ParallelForEach<T>(this T[] source, UnsafeAction<T> action, int step = 1) where T : unmanaged {
+            fixed (T* sourcePtr = source)
+            {
+                T* sourcePtrProxy = sourcePtr;
+                Parallel.For(0, source.Length / step, i => action(sourcePtrProxy + (i * step)));
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static void ParallelForEach<T>(this T[] source, UnsafeAction<T, int> action, int step = 1) where T : unmanaged {
-            T* sourcePtr = source.GetSourcePtr();
-            Parallel.ForEach(SteppedIterator.Create(0, source.Length, step), i => action(sourcePtr + i, i));
+        public static unsafe void ParallelForEach<T>(this T[] source, UnsafeAction<T, int> action, int step = 1) where T : unmanaged {
+            fixed (T* sourcePtr = source)
+            {
+                T* sourcePtrProxy = sourcePtr;
+                Parallel.For(0, source.Length / step, i => action(sourcePtrProxy + (i * step), i * step));
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static void ForEach<T>(this T[] source, UnsafeAction<T> action, int step = 1) where T : unmanaged {
-            T* sourcePtr = source.GetSourcePtr();
+        public static unsafe void ForEach<T>(this T[] source, UnsafeAction<T> action, int step = 1) where T : unmanaged {
+            fixed(T* sourcePtr = source)
             for (int i = 0; i < source.Length; i += step) {
                 action(sourcePtr + i);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static void ForEach<T>(this T[] source, UnsafeAction<T, int> action, int step = 1) where T : unmanaged {
-            T* sourcePtr = source.GetSourcePtr();
-            for (int i = 0; i < source.Length; i += step) {
+        public static unsafe void ForEach<T>(this T[] source, UnsafeAction<T, int> action, int step = 1) where T : unmanaged {
+            fixed (T* sourcePtr = source)
+
+                for (int i = 0; i < source.Length; i += step) {
                 action(sourcePtr + i, i);
             }
         }
@@ -48,7 +55,7 @@ namespace Se7en.Collections.Linq {
         #region Conatins
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static bool Contains<T1>(this T1[] source, UnsafeFunc<T1, bool> contains) where T1 : unmanaged {
+        public static unsafe bool Contains<T1>(this T1[] source, UnsafeFunc<T1, bool> contains) where T1 : unmanaged {
             fixed (T1* sourcePtr = source) {
                 for (int iElement = 0, nElement = source.Length; iElement < nElement; iElement++) {
                     if (contains(sourcePtr + iElement)) {
@@ -60,10 +67,15 @@ namespace Se7en.Collections.Linq {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static bool Contains<T>(this T[] source, T element) where T : unmanaged {
+        public static unsafe bool Contains<T>(this T[] source, T element, EqualityComparer<T> eq = null) where T : unmanaged
+        {
+            eq ??= EqualityComparer<T>.Default;
+            //ToDo better / equal?
+            //return Contains(source, arg1 => eq.Equals(*arg1, element));
+            
             fixed (T* sourcePtr = source) {
                 for (int iElement = 0, nElements = source.Length; iElement < nElements; iElement++) {
-                    if ((object)*(sourcePtr + iElement) == (object)element) {
+                    if (eq.Equals(*(sourcePtr + iElement), element)) {
                         return true;
                     }
                 }
@@ -99,23 +111,23 @@ namespace Se7en.Collections.Linq {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TOut> SelectWhere<TIn, TOut>(this IEnumerable<TIn> source, Func<TIn, bool> compare, Func<TIn, int, TOut> selector) {
-            int i = -1;
+            int i = 0;
             foreach (TIn element in source) {
-                checked { i++; }
                 if (compare(element)) {
                     yield return selector(element, i);
                 }
+                checked { i++; }
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TOut> SelectWhere<TIn, TOut>(this IEnumerable<TIn> source, Func<TIn, int, bool> compare, Func<TIn, int, TOut> selector) {
-            int i = -1;
+            int i = 0;
             foreach (TIn element in source) {
-                i++;
                 if (compare(element, i)) {
                     yield return selector(element, i);
                 }
+                i++;
             }
         }
 
@@ -124,7 +136,7 @@ namespace Se7en.Collections.Linq {
         #region ForISelect
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static TOut[] ForISelect<TSource1, TSource2, TOut>(TSource1[] sourceA, TSource2[] sourceB, UnsafeFunc2<TSource1, TSource2, TOut> select) where TOut : unmanaged where TSource1 : unmanaged where TSource2 : unmanaged {
+        public static unsafe TOut[] ForISelect<TSource1, TSource2, TOut>(TSource1[] sourceA, TSource2[] sourceB, UnsafeFunc2<TSource1, TSource2, TOut> select) where TOut : unmanaged where TSource1 : unmanaged where TSource2 : unmanaged {
             if (sourceA.Length != sourceB.Length) {
                 return default;
             }
@@ -145,11 +157,11 @@ namespace Se7en.Collections.Linq {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static TOut[] ForISelect<TSource1, TSource2, TOut>(int end, TSource1[] sourceA, TSource2[] sourceB, UnsafeFunc2<TSource1, TSource2, TOut> select) where TOut : unmanaged where TSource1 : unmanaged where TSource2 : unmanaged
+        public static unsafe TOut[] ForISelect<TSource1, TSource2, TOut>(int end, TSource1[] sourceA, TSource2[] sourceB, UnsafeFunc2<TSource1, TSource2, TOut> select) where TOut : unmanaged where TSource1 : unmanaged where TSource2 : unmanaged
             => ForISelect(0, end, sourceA, sourceB, select);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static TOut[] ForISelect<TSource1, TSource2, TOut>(int start, int end, TSource1[] sourceA, TSource2[] sourceB, UnsafeFunc2<TSource1, TSource2, TOut> select) where TOut : unmanaged where TSource1 : unmanaged where TSource2 : unmanaged {
+        public static unsafe TOut[] ForISelect<TSource1, TSource2, TOut>(int start, int end, TSource1[] sourceA, TSource2[] sourceB, UnsafeFunc2<TSource1, TSource2, TOut> select) where TOut : unmanaged where TSource1 : unmanaged where TSource2 : unmanaged {
             TOut[] output = new TOut[System.Math.Abs(end - start)];
             fixed (TOut* outSourcePtr = output) {
                 fixed (TSource1* sourceAPtr = sourceA) {

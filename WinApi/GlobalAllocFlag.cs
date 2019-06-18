@@ -1,5 +1,7 @@
-﻿namespace Se7en.WinApi {
+﻿using System;
 
+namespace Se7en.WinApi {
+    [Flags]
     public enum GlobalAllocFlag {
 
         /// <summary>
