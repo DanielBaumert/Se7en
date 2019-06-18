@@ -1,7 +1,6 @@
-﻿namespace Se7en.WinApi
-{
-    public enum BitmapInfoCompression : uint
-    {
+﻿namespace Se7en.WinApi {
+
+    public enum BitmapInfoCompression : uint {
         BI_RGB = 0x0000,
         BI_RLE8 = 0x0001,
         BI_RLE4 = 0x0002,

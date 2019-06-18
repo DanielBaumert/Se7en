@@ -3,8 +3,10 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace Se7en.Math {
+
     [StructLayout(LayoutKind.Explicit, Size = 12)]
     public struct Vector3i {
+
         public int this[int index] {
             get => index switch
             {
@@ -27,8 +29,10 @@ namespace Se7en.Math {
 
         [FieldOffset(0)]
         public int X;
+
         [FieldOffset(4)]
         public int Y;
+
         [FieldOffset(8)]
         public int Z;
 
@@ -45,6 +49,7 @@ namespace Se7en.Math {
                 Y = Y + valueY,
                 Z = Z + valueZ
             };
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector3i Sub(int valueX = 0, int valueY = 0, int valueZ = 0)
             => new Vector3i {
@@ -52,6 +57,7 @@ namespace Se7en.Math {
                 Y = Y - valueY,
                 Z = Z - valueZ
             };
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector3i Mult(int valueX = 1, int valueY = 1, int valueZ = 1)
             => new Vector3i {
@@ -59,6 +65,7 @@ namespace Se7en.Math {
                 Y = Y * valueY,
                 Z = Z * valueZ
             };
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector3i Div(int valueX = 1, int valueY = 1, int valueZ = 1)
             => new Vector3i {
@@ -72,17 +79,20 @@ namespace Se7en.Math {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Vector3i left, Vector3i right)
             => left.X == right.X && left.Y == right.Y && left.Z == right.Z;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Vector3i left, Vector3i right)
             => left.X != right.X && left.Y != right.Y && left.Z != right.Z;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Vector3i ? (Vector3i)obj == this : false;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
             => X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
 
-        #endregion
+        #endregion Compare
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
@@ -97,6 +107,7 @@ namespace Se7en.Math {
                 Y = vector.Y + value,
                 Z = vector.Z + value
             };
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3i operator -(Vector3i vector, int value)
             => new Vector3i {
@@ -104,6 +115,7 @@ namespace Se7en.Math {
                 Y = vector.Y - value,
                 Z = vector.Z - value
             };
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3i operator *(Vector3i vector, int value)
             => new Vector3i {
@@ -111,6 +123,7 @@ namespace Se7en.Math {
                 Y = vector.Y * value,
                 Z = vector.Z * value
             };
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3i operator /(Vector3i vector, int value)
             => new Vector3i {
@@ -119,7 +132,8 @@ namespace Se7en.Math {
                 Z = vector.Z / value
             };
 
-        #endregion
+        #endregion operator (Vector3i vector, int value)
+
         #region operator (Vector3i vector, Vector3i value)
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -129,6 +143,7 @@ namespace Se7en.Math {
                 Y = vector.Y + value.Y,
                 Z = vector.Z + value.Z
             };
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3i operator -(Vector3i vector, Vector3i value)
             => new Vector3i {
@@ -136,6 +151,7 @@ namespace Se7en.Math {
                 Y = vector.Y - value.Y,
                 Z = vector.Z - value.Z
             };
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3i operator *(Vector3i vector, Vector3i value)
             => new Vector3i {
@@ -143,6 +159,7 @@ namespace Se7en.Math {
                 Y = vector.Y * value.Y,
                 Z = vector.Z * value.Z
             };
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3i operator /(Vector3i vector, Vector3i value)
             => new Vector3i {
@@ -151,6 +168,6 @@ namespace Se7en.Math {
                 Z = vector.Z / value.Z
             };
 
-        #endregion
+        #endregion operator (Vector3i vector, Vector3i value)
     }
 }

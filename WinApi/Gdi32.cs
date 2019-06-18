@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Se7en.WinApi
-{
-    public class Gdi32
-    {
+namespace Se7en.WinApi {
 
+    public class Gdi32 {
         private const string IMPORTKEY = "gdi32.dll";
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="hdc">A handle to the destination device context.</param>
         /// <param name="xDest">The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.</param>
@@ -79,8 +77,8 @@ namespace Se7en.WinApi
         /// <param name="nHeight">The bitmap height, in pixels.</param>
         /// <param name="nPlanes">The number of color planes used by the device.</param>
         /// <param name="nBitCount">The number of bits required to identify the color of a single pixel.</param>
-        /// <param name="lpBits">A pointer to an array of color data used to set the colors in a rectangle of pixels. 
-        /// Each scan line in the rectangle must be word aligned (scan lines that are not word aligned must be padded with zeros). 
+        /// <param name="lpBits">A pointer to an array of color data used to set the colors in a rectangle of pixels.
+        /// Each scan line in the rectangle must be word aligned (scan lines that are not word aligned must be padded with zeros).
         /// If this parameter is NULL, the contents of the new bitmap is undefined.</param>
         /// <returns>If the function succeeds, the return value is a handle to a bitmap.</returns>
         [DllImport(IMPORTKEY, SetLastError = true)]
@@ -89,7 +87,5 @@ namespace Se7en.WinApi
         [DllImport(IMPORTKEY, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject([In] IntPtr hObject);
-
-
     }
 }

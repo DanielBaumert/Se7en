@@ -4,24 +4,25 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace Se7en.UI
-{
-    public class CircleBar : Control
-    {
+namespace Se7en.UI {
+
+    public class CircleBar : Control {
+
         public delegate void ValueChangeEventHandle(double value);
+
         public delegate void PropertyChangedEventHandler();
+
         #region events
 
         #region public
+
         public event ValueChangeEventHandle ValueChanged;
+
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
 
-        #region private
+        #endregion public
 
-        #endregion
-
-        #endregion
+        #endregion events
 
         #region Properties
 
@@ -37,33 +38,33 @@ namespace Se7en.UI
         private bool _TextVisibil = false;
         private Color _ForeColor = Color.White;
         private Color _BackColor = Color.FromArgb(64, 64, 64);
-        #endregion
+        #endregion Settings
 
         public double MinValue {
             get => _MinValue;
             set {
                 if (MinValue == value)
                     return;
-                PropertyUpdate(ref _MinValue, value, () =>
-                {
+                PropertyUpdate(ref _MinValue, value, () => {
                     if (MinValue > MaxValue)
                         MinValue = MaxValue - 1;
                 });
             }
         }
+
         public double MaxValue {
             get => _MaxValue;
             set {
                 if (MinValue == value)
                     return;
-                PropertyUpdate(ref _MaxValue, value, () =>
-                {
+                PropertyUpdate(ref _MaxValue, value, () => {
                     _MaxValue = value;
                     if (MaxValue < MinValue)
                         MaxValue = MinValue + 1;
                 });
             }
         }
+
         public double Value {
             get => _Value;
             set {
@@ -71,8 +72,7 @@ namespace Se7en.UI
                     return;
                 PropertyUpdate(action, ref _Value, value);
 
-                void action()
-                {
+                void action() {
                     if (value > MaxValue)
                         throw new Exception("Value must be smaler then the max value");
                     if (value < MinValue)
@@ -80,6 +80,7 @@ namespace Se7en.UI
                 }
             }
         }
+
         public int OpenPiValue {
             get => _OpenPiValue;
             set {
@@ -87,8 +88,7 @@ namespace Se7en.UI
                     return;
                 PropertyUpdate(action, ref _OpenPiValue, value);
 
-                void action()
-                {
+                void action() {
                     if (value > 360)
                         throw new Exception("Value must be smaler then 360");
                     if (value < 0)
@@ -96,6 +96,7 @@ namespace Se7en.UI
                 }
             }
         }
+
         public Direction OpenPiDirection {
             get => _OpenPiDirection;
             set {
@@ -104,6 +105,7 @@ namespace Se7en.UI
                 PropertyUpdate(ref _OpenPiDirection, value);
             }
         }
+
         public int BarWidth {
             get => _BarWidth;
             set {
@@ -112,6 +114,7 @@ namespace Se7en.UI
                 PropertyUpdate(ref _BarWidth, value);
             }
         }
+
         public Color BarValueColor {
             get => _BarValueColor;
             set {
@@ -120,6 +123,7 @@ namespace Se7en.UI
                 PropertyUpdate(ref _BarValueColor, value, () => BrushValuePi = new SolidBrush(BarValueColor));
             }
         }
+
         public Color BarBackColor {
             get => _BarBackColor;
             set {
@@ -128,6 +132,7 @@ namespace Se7en.UI
                 PropertyUpdate(ref _BarBackColor, value, () => BrushOuterPi = new SolidBrush(BarBackColor));
             }
         }
+
         public bool TextVisible {
             get => _TextVisibil;
             set {
@@ -136,6 +141,7 @@ namespace Se7en.UI
                 PropertyUpdate(ref _TextVisibil, value);
             }
         }
+
         public Color ForeBarColor {
             get => _ForeColor;
             set {
@@ -144,6 +150,7 @@ namespace Se7en.UI
                 PropertyUpdate(ref _ForeColor, value);
             }
         }
+
         public new Color BackColor {
             get => _BackColor;
             set {
@@ -153,9 +160,7 @@ namespace Se7en.UI
             }
         }
 
-        #region HiddenProperties
-        #endregion
-        #endregion
+        #endregion Properties
 
         #region Settings
         private GraphicsPath PathInnaPi;
@@ -168,17 +173,14 @@ namespace Se7en.UI
 
         private Point TextLocation;
         private string PercentText;
-        #endregion
+        #endregion Settings
 
-
-        public CircleBar()
-        {
+        public CircleBar() {
             InitializeStyle();
             InitializeEvents();
         }
 
-        public void InitializeStyle()
-        {
+        public void InitializeStyle() {
             ControlStyles styles = ControlStyles.OptimizedDoubleBuffer
                                | ControlStyles.SupportsTransparentBackColor
                                | ControlStyles.UserPaint
@@ -186,29 +188,26 @@ namespace Se7en.UI
             SetStyle(styles, true);
         }
 
-        public void InitializeEvents()
-        {
+        public void InitializeEvents() {
             Resize += CircleBar_Resize;
             Paint += CircleBar_Paint;
             ValueChanged += CircleBar_ValueChanged;
             PropertyChanged += CircleBar_PropertyChanged;
         }
-        private void CircleBar_Resize(object sender, EventArgs e)
-        {
+
+        private void CircleBar_Resize(object sender, EventArgs e) {
             if (Height != Width)
                 Height = Width;
             ReCalcPis();
             CircleBar_ValueChanged(Value);
         }
 
-        private void CircleBar_Paint(object sender, PaintEventArgs e)
-        {
+        private void CircleBar_Paint(object sender, PaintEventArgs e) {
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.CompositingQuality = CompositingQuality.HighQuality;
             graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
             graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
-
 
             if (PathOuterPi != null)
                 graphics.FillPath(BrushOuterPi, PathOuterPi);
@@ -223,19 +222,16 @@ namespace Se7en.UI
                 TextRenderer.DrawText(graphics, PercentText, Font, TextLocation, ForeBarColor);
         }
 
-        private void CircleBar_ValueChanged(double value)
-        {
+        private void CircleBar_ValueChanged(double value) {
             Invalidate();
         }
 
-        private void CircleBar_PropertyChanged()
-        {
+        private void CircleBar_PropertyChanged() {
             ReCalcPis();
             Invalidate();
         }
 
-       private void ReCalcPis()
-        {
+        private void ReCalcPis() {
             Rectangle rect = new Rectangle(Point.Empty, Size);
             if (rect.IsEmpty)
                 return;
@@ -254,21 +250,21 @@ namespace Se7en.UI
 
             int OuterPiStart = (int)OpenPiDirection + (OpenPiValue / 2);
             int OuterPiEnd = (int)outervalueDegress;
-            #endregion
+            #endregion Settings
 
             #region ValuePi
             GraphicsPath valuePiPath = new GraphicsPath();
             valuePiPath.AddPie(rect, valuePiStart, valuePiEnd);
             valuePiPath.CloseFigure();
             PathValuePi = valuePiPath;
-            #endregion
+            #endregion ValuePi
 
             #region OuterPi
             GraphicsPath outerPiPath = new GraphicsPath();
             outerPiPath.AddPie(rect, OuterPiStart, OuterPiEnd);
             outerPiPath.CloseFigure();
             PathOuterPi = outerPiPath;
-            #endregion
+            #endregion OuterPi
 
             #region InnaPi
             int rectInnaPiW = rect.Width - (2 * BarWidth);
@@ -286,10 +282,9 @@ namespace Se7en.UI
             innaPiPath.AddPie(rectInnaPi, 0, 360);
             innaPiPath.CloseFigure();
             PathInnaPi = innaPiPath;
-            #endregion
+            #endregion InnaPi
 
-            if (TextVisible)
-            {
+            if (TextVisible) {
                 double percentVal = (100 * userValue) / (MaxValue - MinValue);
                 PercentText = $"{System.Math.Round(percentVal, 1)}%";
                 Size textSize = TextRenderer.MeasureText(PercentText, Font);
@@ -301,22 +296,19 @@ namespace Se7en.UI
         }
 
         [Browsable(false)]
-        public void PropertyUpdate<T>(ref T field, T value)
-        {
+        public void PropertyUpdate<T>(ref T field, T value) {
             field = value;
             PropertyChanged();
         }
 
         [Browsable(false)]
-        public void PropertyUpdate<T>(ref T field, T value, Action action)
-        {
+        public void PropertyUpdate<T>(ref T field, T value, Action action) {
             field = value;
             action();
             PropertyChanged();
         }
 
-        public void PropertyUpdate<T>(Action action, ref T field, T value)
-        {
+        public void PropertyUpdate<T>(Action action, ref T field, T value) {
             action();
             field = value;
             PropertyChanged();

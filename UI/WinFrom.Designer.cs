@@ -1,7 +1,5 @@
-﻿namespace Se7en.UI
-{
-    partial class WinFrom
-    {
+﻿namespace Se7en.UI {
+    partial class WinFrom {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,14 +22,13 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             Se7en.UI.ColorFadeItem colorFadeItem1 = new Se7en.UI.ColorFadeItem();
             Se7en.UI.ColorFadeItem colorFadeItem2 = new Se7en.UI.ColorFadeItem();
             this.Lb_WinFormTitle = new System.Windows.Forms.Label();
             this.Bt_WinFromClose = new Se7en.UI.CloseButton();
             this.smoothLine1 = new Se7en.UI.SmoothLine();
-            Pl_WinForm = new System.Windows.Forms.Panel(); 
+            Pl_WinForm = new System.Windows.Forms.Panel();
             Pl_WinForm.SuspendLayout();
             this.SuspendLayout();
             // 

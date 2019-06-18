@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 #pragma warning disable
+
 namespace Se7en.AI {
+
     public class Neuron : INeuron {
         private IActivationFunction _activationFunction;
         private IInputFunction _inputFunction;
@@ -34,7 +37,7 @@ namespace Se7en.AI {
         }
 
         /// <summary>
-        /// Connect two neurons. 
+        /// Connect two neurons.
         /// This neuron is the output neuron of the connection.
         /// </summary>
         /// <param name="inputNeuron">Neuron that will be input neuron of the newly created connection.</param>
@@ -45,7 +48,7 @@ namespace Se7en.AI {
         }
 
         /// <summary>
-        /// Connect two neurons. 
+        /// Connect two neurons.
         /// This neuron is the input neuron of the connection.
         /// </summary>
         /// <param name="outputNeuron">Neuron that will be output neuron of the newly created connection.</param>

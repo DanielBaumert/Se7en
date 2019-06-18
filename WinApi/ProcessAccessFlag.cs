@@ -1,22 +1,22 @@
 ﻿using System;
 
-namespace Se7en.WinApi
-{
+namespace Se7en.WinApi {
+
     [Flags]
-    public enum ProcessAccessFlag
-    {
+    public enum ProcessAccessFlag {
+
         /// <summary>
         /// Required to create a thread.
         /// </summary>
         CreateThread = 0x0002,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SetSessionId = 0x0004,
 
         /// <summary>
-        /// Required to perform an operation on the address space of a process 
+        /// Required to perform an operation on the address space of a process
         /// </summary>
         VmOperation = 0x0008,
 
@@ -61,7 +61,7 @@ namespace Se7en.WinApi
         SuspendResume = 0x0800,
 
         /// <summary>
-        /// Required to retrieve certain information about a process (see GetExitCodeProcess, GetPriorityClass, IsProcessInJob, QueryFullProcessImageName). 
+        /// Required to retrieve certain information about a process (see GetExitCodeProcess, GetPriorityClass, IsProcessInJob, QueryFullProcessImageName).
         /// A handle that has the PROCESS_QUERY_INFORMATION access right is automatically granted PROCESS_QUERY_LIMITED_INFORMATION.
         /// </summary>
         QueryLimitedInformation = 0x1000,
@@ -77,7 +77,7 @@ namespace Se7en.WinApi
         Delete = 0x00010000,
 
         /// <summary>
-        /// Required to read information in the security descriptor for the object, not including the information in the SACL. 
+        /// Required to read information in the security descriptor for the object, not including the information in the SACL.
         /// To read or write the SACL, you must request the ACCESS_SYSTEM_SECURITY access right. For more information, see SACL Access Right.
         /// </summary>
         ReadControl = 0x00020000,

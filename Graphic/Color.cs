@@ -1,16 +1,22 @@
 ﻿using System.Runtime.InteropServices;
 
 namespace Se7en.Graphic {
+
     [StructLayout(LayoutKind.Explicit, Size = 8)]
     public unsafe struct Color {
+
         [FieldOffset(0)]
         public int Value;
+
         [FieldOffset(0)]
         public byte A;
+
         [FieldOffset(1)]
         public byte R;
+
         [FieldOffset(2)]
         public byte G;
+
         [FieldOffset(4)]
         public byte B;
 
@@ -22,7 +28,7 @@ namespace Se7en.Graphic {
         }
 
         public Color(uint value) : this() {
-            Value = (int) value;
+            Value = (int)value;
         }
 
         public float GetBrightness() {
@@ -47,6 +53,7 @@ namespace Se7en.Graphic {
 
             return (max + min) / 2;
         }
+
         public float GetHue() {
             if (R == G && G == B)
                 return 0; // 0 makes as good an UNDEFINED value as any
@@ -88,6 +95,7 @@ namespace Se7en.Graphic {
             }
             return hue;
         }
+
         public float GetSaturation() {
             float r = (float)R / 255.0f;
             float g = (float)G / 255.0f;
@@ -123,6 +131,5 @@ namespace Se7en.Graphic {
             }
             return s;
         }
-
     }
 }

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows.Forms;
 
-namespace Se7en.UI
-{
-    public class ListView : Panel
-    {
+namespace Se7en.UI {
+
+    public class ListView : Panel {
         private int _listHeight;
 
         protected override void OnControlAdded(ControlEventArgs e) {
@@ -20,6 +15,7 @@ namespace Se7en.UI
             _listHeight = Controls.OfType<Control>().Sum(x => x.Height);
             base.OnControlRemoved(e);
         }
+
         protected override void OnMouseWheel(MouseEventArgs e) {
             MessageBox.Show(e.Delta.ToString());
             base.OnMouseWheel(e);

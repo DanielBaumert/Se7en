@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace Se7en.AI {
+
     public class Synapse : ISynapse {
         internal INeuron _fromNeuron;
         internal INeuron _toNeuron;
@@ -47,7 +48,7 @@ namespace Se7en.AI {
         /// <param name="fromNeuronId">Neuron Id.</param>
         /// <returns>
         /// True - if the neuron is the input of the connection.
-        /// False - if the neuron is not the input of the connection. 
+        /// False - if the neuron is not the input of the connection.
         /// </returns>
         public bool IsFromNeuron(Guid fromNeuronId) => _fromNeuron.Id.Equals(fromNeuronId);
 

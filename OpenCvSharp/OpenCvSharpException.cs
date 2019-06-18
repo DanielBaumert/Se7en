@@ -1,35 +1,27 @@
 using System;
 
-namespace Se7en.OpenCvSharp
-{
+namespace Se7en.OpenCvSharp {
+
     /// <summary>
-	/// The exception that is thrown by OpenCvSharp. 
+	/// The exception that is thrown by OpenCvSharp.
 	/// </summary>
-	public class OpenCvSharpException : Exception
-	{
-		
-		public OpenCvSharpException()
-		{
-		}
+	public class OpenCvSharpException : Exception {
 
-		
-		/// <param name="message"></param>
-		public OpenCvSharpException(string message) : base(message)
-		{
-		}
+        public OpenCvSharpException() {
+        }
 
-		
-		/// <param name="messageFormat"></param>
-		/// <param name="args"></param>
-		public OpenCvSharpException(string messageFormat, params object[] args) : base(string.Format(messageFormat, args))
-		{
-		}
+        /// <param name="message"></param>
+        public OpenCvSharpException(string message) : base(message) {
+        }
 
-		
-		/// <param name="message"></param>
-		/// <param name="innerException"></param>
-		public OpenCvSharpException(string message, Exception innerException) : base(message, innerException)
-		{
-		}
-	}
+        /// <param name="messageFormat"></param>
+        /// <param name="args"></param>
+        public OpenCvSharpException(string messageFormat, params object[] args) : base(string.Format(messageFormat, args)) {
+        }
+
+        /// <param name="message"></param>
+        /// <param name="innerException"></param>
+        public OpenCvSharpException(string message, Exception innerException) : base(message, innerException) {
+        }
+    }
 }

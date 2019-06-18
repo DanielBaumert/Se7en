@@ -1,7 +1,6 @@
-﻿namespace Se7en.Net
-{
-    public enum SocksVerion : byte
-    {
+﻿namespace Se7en.Net {
+
+    public enum SocksVerion : byte {
         Version1 = 0x1,
         Version2 = 0x2,
         Version3 = 0x3,

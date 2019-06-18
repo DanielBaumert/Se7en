@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Se7en.WinApi {
+
     public static class Utils {
+
         public static IEnumerable<string> GetAllWindows() {
             IntPtr top = User32.GetTopWindow(IntPtr.Zero);
             yield return GetWindowTitle(ref top);
@@ -18,6 +20,5 @@ namespace Se7en.WinApi {
             User32.GetWindowText(hWnd, out sb, sb.Capacity);
             return sb.ToString();
         }
-
     }
 }

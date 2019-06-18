@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Se7en.Net {
 
-namespace Se7en.Net
-{
-    class UserAgent
-    {
+    internal class UserAgent {
+
         //TODO - --
         private string[] BasicBrowser = new string[]
         {
@@ -15,9 +9,7 @@ namespace Se7en.Net
         };
 
         private string[] Platform = new string[]{
-             "Macintosh", "Windows NT", "X11", "Android", "Linux", "iPhone", "TV", "Mobile", "Tablet", 
+             "Macintosh", "Windows NT", "X11", "Android", "Linux", "iPhone", "TV", "Mobile", "Tablet",
         };
-
-
     }
 }

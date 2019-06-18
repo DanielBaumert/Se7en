@@ -4,10 +4,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace Se7en.Net
-{
-    public class TcpIpClient
-    {
+namespace Se7en.Net {
+
+    public class TcpIpClient {
         private TcpClient _Client;
         private NetworkStream _NetworkStream;
         private BinaryReader _StreamReader;
@@ -15,6 +14,7 @@ namespace Se7en.Net
         private Func<string> _ReadStreamFun;
 
         public event Action<TcpIpClient, string> ResiveMessage;
+
         public event Action<TcpIpClient> ClientDisconnected;
 
         internal TcpIpClient(TcpClient client) {
@@ -27,9 +27,10 @@ namespace Se7en.Net
             _ReadStreamFun.BeginInvoke(ResiveSteamMessage, null);
         }
 
-        public TcpIpClient() { }
-        public bool Connect(string host, int port) {
+        public TcpIpClient() {
+        }
 
+        public bool Connect(string host, int port) {
             if (GetIP(host, out IPAddress entry)) {
                 _Client = new TcpClient();
                 _Client.Connect(entry, port);
@@ -41,10 +42,10 @@ namespace Se7en.Net
                 _ReadStreamFun = _StreamReader.ReadString;
                 _ReadStreamFun.BeginInvoke(ResiveSteamMessage, null);
                 return true;
-
             }
             return false;
         }
+
         private bool GetIP(string host, out IPAddress address) {
             address = null;
             if (!IPAddress.TryParse(host, out address)) {
@@ -52,7 +53,7 @@ namespace Se7en.Net
                     IPAddress[] ips = Dns.GetHostAddresses(host);
                     if (ips.Length > 0) {
                         foreach (var ip in ips) {
-                            if(ip.AddressFamily == AddressFamily.InterNetwork) {
+                            if (ip.AddressFamily == AddressFamily.InterNetwork) {
                                 address = ip;
                                 return true;
                             }

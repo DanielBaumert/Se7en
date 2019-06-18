@@ -1,8 +1,10 @@
 ﻿namespace Se7en.WinApi {
+
     /// <summary>
     /// The set of valid MapTypes used in MapVirtualKey
     /// </summary>
     public enum MapVirtualKeyMapTypes : uint {
+
         /// <summary>
         /// uCode is a virtual-key code and is translated into a scan code.
         /// If it is a virtual-key code that does not distinguish between left- and

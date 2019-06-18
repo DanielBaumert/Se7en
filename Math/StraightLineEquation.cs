@@ -1,8 +1,8 @@
 ﻿using System;
 
 namespace Se7en.Math {
-    public struct StraightLineEquation  {
 
+    public struct StraightLineEquation {
         private readonly float Slop;
         private readonly float Shift;
 
@@ -10,6 +10,7 @@ namespace Se7en.Math {
             Slop = slop;
             Shift = shift;
         }
+
         public StraightLineEquation(Vector2f p1, Vector2f p2) {
             if (p1.X == p2.X)
                 throw new ArgumentException($"p1.x - p2.x == 0");
@@ -22,8 +23,10 @@ namespace Se7en.Math {
 
         public StraightLineEquation(Vector2f p1, float x, float y)
             : this(p1.X, p1.Y, x, y) { }
+
         public StraightLineEquation(float x, float y, Vector2f p2)
             : this(x, y, p2.X, p2.Y) { }
+
         public StraightLineEquation(float xVal1, float yVal1, float xVal2, float yVal2) {
             if (xVal1 == xVal2)
                 throw new ArgumentException($"xstart != xEnd");
@@ -36,6 +39,5 @@ namespace Se7en.Math {
         }
 
         public float GetValue(int x) => Slop * x + Shift;
-
     }
 }

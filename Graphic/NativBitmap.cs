@@ -4,10 +4,10 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Se7en.Graphic {
+
     public unsafe struct NativBitmap : IDisposable {
         private byte* _bitmapBuffer;
         private int _pixelCount;
@@ -19,10 +19,10 @@ namespace Se7en.Graphic {
         public int Height { get; }
         public PixelFormat PixelFormat { get; }
 
-
         public NativBitmap(Vector2i size, PixelFormat pixelFormat)
             : this(size.X, size.Y, pixelFormat) {
         }
+
         public NativBitmap(int width, int height, PixelFormat pixelFormat) {
             Width = width;
             Height = height;
@@ -39,24 +39,27 @@ namespace Se7en.Graphic {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(Vector2i point, Color color)
             => SetPixel(point.X, point.Y, color);
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(int x, int y, Color color) {
             int offset = x + (y * _stride);
             *(int*)(_bitmapBuffer + offset) = color.Value;
         }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe Color GetPixel(Vector2i point)
             => GetPixel(point.X, point.Y);
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe Color GetPixel(int x, int y) {
             int offset = x + (y * _stride);
             return *(Color*)(_bitmapBuffer + offset);
         }
 
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawLine(Vector2i start, Vector2i end, Color color)
             => DrawLine(new StraightLineEquation(start, end), start.X, end.X, color);
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawLine(int xStart, int yStart, int xEnd, int yEnd, Color color)
             => DrawLine(new StraightLineEquation(xStart, yStart, xEnd, yEnd), xStart, xEnd, color);
@@ -74,7 +77,6 @@ namespace Se7en.Graphic {
                 }
             }
         }
-
 
         public void Fill(Color color) {
             Action<int, int, Color> setPixelProxy = SetPixel;

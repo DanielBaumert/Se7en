@@ -1,14 +1,13 @@
-﻿using Se7en.WinApi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace Se7en.Collections.Linq
-{
+namespace Se7en.Collections.Linq {
+
     public static class Linq {
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static void ParallelForEach<T>(this T[] source, UnsafeAction<T> action, int step = 1) where T : unmanaged {
             T* sourcePtr = source.GetSourcePtr();
@@ -24,7 +23,7 @@ namespace Se7en.Collections.Linq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static void ForEach<T>(this T[] source, UnsafeAction<T> action, int step = 1) where T : unmanaged {
             T* sourcePtr = source.GetSourcePtr();
-            for(int i = 0; i < source.Length; i += step) {
+            for (int i = 0; i < source.Length; i += step) {
                 action(sourcePtr + i);
             }
         }
@@ -32,43 +31,48 @@ namespace Se7en.Collections.Linq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static void ForEach<T>(this T[] source, UnsafeAction<T, int> action, int step = 1) where T : unmanaged {
             T* sourcePtr = source.GetSourcePtr();
-            for(int i = 0; i < source.Length; i += step) {
+            for (int i = 0; i < source.Length; i += step) {
                 action(sourcePtr + i, i);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TOut> SelectWhere<T, TOut>(this T[] source, Func<T, bool> compare, Func<T, int, TOut> selector) where T : unmanaged {
-            for(int i = 0; i < source.Length; i++) {
+            for (int i = 0; i < source.Length; i++) {
                 T element = source[i];
-                if(compare(element))
+                if (compare(element))
                     yield return selector(element, i);
             }
         }
-        #region Conatins 
+
+        #region Conatins
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static bool Contains<T1>(this T1[] source, UnsafeFunc<T1, bool> contains) where T1 : unmanaged {
             fixed (T1* sourcePtr = source) {
-                for(int iElement = 0, nElement = source.Length; iElement < nElement; iElement++) {
-                    if(contains(sourcePtr + iElement)) {
+                for (int iElement = 0, nElement = source.Length; iElement < nElement; iElement++) {
+                    if (contains(sourcePtr + iElement)) {
                         return true;
                     }
                 }
             }
             return false;
         }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static bool Contains<T>(this T[] source, T element) where T : unmanaged {
             fixed (T* sourcePtr = source) {
-                for(int iElement = 0, nElements = source.Length; iElement < nElements; iElement++) {
-                    if((object)*(sourcePtr + iElement) == (object)element) {
+                for (int iElement = 0, nElements = source.Length; iElement < nElements; iElement++) {
+                    if ((object)*(sourcePtr + iElement) == (object)element) {
                         return true;
                     }
                 }
             }
             return false;
         }
-        #endregion
+
+        #endregion Conatins
+
         /// <summary>
         /// Return the element from the middle
         /// </summary>
@@ -76,7 +80,7 @@ namespace Se7en.Collections.Linq
         /// <returns>Element at center</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T ElementAtCenter<T>(this T[] source) {
-            if(source.Length > 0) {
+            if (source.Length > 0) {
                 return source[source.Length / 2];
             }
             return default;
@@ -86,8 +90,8 @@ namespace Se7en.Collections.Linq
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TOut> SelectWhere<TIn, TOut>(this IEnumerable<TIn> source, Func<TIn, bool> compare, Func<TIn, TOut> selector) {
-            foreach(TIn element in source) {
-                if(compare(element)) {
+            foreach (TIn element in source) {
+                if (compare(element)) {
                     yield return selector(element);
                 }
             }
@@ -96,9 +100,9 @@ namespace Se7en.Collections.Linq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TOut> SelectWhere<TIn, TOut>(this IEnumerable<TIn> source, Func<TIn, bool> compare, Func<TIn, int, TOut> selector) {
             int i = -1;
-            foreach(TIn element in source) {
+            foreach (TIn element in source) {
                 checked { i++; }
-                if(compare(element)) {
+                if (compare(element)) {
                     yield return selector(element, i);
                 }
             }
@@ -107,20 +111,21 @@ namespace Se7en.Collections.Linq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TOut> SelectWhere<TIn, TOut>(this IEnumerable<TIn> source, Func<TIn, int, bool> compare, Func<TIn, int, TOut> selector) {
             int i = -1;
-            foreach(TIn element in source) {
+            foreach (TIn element in source) {
                 i++;
-                if(compare(element, i)) {
+                if (compare(element, i)) {
                     yield return selector(element, i);
                 }
             }
         }
 
-        #endregion
+        #endregion SelectWhere
+
         #region ForISelect
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static TOut[] ForISelect<TSource1, TSource2, TOut>(TSource1[] sourceA, TSource2[] sourceB, UnsafeFunc2<TSource1, TSource2, TOut> select) where TOut : unmanaged where TSource1 : unmanaged where TSource2 : unmanaged {
-            if(sourceA.Length != sourceB.Length) {
+            if (sourceA.Length != sourceB.Length) {
                 return default;
             }
             int count = sourceA.Length;
@@ -129,7 +134,7 @@ namespace Se7en.Collections.Linq
             fixed (TOut* outSourcePtr = output) {
                 fixed (TSource1* sourceAPtr = sourceA) {
                     fixed (TSource2* sourceBPtr = sourceB) {
-                        for(int i = 0; i < count; i += 1) {
+                        for (int i = 0; i < count; i += 1) {
                             *(outSourcePtr + i) = select(sourceAPtr + i, sourceBPtr + i);
                         }
                     }
@@ -149,7 +154,7 @@ namespace Se7en.Collections.Linq
             fixed (TOut* outSourcePtr = output) {
                 fixed (TSource1* sourceAPtr = sourceA) {
                     fixed (TSource2* sourceBPtr = sourceB) {
-                        for(int i = start; i < end; i += 1) {
+                        for (int i = start; i < end; i += 1) {
                             *(outSourcePtr + i) = select(sourceAPtr + i, sourceBPtr + i);
                         }
                     }
@@ -158,12 +163,13 @@ namespace Se7en.Collections.Linq
             return output;
         }
 
-        #endregion
+        #endregion ForISelect
+
         #region ForIConvert
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TOut> ForIConvert<T1, T2, TOut>(int start, int end, T1[] sourceA, T2[] sourceB, Func<IntPtr, IntPtr, TOut> func) where T1 : unmanaged where T2 : unmanaged {
-            for(int i = start; i < end; i += 1) {
+            for (int i = start; i < end; i += 1) {
                 InnerLoopCall(i, out TOut p);
                 yield return p;
             }
@@ -193,12 +199,12 @@ namespace Se7en.Collections.Linq
                 return outVal;
             }
 
-            for(int i = start - 1, n = end - 1; i > n; i -= 1) {
+            for (int i = start - 1, n = end - 1; i > n; i -= 1) {
                 yield return InnerLoop(i);
             }
         }
 
-        #endregion
+        #endregion ForIConvert
 
         /// <summary>
         /// Calculate the query from a window inside a array from the center started |A|A|B|[start]|B|A|A ..window (5)
@@ -218,6 +224,5 @@ namespace Se7en.Collections.Linq
             int query = source.Skip(startOffset).Take(window).Sum(sum) / window;
             return convert(query);
         }
-
     } //class-Linq-end
 }

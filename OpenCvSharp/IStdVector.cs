@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Se7en.OpenCvSharp
-{
-    public interface IStdVector<T>
-    {
+namespace Se7en.OpenCvSharp {
+
+    public interface IStdVector<T> {
+
         /// <summary>
         /// vector.size()
         /// </summary>

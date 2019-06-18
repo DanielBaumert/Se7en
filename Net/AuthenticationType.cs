@@ -1,7 +1,6 @@
-﻿namespace Se7en.Net
-{
-    public enum AuthenticationType : byte
-    {
+﻿namespace Se7en.Net {
+
+    public enum AuthenticationType : byte {
         NoAuthentication = 0x00,
         GSSAPI = 0x1,
         Login = 0x02,

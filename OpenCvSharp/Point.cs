@@ -1,28 +1,23 @@
 ﻿using System;
 
-namespace Se7en.OpenCvSharp
-{
+namespace Se7en.OpenCvSharp {
+
     [Serializable]
-    public struct Point : IEquatable<Point>
-    {
-        
+    public struct Point : IEquatable<Point> {
+
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public Point(int x, int y)
-        {
+        public Point(int x, int y) {
             X = x;
             Y = y;
         }
 
-        
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public Point(double x, double y)
-        {
+        public Point(double x, double y) {
             X = (int)x;
             Y = (int)y;
         }
-
 
         /// <summary>
         /// Specifies whether this object contains the same members as the specified Object.

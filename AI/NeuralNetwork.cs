@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 #pragma warning disable
+
 namespace Se7en.AI {
+
     public class NeuralNetwork {
         private NeuralLayerFactory _layerFactory;
 
@@ -32,7 +35,7 @@ namespace Se7en.AI {
         /// Layer will automatically be added as the output layer to the last layer in the neural network.
         /// </summary>
         public void AddLayer(NeuralLayer newLayer) {
-            if(_layers.Any()) {
+            if (_layers.Any()) {
                 var lastLayer = _layers.Last();
                 newLayer.ConnectLayers(lastLayer);
             }
@@ -57,8 +60,7 @@ namespace Se7en.AI {
         public List<double> GetOutput() {
             var returnValue = new List<double>();
 
-            _layers.Last().Neurons.ForEach(neuron =>
-            {
+            _layers.Last().Neurons.ForEach(neuron => {
                 returnValue.Add(neuron.CalculateOutput());
             });
 
@@ -73,15 +75,14 @@ namespace Se7en.AI {
         public void Train(double[][] inputs, int numberOfEpochs) {
             double totalError = 0;
 
-            for(int i = 0; i < numberOfEpochs; i++) {
-                for(int j = 0; j < inputs.GetLength(0); j++) {
+            for (int i = 0; i < numberOfEpochs; i++) {
+                for (int j = 0; j < inputs.GetLength(0); j++) {
                     PushInputValues(inputs[j]);
 
                     var outputs = new List<double>();
 
                     // Get outputs.
-                    _layers.Last().Neurons.ForEach(x =>
-                    {
+                    _layers.Last().Neurons.ForEach(x => {
                         outputs.Add(x.CalculateOutput());
                     });
 
@@ -108,8 +109,7 @@ namespace Se7en.AI {
         private double CalculateTotalError(List<double> outputs, int row) {
             double totalError = 0;
 
-            outputs.ForEach(output =>
-            {
+            outputs.ForEach(output => {
                 var error = System.Math.Pow(output - _expectedResult[row][outputs.IndexOf(output)], 2);
                 totalError += error;
             });
@@ -146,11 +146,9 @@ namespace Se7en.AI {
         /// Input/Expected output row.
         /// </param>
         private void HandleHiddenLayers() {
-            for(int k = _layers.Count - 2; k > 0; k--) {
-                _layers[k].Neurons.ForEach(neuron =>
-                {
-                    neuron.Inputs.ForEach(connection =>
-                    {
+            for (int k = _layers.Count - 2; k > 0; k--) {
+                _layers[k].Neurons.ForEach(neuron => {
+                    neuron.Inputs.ForEach(connection => {
                         var output = neuron.CalculateOutput();
                         var netInput = connection.GetOutput();
                         double sumPartial = 0;

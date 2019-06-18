@@ -1,7 +1,7 @@
-﻿using System;
-#pragma warning disable
+﻿#pragma warning disable
 
 namespace Se7en.AI {
+
     public class SigmoidActivationFunction : IActivationFunction {
         private double _coeficient;
 

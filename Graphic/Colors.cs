@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Se7en.Graphic {
 
-namespace Se7en.Graphic {
     public static class Colors {
         public readonly static Color AliceBlue = new Color(0xFFF0F8FF);
         public readonly static Color AntiqueWhite = new Color(0xFFFAEBD7);

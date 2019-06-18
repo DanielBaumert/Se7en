@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Se7en.OpenCvSharp
-{
-    public class UtilMap : DisposableObject
-    {
+namespace Se7en.OpenCvSharp {
+
+    public class UtilMap : DisposableObject {
         public IntPtr DataStart { get => _DataStart(Ptr); }
         public IntPtr Ptr;
 
@@ -49,7 +48,7 @@ namespace Se7en.OpenCvSharp
         }
 
         public UtilMap(int rows, int cols, MatType type, IntPtr data, ulong step = 0L) => Ptr = _Create3(rows, cols, type, data, step);
-        public UtilMap(int rows, int cols, MatType type) => Ptr = _Create2(rows, cols, type);
 
+        public UtilMap(int rows, int cols, MatType type) => Ptr = _Create2(rows, cols, type);
     }
 }

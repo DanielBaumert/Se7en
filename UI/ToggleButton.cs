@@ -4,31 +4,33 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace Se7en.UI
-{
-    public class ToggleButton : Control
-    {
+namespace Se7en.UI {
+
+    public class ToggleButton : Control {
+
         public delegate void ToggledHandle(ToggleButton toggle);
+
         public delegate void PropertiesChangeEventHandle();
 
         #region Events
         #region PublicEvents
+
         public event ToggledHandle Toggled;
+
         public event PropertiesChangeEventHandle PropertiesChangeEvent;
-        #endregion
 
-        #region PrivateEvents
+        #endregion PublicEvents
 
-        #endregion
-        #endregion
+        #endregion Events
 
         #region Settings
         private GraphicsPath BackGraphicPath;
         private GraphicsPath ForeGraphicsPath;
-        #endregion
+        #endregion Settings
 
         #region Properties
         private bool togglestate;
+
         [Category("States"), DisplayName("State")]
         public bool ToggleState {
             get => togglestate;
@@ -39,6 +41,7 @@ namespace Se7en.UI
         }
 
         private Color oncolor;
+
         [Category("Toggle"), DisplayName("On")]
         public Color OnColor {
             get => oncolor;
@@ -46,6 +49,7 @@ namespace Se7en.UI
         }
 
         private Color offcolor;
+
         [Category("Toggle"), DisplayName("Off")]
         public Color OffColor {
             get => offcolor;
@@ -53,14 +57,17 @@ namespace Se7en.UI
         }
 
         private Color togglecolor;
+
         [Category("Toggle"), DisplayName("Color")]
         public Color ToggleColor {
             get => togglecolor;
             set => PropertyChange(ref togglecolor, value);
         }
-        #endregion
+
+        #endregion Properties
 
         #region HiddenProperties
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Browsable(false)]
         public new Color BackColor { get; set; }
@@ -80,20 +87,20 @@ namespace Se7en.UI
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Browsable(false)]
         public new Image BackgroundImage { get; set; }
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Browsable(false)]
         public new ImageLayout BackgroundImageLayout { get; set; }
-        #endregion
 
-        public ToggleButton()
-        {
+        #endregion HiddenProperties
+
+        public ToggleButton() {
             InitializeStyle();
             InitializeValues();
             InitializeEvents();
         }
 
-        private void InitializeStyle()
-        {
+        private void InitializeStyle() {
             ControlStyles styles = ControlStyles.OptimizedDoubleBuffer
                                | ControlStyles.SupportsTransparentBackColor
                                | ControlStyles.UserPaint
@@ -101,8 +108,7 @@ namespace Se7en.UI
             SetStyle(styles, true);
         }
 
-        private void InitializeValues()
-        {
+        private void InitializeValues() {
             BackColor = Color.Transparent;
             ToggleState = true;
             OnColor = Color.DodgerBlue;
@@ -113,15 +119,13 @@ namespace Se7en.UI
             ForeColor = Color.Transparent;
         }
 
-        private void InitializeEvents()
-        {
+        private void InitializeEvents() {
             Resize += ToggleButton_Resize;
             Paint += ToggleButton_Paint;
             Click += ToggleButton_Click;
             DoubleClick += ToggleButton_Click;
 
-            void ToggleButton_Resize(object sender, EventArgs e)
-            {
+            void ToggleButton_Resize(object sender, EventArgs e) {
                 ///Setting
                 ///
                 int x = ToggleScanner(4, Width - Height + 4);
@@ -141,8 +145,7 @@ namespace Se7en.UI
                 ForeGraphicsPath = foregraphicsPath;
             }
 
-            void ToggleButton_Paint(object sender, PaintEventArgs e)
-            {
+            void ToggleButton_Paint(object sender, PaintEventArgs e) {
                 ///Setting
                 ///
                 Graphics graphics = e.Graphics;
@@ -160,25 +163,22 @@ namespace Se7en.UI
                     graphics.FillPath(new SolidBrush(ToggleColor), ForeGraphicsPath);
             }
 
-            void ToggleButton_Click(object sender, EventArgs e)
-            {
+            void ToggleButton_Click(object sender, EventArgs e) {
                 ToggleState = ToggleScanner(false, true);
             }
 
             #region EventHelper
             T ToggleScanner<T>(T argtrue, T argfalse) => ToggleState ? argtrue : argfalse;
-            #endregion
+            #endregion EventHelper
         }
 
-        private void PropertyChange<T>(ref T field, T value)
-        {
+        private void PropertyChange<T>(ref T field, T value) {
             field = value;
             PropertiesChangeEvent?.Invoke();
             Invalidate();
         }
 
-        private void PropertyChange<T, T1>(ref T field, T value, Action<T1> action, T1 arg)
-        {
+        private void PropertyChange<T, T1>(ref T field, T value, Action<T1> action, T1 arg) {
             PropertiesChangeEvent?.Invoke();
             field = value;
             action(arg);

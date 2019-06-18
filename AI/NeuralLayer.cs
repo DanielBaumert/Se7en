@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Se7en.AI {
+
     public class NeuralLayer {
         public List<INeuron> Neurons;
 
@@ -14,7 +12,7 @@ namespace Se7en.AI {
         /// Connecting two layers.
         /// </summary>
         public void ConnectLayers(NeuralLayer inputLayer) {
-            foreach(var item in Neurons.SelectMany(neuron => inputLayer.Neurons, (neuron, input) => new { neuron, input })) {
+            foreach (var item in Neurons.SelectMany(neuron => inputLayer.Neurons, (neuron, input) => new { neuron, input })) {
                 item.neuron.AddInputNeuron(item.neuron);
             }
         }

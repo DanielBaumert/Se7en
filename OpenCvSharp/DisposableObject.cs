@@ -2,10 +2,10 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace Se7en.OpenCvSharp
-{
-    public abstract class DisposableObject : IDisposable
-    {
+namespace Se7en.OpenCvSharp {
+
+    public abstract class DisposableObject : IDisposable {
+
         /// <summary>
         /// Gets a value indicating whether this instance has been disposed.
         /// </summary>
@@ -29,16 +29,14 @@ namespace Se7en.OpenCvSharp
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected DisposableObject() : this(true)
-        {
+        protected DisposableObject() : this(true) {
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="isEnabledDispose">true if you permit disposing this class by GC</param>
-        protected DisposableObject(bool isEnabledDispose)
-        {
+        protected DisposableObject(bool isEnabledDispose) {
             IsDisposed = false;
             IsEnabledDispose = isEnabledDispose;
             AllocatedMemory = IntPtr.Zero;
@@ -48,8 +46,7 @@ namespace Se7en.OpenCvSharp
         /// <summary>
         /// Releases the resources
         /// </summary>
-        public void Dispose()
-        {
+        public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
@@ -61,15 +58,11 @@ namespace Se7en.OpenCvSharp
         /// If disposing equals true, the method has been called directly or indirectly by a user's code. Managed and unmanaged resources can be disposed.
         /// If false, the method has been called by the runtime from inside the finalizer and you should not reference other objects. Only unmanaged resources can be disposed.
         /// </param>
-        private void Dispose(bool disposing)
-        {
-            if (Interlocked.Exchange(ref disposeSignaled, 1) == 0)
-            {
+        private void Dispose(bool disposing) {
+            if (Interlocked.Exchange(ref disposeSignaled, 1) == 0) {
                 IsDisposed = true;
-                if (IsEnabledDispose)
-                {
-                    if (disposing)
-                    {
+                if (IsEnabledDispose) {
+                    if (disposing) {
                         DisposeManaged();
                     }
                     DisposeUnmanaged();
@@ -80,34 +73,28 @@ namespace Se7en.OpenCvSharp
         /// <summary>
         /// Destructor
         /// </summary>
-        ~DisposableObject()
-        {
+        ~DisposableObject() {
             Dispose(false);
         }
 
         /// <summary>
         /// Releases managed resources
         /// </summary>
-        protected virtual void DisposeManaged()
-        {
+        protected virtual void DisposeManaged() {
         }
 
         /// <summary>
         /// Releases unmanaged resources
         /// </summary>
-        protected virtual void DisposeUnmanaged()
-        {
-            if (dataHandle.IsAllocated)
-            {
+        protected virtual void DisposeUnmanaged() {
+            if (dataHandle.IsAllocated) {
                 dataHandle.Free();
             }
-            if (AllocatedMemorySize > 0L)
-            {
+            if (AllocatedMemorySize > 0L) {
                 GC.RemoveMemoryPressure(AllocatedMemorySize);
                 AllocatedMemorySize = 0L;
             }
-            if (AllocatedMemory != IntPtr.Zero)
-            {
+            if (AllocatedMemory != IntPtr.Zero) {
                 Marshal.FreeHGlobal(AllocatedMemory);
                 AllocatedMemory = IntPtr.Zero;
             }
@@ -118,14 +105,11 @@ namespace Se7en.OpenCvSharp
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected internal GCHandle AllocGCHandle(object obj)
-        {
-            if (obj == null)
-            {
+        protected internal GCHandle AllocGCHandle(object obj) {
+            if (obj == null) {
                 throw new ArgumentNullException("obj");
             }
-            if (dataHandle.IsAllocated)
-            {
+            if (dataHandle.IsAllocated) {
                 dataHandle.Free();
             }
             dataHandle = GCHandle.Alloc(obj, GCHandleType.Pinned);
@@ -137,14 +121,11 @@ namespace Se7en.OpenCvSharp
         /// </summary>
         /// <param name="size"></param>
         /// <returns></returns>
-        protected IntPtr AllocMemory(int size)
-        {
-            if (size <= 0)
-            {
+        protected IntPtr AllocMemory(int size) {
+            if (size <= 0) {
                 throw new ArgumentOutOfRangeException("size");
             }
-            if (AllocatedMemory != IntPtr.Zero)
-            {
+            if (AllocatedMemory != IntPtr.Zero) {
                 Marshal.FreeHGlobal(AllocatedMemory);
             }
             AllocatedMemory = Marshal.AllocHGlobal(size);
@@ -156,22 +137,17 @@ namespace Se7en.OpenCvSharp
         /// Notifies the allocated size of memory.
         /// </summary>
         /// <param name="size"></param>
-        protected void NotifyMemoryPressure(long size)
-        {
-            if (!IsEnabledDispose)
-            {
+        protected void NotifyMemoryPressure(long size) {
+            if (!IsEnabledDispose) {
                 return;
             }
-            if (size == 0L)
-            {
+            if (size == 0L) {
                 return;
             }
-            if (size <= 0L)
-            {
+            if (size <= 0L) {
                 throw new ArgumentOutOfRangeException("size");
             }
-            if (AllocatedMemorySize > 0L)
-            {
+            if (AllocatedMemorySize > 0L) {
                 GC.RemoveMemoryPressure(AllocatedMemorySize);
             }
             AllocatedMemorySize = size;
@@ -181,10 +157,8 @@ namespace Se7en.OpenCvSharp
         /// <summary>
         /// If this object is disposed, then ObjectDisposedException is thrown.
         /// </summary>
-        public void ThrowIfDisposed()
-        {
-            if (IsDisposed)
-            {
+        public void ThrowIfDisposed() {
+            if (IsDisposed) {
                 throw new ObjectDisposedException(GetType().FullName);
             }
         }
@@ -193,6 +167,7 @@ namespace Se7en.OpenCvSharp
         /// Gets or sets a handle which allocates using cvSetData.
         /// </summary>
         protected GCHandle dataHandle;
+
         private volatile int disposeSignaled;
     }
 }

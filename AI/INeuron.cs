@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 namespace Se7en.AI {
+
     public interface INeuron {
         Guid Id { get; }
         double PreviousPartialDerivate { get; set; }
@@ -10,10 +11,13 @@ namespace Se7en.AI {
         List<ISynapse> Outputs { get; set; }
 
         void AddInputNeuron(INeuron inputNeuron);
+
         void AddOutputNeuron(INeuron inputNeuron);
+
         double CalculateOutput();
 
         void AddInputSynapse(double inputValue);
+
         void PushValueOnInput(double inputValue);
     }
 }

@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Se7en.OpenCvSharp
-{
+namespace Se7en.OpenCvSharp {
+
     [Serializable]
-    public struct Size : IEquatable<Size>
-    {
-        
+    public struct Size : IEquatable<Size> {
+
         /// <param name="width"></param>
         /// <param name="height"></param>
         public Size(int width, int height) {
@@ -17,7 +12,6 @@ namespace Se7en.OpenCvSharp
             Height = height;
         }
 
-        
         /// <param name="width"></param>
         /// <param name="height"></param>
         public Size(double width, double height) {
@@ -25,7 +19,6 @@ namespace Se7en.OpenCvSharp
             Height = (int)height;
         }
 
-        
         public static Size Zero => default;
 
         /// <summary>

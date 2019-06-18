@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Se7en.UI
-{
-    public class Processbar : Control
-    {
+namespace Se7en.UI {
+
+    public class Processbar : Control {
+
         private event Action<Processbar, double> ValueChange;
 
         private Point _textloc;
@@ -15,15 +15,13 @@ namespace Se7en.UI
 
         #region Properties
         private double _maxValue = 100;
+
         public double MaxValue {
             get => _maxValue;
             set {
-                if (MaxValue < Value)
-                {
+                if (MaxValue < Value) {
                     _maxValue = Value;
-                }
-                else
-                {
+                } else {
                     _maxValue = value;
                 }
                 UpdateDeltaValue();
@@ -32,15 +30,13 @@ namespace Se7en.UI
         }
 
         private double _minValue = 0;
+
         public double MinValue {
             get => _minValue;
             set {
-                if (MinValue > Value)
-                {
+                if (MinValue > Value) {
                     _minValue = Value;
-                }
-                else
-                {
+                } else {
                     _minValue = value;
                 }
                 UpdateDeltaValue();
@@ -49,6 +45,7 @@ namespace Se7en.UI
         }
 
         private double _Value;
+
         public double Value {
             get => _Value;
             set {
@@ -63,6 +60,7 @@ namespace Se7en.UI
         }
 
         private Color _ProcessColor;
+
         public Color ProcessColor {
             get => _ProcessColor;
             set {
@@ -73,6 +71,7 @@ namespace Se7en.UI
         }
 
         private bool _ValueVisible;
+
         public bool ValueVisible {
             get => _ValueVisible;
             set {
@@ -80,14 +79,14 @@ namespace Se7en.UI
                 Invalidate();
             }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Settings
         private SolidBrush BrushProcess;
-        #endregion
+        #endregion Settings
 
-        public Processbar()
-        {
+        public Processbar() {
             ControlStyles styles = ControlStyles.ResizeRedraw
                                 | ControlStyles.SupportsTransparentBackColor
                                 | ControlStyles.UserPaint;
@@ -99,25 +98,21 @@ namespace Se7en.UI
             ValueVisible = false;
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
+        protected override void OnPaint(PaintEventArgs e) {
             Graphics graphics = e.Graphics;
-            if (BrushProcess != null)
-            {
+            if (BrushProcess != null) {
                 graphics.FillRectangle(BrushProcess, _processRect);
-                if (ValueVisible)
-                {
+                if (ValueVisible) {
                     TextRenderer.DrawText(graphics, _text, Font, _textloc, ForeColor);
                 }
             }
         }
 
-        protected override void OnSizeChanged(EventArgs e)
-        {
+        protected override void OnSizeChanged(EventArgs e) {
             UpdateRect();
         }
-        private void UpdateRect()
-        {
+
+        private void UpdateRect() {
             double step = Width / _deltaValue;
             double width = (Value - MinValue) * step;
             Point topcorner = Point.Empty;
@@ -126,14 +121,12 @@ namespace Se7en.UI
             UpdateText();
         }
 
-        private void UpdateDeltaValue()
-        {
+        private void UpdateDeltaValue() {
             _deltaValue = MaxValue - MinValue;
             UpdateText();
         }
 
-        private void UpdateText()
-        {
+        private void UpdateText() {
             double textValue = 100 * Value / _deltaValue;
             _text = $"{System.Math.Round(textValue, 1)}%";
 

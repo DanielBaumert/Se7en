@@ -1,7 +1,5 @@
-﻿namespace Se7en.UI
-{
-    partial class FileExplorer
-    {
+﻿namespace Se7en.UI {
+    partial class FileExplorer {
         /// <summary>
         /// Required designer variable.
         /// </summary>

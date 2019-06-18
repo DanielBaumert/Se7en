@@ -1,22 +1,21 @@
 ﻿using System;
 
-namespace Se7en.OpenCvSharp
-{
+namespace Se7en.OpenCvSharp {
+
     /// <summary>
     /// 4-Tuple of int (System.Int32)
     /// </summary>
-        [Serializable]
-    public struct Vec4i : IVec<int>, IEquatable<Vec4i>
-    {
+    [Serializable]
+    public struct Vec4i : IVec<int>, IEquatable<Vec4i> {
+
         /// <summary>
         /// Initializer
         /// </summary>
-        public Vec4i(int item0, int item1, int item2, int item3)
-        {
-           Item0 = item0;
-           Item1 = item1;
-           Item2 = item2;
-           Item3 = item3;
+        public Vec4i(int item0, int item1, int item2, int item3) {
+            Item0 = item0;
+            Item1 = item1;
+            Item2 = item2;
+            Item3 = item3;
         }
 
         /// <summary>
@@ -24,8 +23,7 @@ namespace Se7en.OpenCvSharp
         /// </summary>
         public int this[int i] {
             get {
-                switch (i)
-                {
+                switch (i) {
                     case 0:
                         return Item0;
                     case 1:
@@ -39,8 +37,7 @@ namespace Se7en.OpenCvSharp
                 }
             }
             set {
-                switch (i)
-                {
+                switch (i) {
                     case 0:
                         Item0 = value;
                         return;
@@ -59,36 +56,31 @@ namespace Se7en.OpenCvSharp
             }
         }
 
-        
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(Vec4i other) 
+        public bool Equals(Vec4i other)
             => Item0 == other.Item0 && Item1 == other.Item1 && Item2 == other.Item2 && Item3 == other.Item3;
 
-        
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj) 
+        public override bool Equals(object obj)
             => obj != null && obj is Vec4i && Equals((Vec4i)obj);
 
-        
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator ==(Vec4i a, Vec4i b) 
+        public static bool operator ==(Vec4i a, Vec4i b)
             => a.Equals(b);
 
-        
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static bool operator !=(Vec4i a, Vec4i b) 
+        public static bool operator !=(Vec4i a, Vec4i b)
             => !a.Equals(b);
 
-        
         /// <returns></returns>
-        public override int GetHashCode() 
-            => ((Item0 * 397 ^ Item1) * 397 ^ Item2) * 397 ^  Item3;
+        public override int GetHashCode()
+            => ((Item0 * 397 ^ Item1) * 397 ^ Item2) * 397 ^ Item3;
 
         /// <summary>
         /// The value of the first component of this object.

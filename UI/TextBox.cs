@@ -5,30 +5,32 @@ using System.Drawing.Design;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace Se7en.UI
-{
-    public partial class TextBox : UserControl
-    {
+namespace Se7en.UI {
+
+    public partial class TextBox : UserControl {
+
         private delegate void LineSizeStateSwitchHandle();
 
         #region Setting
         private Pen LinePen;
-        #endregion
+        #endregion Setting
 
         #region PrivateEvents
+
         private event LineSizeStateSwitchHandle LineStateSwitch;
-        #endregion
+
+        #endregion PrivateEvents
 
         #region Properties
 
         #region Line
         private Color _LineColor = Color.DodgerBlue;
+
         [Category("Line"), DisplayName("Color")]
         public Color LineColor {
             get => _LineColor;
             set {
-                if (_LineColor != value)
-                {
+                if (_LineColor != value) {
                     _LineColor = value;
                     LineStateSwitch();
                     Invalidate();
@@ -37,12 +39,12 @@ namespace Se7en.UI
         }
 
         private int _LineHeight = 2;
+
         [Category("Line"), DisplayName("Height")]
         public int LineHeight {
             get => _LineHeight;
             set {
-                if (_LineHeight != value)
-                {
+                if (_LineHeight != value) {
                     _LineHeight = value;
 
                     Rectangle rectText = FaceTextBoxBase.Bounds;
@@ -56,12 +58,12 @@ namespace Se7en.UI
         }
 
         private int _LineMarginLeft = 0;
+
         [Category("Line"), DisplayName("MarginLeft")]
         public int LineMarginLeft {
             get => _LineMarginLeft;
             set {
-                if (_LineMarginLeft != value)
-                {
+                if (_LineMarginLeft != value) {
                     _LineMarginLeft = value;
                     LineMarginHorizontal = -1;
                     _LineMarginLeft = value;
@@ -72,13 +74,12 @@ namespace Se7en.UI
         }
 
         private int _LineMarginRight = 0;
+
         [Category("Line"), DisplayName("MarginRight")]
         public int LineMarginRight {
             get => _LineMarginRight;
             set {
-                if (_LineMarginRight != value)
-                {
-
+                if (_LineMarginRight != value) {
                     _LineMarginRight = value;
                     LineMarginHorizontal = -1;
                     _LineMarginRight = value;
@@ -89,16 +90,15 @@ namespace Se7en.UI
         }
 
         private int _LineMarginHorizontal;
+
         [Category("Line"), DisplayName("Horizontal")]
         public int LineMarginHorizontal {
             get => _LineMarginHorizontal;
             set {
-                if (_LineMarginHorizontal != value)
-                {
+                if (_LineMarginHorizontal != value) {
                     _LineMarginHorizontal = value;
 
-                    if (value != -1)
-                    {
+                    if (value != -1) {
                         LineMarginLeft = value;
                         LineMarginRight = value;
                     }
@@ -109,12 +109,12 @@ namespace Se7en.UI
         }
 
         private int _LineMarginToText = 1;
+
         [Category("Line"), DisplayName("MarginToText")]
         public int LineMarginToText {
             get => _LineMarginToText;
             set {
-                if (_LineMarginToText != value)
-                {
+                if (_LineMarginToText != value) {
                     _LineMarginToText = value;
                     Rectangle rectText = FaceTextBoxBase.Bounds;
                     if (!Multiline)
@@ -124,15 +124,16 @@ namespace Se7en.UI
                 }
             }
         }
-        #endregion
+
+        #endregion Line
 
         #region Text
+
         [Category("Text"), DisplayName("Color")]
         public new Color ForeColor {
             get => FaceTextBoxBase.ForeColor;
             set {
-                if (base.ForeColor != value)
-                {
+                if (base.ForeColor != value) {
                     base.ForeColor = value;
                     FaceTextBoxBase.ForeColor = value;
                 }
@@ -140,6 +141,7 @@ namespace Se7en.UI
         }
 
         private string _Text;
+
         [Category("Text")]
         [Editor(typeof(System.ComponentModel.Design.MultilineStringEditor), typeof(UITypeEditor))]
         [Browsable(true)]
@@ -155,8 +157,7 @@ namespace Se7en.UI
                 _Text = value;
                 FaceTextBoxBase.Text = value;
                 AfterTextChanged?.Invoke(_Text);
-                if (CompareWith != null)
-                {
+                if (CompareWith != null) {
                     IsCompare = _Text == CompareWith._Text;
                     CompareWith.CheckIsCompaterEvent?.Invoke(IsCompare.Value);
                 }
@@ -164,6 +165,7 @@ namespace Se7en.UI
         }
 
         private Color? _IsntInput;
+
         [Category("Line")]
         public Color? IsntInput {
             get => _IsntInput;
@@ -176,6 +178,7 @@ namespace Se7en.UI
         }
 
         private string _CueText = "Watermark";
+
         [Category("Text"), DisplayName("WaterMark")]
         public string CueText {
             get => _CueText;
@@ -217,6 +220,7 @@ namespace Se7en.UI
         }
 
         private bool _Multiline;
+
         [Category("Text"), DisplayName("Multiline")]
         public bool Multiline {
             get => _Multiline;
@@ -229,8 +233,8 @@ namespace Se7en.UI
 
                 Invalidate();
             }
-
         }
+
         private bool _AutoScaleByText;
 
         [Category("Text")]
@@ -253,6 +257,7 @@ namespace Se7en.UI
         }
 
         private string _Patter;
+
         [Category("Text")]
         public string Patter {
             get => _Patter;
@@ -265,6 +270,7 @@ namespace Se7en.UI
         }
 
         private Color _PatterError = Color.Red;
+
         [Category("Text")]
         public Color PatterError {
             get => _PatterError;
@@ -283,6 +289,7 @@ namespace Se7en.UI
         public bool? IsCompare { get; private set; }
 
         private TextBox _CompareWith;
+
         [Category("Text")]
         public TextBox CompareWith {
             get => _CompareWith; set {
@@ -299,47 +306,49 @@ namespace Se7en.UI
                 FaceTextBoxBase.BackColor = value;
             }
         }
-        #endregion
+
+        #endregion Text
 
         #region Events
 
         public event Action<string> BeforeTextChanged;
+
         public event Action<string> AfterTextChanged;
+
         public event Action<bool> CheckIsCompaterEvent;
 
         public new event KeyEventHandler KeyDown {
             add => FaceTextBoxBase.KeyDown += value;
             remove => FaceTextBoxBase.KeyDown -= value;
         }
+
         public new event KeyEventHandler KeyUp {
             add => FaceTextBoxBase.KeyUp += value;
             remove => FaceTextBoxBase.KeyUp -= value;
         }
+
         public new event KeyPressEventHandler KeyPress {
             add => FaceTextBoxBase.KeyPress += value;
             remove => FaceTextBoxBase.KeyPress -= value;
         }
-        #endregion
+
+        #endregion Events
 
         #region HiddenProperties
         //[EditorBrowsable(EditorBrowsableState.Always)]
 
+        #endregion HiddenProperties
 
-        #endregion
+        #endregion Properties
 
-        #endregion
-
-        public TextBox()
-        {
+        public TextBox() {
             InitializeComponent();
             InitializeStyle();
             InitializeEvents();
             InitializeValues();
         }
 
-        private void InitializeValues()
-        {
-
+        private void InitializeValues() {
             //LineColor = Color.DodgerBlue;
             ForeColor = Color.DodgerBlue;
             LineColor = Color.DodgerBlue;
@@ -347,15 +356,13 @@ namespace Se7en.UI
             Width = 140;
         }
 
-        private void InitializeStyle()
-        {
+        private void InitializeStyle() {
             ControlStyles styles = ControlStyles.ResizeRedraw
                                  | ControlStyles.SupportsTransparentBackColor;
             SetStyle(styles, true);
         }
 
-        private void InitializeEvents()
-        {
+        private void InitializeEvents() {
             Paint += PromptedTextBox_Paint;
             Resize += TextBox_Resize;
             FontChanged += TextBox_FontChanged;
@@ -370,8 +377,7 @@ namespace Se7en.UI
             void TextBox_FontChanged(object sender, EventArgs e) => EventResize();
 
             #region EventHelper
-            void EventPaint(PaintEventArgs e)
-            {
+            void EventPaint(PaintEventArgs e) {
                 Graphics graphics = e.Graphics;
                 graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
                 Rectangle rect = Bounds;
@@ -385,98 +391,75 @@ namespace Se7en.UI
                 Point lineStartLoc = new Point(lineXStart, lineYEnd);
                 Point lineEndLoc = new Point(lineXEnd, lineYEnd);
                 graphics.DrawLine(LinePen, lineStartLoc, lineEndLoc);
-                #endregion
+                #endregion UnderLine
 
                 EventResize();
             }
 
-            void TextBox_LineSizeStateSwitch()
-            {
+            void TextBox_LineSizeStateSwitch() {
                 Padding padding = Padding;
                 padding.Bottom = LineHeight;
                 Padding = padding;
-                if (!string.IsNullOrEmpty(Patter) && !string.IsNullOrEmpty(Text))
-                {
+                if (!string.IsNullOrEmpty(Patter) && !string.IsNullOrEmpty(Text)) {
                     IsMatch = Regex.IsMatch(Text, Patter);
                     bool tmpchoose = IsMatch;
-                    if (IsCompare.HasValue)
-                    {
+                    if (IsCompare.HasValue) {
                         tmpchoose &= IsCompare.Value;
                     }
                     Pen tempPen = new Pen(tmpchoose ? LineColor : PatterError);
                     SetPen(tempPen);
-                }
-                else if (string.IsNullOrEmpty(Text))
-                {
+                } else if (string.IsNullOrEmpty(Text)) {
                     Color tempColor = IsntInput != null ? IsntInput.Value : LineColor;
                     Pen tempPen = new Pen(tempColor, LineHeight);
                     SetPen(tempPen);
-                }
-                else
-                {
+                } else {
                     Pen tempPen = new Pen(LineColor, LineHeight);
-                    if (IsCompare.HasValue)
-                    {
+                    if (IsCompare.HasValue) {
                         tempPen.Color = IsCompare.Value ? LineColor : PatterError;
                     }
                     SetPen(tempPen);
                 }
 
-
-                void SetPen(Pen pen)
-                {
-                    if (LinePen == null)
-                    {
+                void SetPen(Pen pen) {
+                    if (LinePen == null) {
                         LinePen = pen;
                         Invalidate();
                         return;
                     }
-                    if (LinePen.Color != pen.Color)
-                    {
+                    if (LinePen.Color != pen.Color) {
                         LinePen = pen;
                         Invalidate();
                     }
                 }
             }
 
-            void FaceTextBoxBase_TextChanged(object sender, EventArgs e)
-            {
+            void FaceTextBoxBase_TextChanged(object sender, EventArgs e) {
                 string value = (sender as System.Windows.Forms.TextBox).Text;
                 Text = value;
                 EventResize();
             }
 
-            void EventResize()
-            {
-                if (!Multiline)
-                {
+            void EventResize() {
+                if (!Multiline) {
                     int valH = FaceTextBoxBase.Height + LineMarginToText + LineHeight;
                     int valW = Width;
-                    if (Height != valH || Width != valW)
-                    {
+                    if (Height != valH || Width != valW) {
                         Size = new Size(valW, valH);
                     }
-                }
-                else
-                {
-                    if (AutoScaleByText)
-                    {
+                } else {
+                    if (AutoScaleByText) {
                         string text = string.IsNullOrEmpty(Text) ? " " : Text;
                         Font font = Font;
                         Size textSize = TextRenderer.MeasureText(text, font);
                         int val = textSize.Height + LineMarginToText + LineHeight;
-                        if (Height != val)
-                        {
+                        if (Height != val) {
                             Height = val;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         Font font = Font;
                         Size textSize = TextRenderer.MeasureText(" ", font);
                         int val = textSize.Height + LineMarginToText + LineHeight;
-                        if (Height < val)
-                        {
+                        if (Height < val) {
                             Height = val;
                         }
                     }
@@ -484,26 +467,21 @@ namespace Se7en.UI
                 TextBox_LineSizeStateSwitch();
             }
 
-            void TextBox_CheckIsCompaterEvent(bool checker)
-            {
-                if (!IsCompare.HasValue)
-                {
+            void TextBox_CheckIsCompaterEvent(bool checker) {
+                if (!IsCompare.HasValue) {
                     IsCompare = checker;
                     TextBox_LineSizeStateSwitch();
                     return;
                 }
-                if (IsCompare.Value != checker)
-                {
+                if (IsCompare.Value != checker) {
                     IsCompare = checker;
                     TextBox_LineSizeStateSwitch();
                 }
             }
-            #endregion
+            #endregion EventHelper
         }
 
-
-        public void TriggerTextChange()
-        {
+        public void TriggerTextChange() {
             BeforeTextChanged?.Invoke(Text);
             AfterTextChanged?.Invoke(Text);
         }

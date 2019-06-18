@@ -1,7 +1,6 @@
-﻿namespace Se7en.Net
-{
-    public enum SocksError : byte
-    {
+﻿namespace Se7en.Net {
+
+    public enum SocksError : byte {
         RequestGranted = 0x00,
         GeneralFailure = 0x01,
         ConnectionNotAllowedByRuleset = 0x02,

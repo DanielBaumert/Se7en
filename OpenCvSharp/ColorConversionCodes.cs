@@ -1,11 +1,9 @@
-﻿namespace Se7en.OpenCvSharp
-{
+﻿namespace Se7en.OpenCvSharp {
+
     /// <summary>
     /// Color conversion operation for cv::cvtColor
     /// </summary>
-    public enum ColorConversionCodes
-    {
-        
+    public enum ColorConversionCodes {
         BGR2BGRA,
         RGB2RGBA = 0,
         BGRA2BGR,

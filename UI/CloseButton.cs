@@ -3,17 +3,16 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace Se7en.UI
-{
-    public class CloseButton : Control
-    {
+namespace Se7en.UI {
+
+    public class CloseButton : Control {
         public Color? HoverEffect { get; set; }
         public bool ScaleOutHoverEffect { get; set; }
+
         public int CrossWidth {
             get => _CrossWidth;
             set {
-                if (_CrossWidth != value)
-                {
+                if (_CrossWidth != value) {
                     _CrossWidth = value;
                     CalcSizes();
                     Invalidate();
@@ -23,8 +22,7 @@ namespace Se7en.UI
 
         public int HoverScaleOutWidth { get; set; }
 
-        public CloseButton()
-        {
+        public CloseButton() {
             InitializeStyle();
             ForeColor = DefaultForeColor;
             Size = new Size(24, 24);
@@ -34,63 +32,54 @@ namespace Se7en.UI
             HoverEffect = new Color?(Color.Transparent);
         }
 
-        protected override void OnSizeChanged(EventArgs e)
-        {
+        protected override void OnSizeChanged(EventArgs e) {
             CalcSizes();
             base.OnSizeChanged(e);
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
+        protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.CompositingQuality = CompositingQuality.HighQuality;
             graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
             graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
-            if (this.IsMouseEnter && this.HoverEffect != null && this.HoverEffect.Value != Color.Transparent)
-            {
+            if (this.IsMouseEnter && this.HoverEffect != null && this.HoverEffect.Value != Color.Transparent) {
                 graphics.Clear(this.HoverEffect.Value);
             }
             graphics.FillPath(new SolidBrush(this.ForeColor), this.LeftBlank);
             graphics.FillPath(new SolidBrush(this.ForeColor), this.RightBlank);
         }
 
-        protected override void OnMouseEnter(EventArgs e)
-        {
+        protected override void OnMouseEnter(EventArgs e) {
             base.OnMouseEnter(e);
             IsMouseEnter = true;
             CalcSizes();
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
-        {
+        protected override void OnMouseLeave(EventArgs e) {
             base.OnMouseLeave(e);
             IsMouseEnter = false;
             CalcSizes();
             Invalidate();
         }
 
-        protected override void OnPaddingChanged(EventArgs e)
-        {
+        protected override void OnPaddingChanged(EventArgs e) {
             base.OnPaddingChanged(e);
             CalcSizes();
             Invalidate();
         }
 
-        private void InitializeStyle()
-        {
+        private void InitializeStyle() {
             ControlStyles flag = ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor | ControlStyles.OptimizedDoubleBuffer;
             SetStyle(flag, true);
         }
 
-        private void CalcSizes()
-        {
+        private void CalcSizes() {
             int num = CrossWidth / 2;
             Padding padding = Padding;
-            if (IsMouseEnter && ScaleOutHoverEffect)
-            {
+            if (IsMouseEnter && ScaleOutHoverEffect) {
                 padding.All = Padding.All - HoverScaleOutWidth;
             }
             GraphicsPath graphicsPath = new GraphicsPath();

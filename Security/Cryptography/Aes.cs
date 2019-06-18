@@ -3,7 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using SysCryptography = System.Security.Cryptography;
+
 namespace Se7en.Security.Cryptography {
+
     public class Aes {
 
         public static string EncryptText(string message, string key) {
@@ -13,7 +15,6 @@ namespace Se7en.Security.Cryptography {
 
             using (MemoryStream mStream = new MemoryStream())
             using (SysCryptography.CryptoStream cStream = new SysCryptography.CryptoStream(mStream, aescrypt.CreateEncryptor(), SysCryptography.CryptoStreamMode.Write)) {
-
                 byte[] plainBytes = Encoding.UTF8.GetBytes(message);
                 cStream.Write(plainBytes, 0, plainBytes.Length);
                 cStream.Flush();
@@ -40,19 +41,18 @@ namespace Se7en.Security.Cryptography {
             }
         }
 
-
         public static void EncryptFile(string filePath, string key) {
             SysCryptography.Aes aescrypt = SysCryptography.Aes.Create();
             aescrypt.Key = ExtendKey(key, 32);
             aescrypt.IV = CreateBlockSize(16);
 
             string cryptPath = Path.ChangeExtension(filePath, ".crypt");
-            using(FileStream inputStream = new FileStream(filePath, FileMode.Open))
-            using(FileStream outputStream = new FileStream(cryptPath, FileMode.OpenOrCreate))
-            using(SysCryptography.CryptoStream cStream = new SysCryptography.CryptoStream(outputStream, aescrypt.CreateEncryptor(), SysCryptography.CryptoStreamMode.Write)) {
+            using (FileStream inputStream = new FileStream(filePath, FileMode.Open))
+            using (FileStream outputStream = new FileStream(cryptPath, FileMode.OpenOrCreate))
+            using (SysCryptography.CryptoStream cStream = new SysCryptography.CryptoStream(outputStream, aescrypt.CreateEncryptor(), SysCryptography.CryptoStreamMode.Write)) {
                 int data;
                 while ((data = inputStream.ReadByte()) != -1)
-                    cStream.WriteByte((byte) data);
+                    cStream.WriteByte((byte)data);
             }
         }
 

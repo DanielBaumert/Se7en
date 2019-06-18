@@ -3,10 +3,9 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Se7en.WinApi
-{
-    public class User32
-    {
+namespace Se7en.WinApi {
+
+    public class User32 {
         public const string ImportKey = "user32.dll";
 
         [DllImport(ImportKey)]
@@ -75,54 +74,75 @@ namespace Se7en.WinApi
         [DllImport(ImportKey)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr GetWindow(IntPtr hWnd, GetWindowType wCmd);
+
         [DllImport(ImportKey)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr GetTopWindow(IntPtr hWnd);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto, SetLastError = true)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern int GetWindowText(IntPtr hWnd, out StringBuilder lpString, int nMaxCount);
+
         [DllImport(ImportKey, EntryPoint = "GetWindowTextLengthA")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern int GetWindowTextLength(IntPtr hWnd);
+
         [DllImport(ImportKey)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern bool UpdateWindow(IntPtr hwnd);
+
         [DllImport(ImportKey, EntryPoint = "FindWindowExA")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
         [DllImport(ImportKey, EntryPoint = "GetWindowTextA")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern int GetWindowText(IntPtr hwnd, string lpString, int cch);
+
         // https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-windowfromdc
         [DllImport(ImportKey)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr WindowFromDC(IntPtr hdc);
+
         [DllImport(ImportKey), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr GetActiveWindow();
+
         [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, IntPtr wParam, StringBuilder lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, ref IntPtr lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, IntPtr lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, int lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, StringBuilder lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto)]
         public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto)]
         public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, ref IntPtr lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto)]
         public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, IntPtr lParam);
+
         [DllImport(ImportKey, CharSet = CharSet.Auto)]
         public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, int lParam);
+
         /// <summary>
         /// Synthesizes keystrokes, mouse motions, and button clicks.
         /// </summary>
@@ -131,9 +151,10 @@ namespace Se7en.WinApi
 
         [DllImport(ImportKey, CharSet = CharSet.Auto)]
         public static extern uint MapVirtualKeyEx(uint uCode, MapVirtualKeyMapTypes uMapType, IntPtr dwhkl);
+
         /// <summary>
         /// The MapVirtualKey function translates (maps) a virtual-key code into a scan
-        /// code or character value, or translates a scan code into a virtual-key code    
+        /// code or character value, or translates a scan code into a virtual-key code
         /// </summary>
         /// <param name="uCode">[in] Specifies the virtual-key code or scan code for a key.
         /// How this value is interpreted depends on the value of the uMapType parameter
@@ -146,7 +167,5 @@ namespace Se7en.WinApi
         /// </returns>
         [DllImport(ImportKey, CharSet = CharSet.Auto)]
         public static extern int MapVirtualKey(MapVirtualKeyMapTypes uCode, uint uMapType);
-
-
     }
 }

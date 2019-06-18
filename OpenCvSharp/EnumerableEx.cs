@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Se7en.OpenCvSharp
-{
+namespace Se7en.OpenCvSharp {
+
     /// <summary>
-    /// IEnumerable&lt;T&gt; extension methods for .NET Framework 2.0 
+    /// IEnumerable&lt;T&gt; extension methods for .NET Framework 2.0
     /// </summary>
-    internal static class EnumerableEx
-    {
+    internal static class EnumerableEx {
+
         /// <summary>
         /// Enumerable.Select
         /// </summary>
@@ -48,16 +48,14 @@ namespace Se7en.OpenCvSharp
         /// </summary>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static IntPtr[] SelectPtrs(IEnumerable<UtilMap> enumerable) 
-            => SelectToArray(enumerable, delegate (UtilMap obj)
-               {
-                   if (obj == null)
-                   {
-                       throw new ArgumentException("enumerable contains null");
-                   }
-                   obj.ThrowIfDisposed();
-                   return obj.Ptr;
-               });
+        public static IntPtr[] SelectPtrs(IEnumerable<UtilMap> enumerable)
+            => SelectToArray(enumerable, delegate (UtilMap obj) {
+                if (obj == null) {
+                    throw new ArgumentException("enumerable contains null");
+                }
+                obj.ThrowIfDisposed();
+                return obj.Ptr;
+            });
 
         /// <summary>
         /// Enumerable.Select -&gt; ToArray
@@ -65,15 +63,13 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <returns></returns>
         public static IntPtr[] SelectPtrs(IEnumerable<InputArray> enumerable)
-            => SelectToArray(enumerable, delegate (InputArray obj)
-               {
-                   if (obj == null)
-                   {
-                       throw new ArgumentException("enumerable contains null");
-                   }
-                   obj.ThrowIfDisposed();
-                   return obj.CvPtr;
-               });
+            => SelectToArray(enumerable, delegate (InputArray obj) {
+                if (obj == null) {
+                    throw new ArgumentException("enumerable contains null");
+                }
+                obj.ThrowIfDisposed();
+                return obj.CvPtr;
+            });
 
         /// <summary>
         /// Enumerable.Where
@@ -82,7 +78,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IEnumerable<TSource> Where<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
+        public static IEnumerable<TSource> Where<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate)
             => enumerable.Where(predicate);
 
         /// <summary>
@@ -92,7 +88,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static TSource[] WhereToArray<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
+        public static TSource[] WhereToArray<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate)
             => enumerable.Where(predicate).ToArray<TSource>();
 
         /// <summary>
@@ -101,10 +97,8 @@ namespace Se7en.OpenCvSharp
         /// <typeparam name="TSource"></typeparam>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static TSource[] ToArray<TSource>(IEnumerable<TSource> enumerable)
-        {
-            if (enumerable == null)
-            {
+        public static TSource[] ToArray<TSource>(IEnumerable<TSource> enumerable) {
+            if (enumerable == null) {
                 return null;
             }
             return enumerable.ToArray<TSource>();
@@ -117,7 +111,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static bool Any<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
+        public static bool Any<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate)
             => enumerable.Any(predicate);
 
         /// <summary>
@@ -126,10 +120,8 @@ namespace Se7en.OpenCvSharp
         /// <typeparam name="TSource"></typeparam>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static bool AnyNull<TSource>(IEnumerable<TSource> enumerable) where TSource : class
-        {
-            if (enumerable == null)
-            {
+        public static bool AnyNull<TSource>(IEnumerable<TSource> enumerable) where TSource : class {
+            if (enumerable == null) {
                 throw new ArgumentNullException("enumerable");
             }
             return enumerable.Any((TSource e) => e == null);
@@ -142,7 +134,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static bool All<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
+        public static bool All<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate)
             => enumerable.All(predicate);
 
         /// <summary>
@@ -152,7 +144,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static int Count<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
+        public static int Count<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate)
             => enumerable.Count(predicate);
 
         /// <summary>
@@ -161,14 +153,13 @@ namespace Se7en.OpenCvSharp
         /// <typeparam name="TSource"></typeparam>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static int Count<TSource>(IEnumerable<TSource> enumerable) 
+        public static int Count<TSource>(IEnumerable<TSource> enumerable)
             => enumerable.Count<TSource>();
 
-        
         /// <typeparam name="TSource"></typeparam>
         /// <param name="enumerable"></param>
         /// <returns></returns>
-        public static bool IsEmpty<TSource>(IEnumerable<TSource> enumerable) 
+        public static bool IsEmpty<TSource>(IEnumerable<TSource> enumerable)
             => !enumerable.Any<TSource>();
     }
 }

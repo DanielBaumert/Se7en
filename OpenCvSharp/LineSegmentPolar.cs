@@ -1,27 +1,26 @@
 ﻿using System;
 
-namespace Se7en.OpenCvSharp
-{
+namespace Se7en.OpenCvSharp {
+
     [Serializable]
-    public struct LineSegmentPolar : IEquatable<LineSegmentPolar>
-    {
+    public struct LineSegmentPolar : IEquatable<LineSegmentPolar> {
+
         /// <summary>
 		/// Length of the line
 		/// </summary>
         public float Rho;
+
         /// <summary>
         /// Angle of the line (radian)
         /// </summary>
         public float Theta;
-
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="rho">Length of the line</param>
         /// <param name="theta">Angle of the line (radian)</param>
-        public LineSegmentPolar(float rho, float theta)
-        {
+        public LineSegmentPolar(float rho, float theta) {
             Rho = rho;
             Theta = theta;
         }
@@ -39,8 +38,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="lhs">A Point to compare.</param>
         /// <param name="rhs">A Point to compare.</param>
         /// <returns>This operator returns true if the members of left and right are equal; otherwise, false.</returns>
-        public static bool operator ==(LineSegmentPolar lhs, LineSegmentPolar rhs)
-        {
+        public static bool operator ==(LineSegmentPolar lhs, LineSegmentPolar rhs) {
             return lhs.Equals(rhs);
         }
 
@@ -50,8 +48,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="lhs">A Point to compare.</param>
         /// <param name="rhs">A Point to compare.</param>
         /// <returns>This operator returns true if the members of left and right are unequal; otherwise, false.</returns>
-        public static bool operator !=(LineSegmentPolar lhs, LineSegmentPolar rhs)
-        {
+        public static bool operator !=(LineSegmentPolar lhs, LineSegmentPolar rhs) {
             return !lhs.Equals(rhs);
         }
 
@@ -74,8 +71,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="line1"></param>
         /// <param name="line2"></param>
         /// <returns></returns>
-        public static Point? LineIntersection(LineSegmentPolar line1, LineSegmentPolar line2)
-        {
+        public static Point? LineIntersection(LineSegmentPolar line1, LineSegmentPolar line2) {
             LineSegmentPoint line3 = line1.ToSegmentPoint(5000.0);
             LineSegmentPoint seg2 = line2.ToSegmentPoint(5000.0);
             return LineSegmentPoint.LineIntersection(line3, seg2);
@@ -93,19 +89,16 @@ namespace Se7en.OpenCvSharp
         /// </summary>
         /// <param name="scale"></param>
         /// <returns></returns>
-        public LineSegmentPoint ToSegmentPoint(double scale)
-        {
+        public LineSegmentPoint ToSegmentPoint(double scale) {
             double cos = System.Math.Cos(Theta);
             double sin = System.Math.Sin(Theta);
             double x0 = cos * Rho;
             double y0 = sin * Rho;
-            Point p3 = new Point
-            {
+            Point p3 = new Point {
                 X = (int)System.Math.Round(x0 + scale * -sin),
                 Y = (int)System.Math.Round(y0 + scale * cos)
             };
-            Point p2 = new Point
-            {
+            Point p2 = new Point {
                 X = (int)System.Math.Round(x0 - scale * -sin),
                 Y = (int)System.Math.Round(y0 - scale * cos)
             };
@@ -118,16 +111,13 @@ namespace Se7en.OpenCvSharp
         /// <param name="x1"></param>
         /// <param name="x2"></param>
         /// <returns></returns>
-        public LineSegmentPoint ToSegmentPointX(int x1, int x2)
-        {
-            if (x1 > x2)
-            {
+        public LineSegmentPoint ToSegmentPointX(int x1, int x2) {
+            if (x1 > x2) {
                 throw new ArgumentOutOfRangeException();
             }
-            int? y =  YPosOfLine(x1);
+            int? y = YPosOfLine(x1);
             int? y2 = YPosOfLine(x2);
-            if (y == null || y2 == null)
-            {
+            if (y == null || y2 == null) {
                 throw new Exception();
             }
             Point p3 = new Point(x1, y.Value);
@@ -141,16 +131,13 @@ namespace Se7en.OpenCvSharp
         /// <param name="y1"></param>
         /// <param name="y2"></param>
         /// <returns></returns>
-        public LineSegmentPoint ToSegmentPointY(int y1, int y2)
-        {
-            if (y1 > y2)
-            {
+        public LineSegmentPoint ToSegmentPointY(int y1, int y2) {
+            if (y1 > y2) {
                 throw new ArgumentOutOfRangeException();
             }
-            int? x =  XPosOfLine(y1);
+            int? x = XPosOfLine(y1);
             int? x2 = XPosOfLine(y2);
-            if (x == null || x2 == null)
-            {
+            if (x == null || x2 == null) {
                 throw new Exception();
             }
             Point p3 = new Point(x.Value, y1);
@@ -163,12 +150,10 @@ namespace Se7en.OpenCvSharp
         /// </summary>
         /// <param name="y"></param>
         /// <returns></returns>
-        public int? XPosOfLine(int y)
-        {
+        public int? XPosOfLine(int y) {
             LineSegmentPolar axis = new LineSegmentPolar((float)y, 1.57079637f);
             Point? node = LineIntersection(axis);
-            if (node != null)
-            {
+            if (node != null) {
                 return new int?(node.Value.X);
             }
             return null;
@@ -179,18 +164,15 @@ namespace Se7en.OpenCvSharp
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public int? YPosOfLine(int x)
-        {
+        public int? YPosOfLine(int x) {
             LineSegmentPolar axis = new LineSegmentPolar((float)x, 0f);
             Point? node = LineIntersection(axis);
-            if (node != null)
-            {
+            if (node != null) {
                 return new int?(node.Value.Y);
             }
             return null;
         }
 
         public override string ToString() => $"CvLineSegmentPolar (Rho:{Rho} Theta:{Theta})";
-
     }
 }

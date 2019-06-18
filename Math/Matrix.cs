@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Se7en.Math
-{
+namespace Se7en.Math {
+
     /// <summary>
     /// Implements simple Matrix functions needed for polynomial fitting
     /// </summary>
-    public static class Matrix
-    {
+    public static class Matrix {
+
         /// <summary>
         /// Get the number of rows in a matrix
         /// </summary>
@@ -30,14 +30,11 @@ namespace Se7en.Math
         /// </summary>
         /// <param name="self">Matrix to be transposed</param>
         /// <returns>Transposed matrix</returns>
-        public static double[,] Transpose(this double[,] self)
-        {
+        public static double[,] Transpose(this double[,] self) {
             double[,] trans = new double[self.Cols(), self.Rows()];
 
-            for (int row = 0; row < self.Rows(); row++)
-            {
-                for (int col = 0; col < self.Cols(); col++)
-                {
+            for (int row = 0; row < self.Rows(); row++) {
+                for (int col = 0; col < self.Cols(); col++) {
                     trans[col, row] = self[row, col];
                 }
             }
@@ -51,10 +48,8 @@ namespace Se7en.Math
         /// <param name="self">Matrix A</param>
         /// <param name="other">Matrix B</param>
         /// <returns>Dot product of A*B</returns>
-        public static double[,] Product(this double[,] self, double[,] other)
-        {
-            if (self.Cols() != other.Rows())
-            {
+        public static double[,] Product(this double[,] self, double[,] other) {
+            if (self.Cols() != other.Rows()) {
                 throw new ArgumentException("Invalid matrix size");
             }
 
@@ -72,15 +67,12 @@ namespace Se7en.Math
         /// Set the matrix so that it is an identity matrix.
         /// </summary>
         /// <param name="self">Matrix to be set to identity.</param>
-        public static void Identity(this double[,] self)
-        {
-            if (self.Cols() != self.Rows())
-            {
+        public static void Identity(this double[,] self) {
+            if (self.Cols() != self.Rows()) {
                 throw new ArgumentException("Argument matrix is not square!");
             }
             Array.Clear(self, 0, self.Length);
-            for (int i = 0; i < self.Rows(); i++)
-            {
+            for (int i = 0; i < self.Rows(); i++) {
                 self[i, i] = 1;
             }
         }
@@ -91,15 +83,12 @@ namespace Se7en.Math
         /// <param name="self">Matrix</param>
         /// <param name="col">Column to enumerate</param>
         /// <returns>Enumerated column from a given matrix.</returns>
-        public static IEnumerable<double> GetColumn(this double[,] self, int col)
-        {
-            if (col < 0 || col >= self.Cols())
-            {
+        public static IEnumerable<double> GetColumn(this double[,] self, int col) {
+            if (col < 0 || col >= self.Cols()) {
                 throw new ArgumentException("Specified column is out of range");
             }
 
-            for (int row = 0; row < self.Rows(); row++)
-            {
+            for (int row = 0; row < self.Rows(); row++) {
                 yield return self[row, col];
             }
         }
@@ -110,26 +99,21 @@ namespace Se7en.Math
         /// <param name="self">Matrix</param>
         /// <param name="row">Row to enumerate</param>
         /// <returns>Enumerated row from a given matrix.</returns>
-        public static IEnumerable<double> GetRow(this double[,] self, int row)
-        {
-            if (row < 0 || row >= self.Rows())
-            {
+        public static IEnumerable<double> GetRow(this double[,] self, int row) {
+            if (row < 0 || row >= self.Rows()) {
                 throw new ArgumentException("Specified row is out of range");
             }
 
-            for (int col = 0; col < self.Cols(); col++)
-            {
+            for (int col = 0; col < self.Cols(); col++) {
                 yield return self[row, col];
             }
         }
 
         /// <param name="size">Number of rows/cols in a matrix</param>
         /// <returns>Identity matrix</returns>
-        public static double[,] Identity(int size)
-        {
+        public static double[,] Identity(int size) {
             double[,] matrix = new double[size, size];
-            for (int i = 0; i < size; i++)
-            {
+            for (int i = 0; i < size; i++) {
                 matrix[i, i] = 1;
             }
             return matrix;

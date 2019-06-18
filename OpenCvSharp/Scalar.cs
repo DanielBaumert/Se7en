@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Se7en.OpenCvSharp
-{
+namespace Se7en.OpenCvSharp {
+
     [Serializable]
-    public struct Scalar : IEquatable<Scalar>
-    {
+    public struct Scalar : IEquatable<Scalar> {
 
         public double this[int i] {
             get {
-                switch (i)
-                {
+                switch (i) {
                     case 0:
                         return Val0;
                     case 1:
@@ -27,8 +21,7 @@ namespace Se7en.OpenCvSharp
                 }
             }
             set {
-                switch (i)
-                {
+                switch (i) {
                     case 0:
                         Val0 = value;
                         return;
@@ -47,65 +40,51 @@ namespace Se7en.OpenCvSharp
             }
         }
 
-
         /// <param name="v0"></param>
         public Scalar(double v0) => this = new Scalar(v0, 0.0, 0.0, 0.0);
-
 
         /// <param name="v0"></param>
         /// <param name="v1"></param>
         public Scalar(double v0, double v1) => this = new Scalar(v0, v1, 0.0, 0.0);
-
 
         /// <param name="v0"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         public Scalar(double v0, double v1, double v2) => this = new Scalar(v0, v1, v2, 0.0);
 
-
         /// <param name="v0"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <param name="v3"></param>
-        public Scalar(double v0, double v1, double v2, double v3)
-        {
+        public Scalar(double v0, double v1, double v2, double v3) {
             Val0 = v0;
             Val1 = v1;
             Val2 = v2;
             Val3 = v3;
         }
 
-
         /// <param name="r"></param>
         /// <param name="g"></param>
         /// <param name="b"></param>
         public static Scalar FromRgb(int r, int g, int b) => new Scalar(b, g, r);
 
-
         /// <param name="self"></param>
         /// <returns></returns>
-        public static explicit operator double(Scalar self)
-        {
+        public static explicit operator double(Scalar self) {
             return self.Val0;
         }
 
-
         /// <param name="val"></param>
         /// <returns></returns>
-        public static implicit operator Scalar(double val)
-        {
+        public static implicit operator Scalar(double val) {
             return new Scalar(val);
         }
 
-
-
         /// <param name="p"></param>
         /// <returns></returns>
-        public static explicit operator Scalar(Point p)
-        {
+        public static explicit operator Scalar(Point p) {
             return new Scalar(p.X, p.Y);
         }
-
 
         /// <summary>
         /// Specifies whether this object contains the same members as the specified Object.
@@ -132,69 +111,56 @@ namespace Se7en.OpenCvSharp
                 Val3
             });
 
-
         /// <param name="s1"></param>
         /// <param name="s2"></param>
         /// <returns></returns>
         public static bool operator ==(Scalar s1, Scalar s2) => s1.Equals(s2);
-
 
         /// <param name="s1"></param>
         /// <param name="s2"></param>
         /// <returns></returns>
         public static bool operator !=(Scalar s1, Scalar s2) => !s1.Equals(s2);
 
-
         /// <param name="v"></param>
         /// <returns></returns>
         public static Scalar All(double v) => new Scalar(v, v, v, v);
-
 
         /// <param name="it"></param>
         /// <param name="scale"></param>
         /// <returns></returns>
         public Scalar Mul(Scalar it, double scale) => new Scalar(Val0 * it.Val0 * scale, Val1 * it.Val1 * scale, Val2 * it.Val2 * scale, Val3 * it.Val3 * scale);
 
-
         /// <param name="it"></param>
         /// <returns></returns>
         public Scalar Mul(Scalar it) => Mul(it, 1.0);
 
-
         /// <returns></returns>
         public Scalar Conj() => new Scalar(Val0, -Val1, -Val2, -Val3);
 
-
         /// <returns></returns>
         public bool IsReal() => Val1 == 0.0 && Val2 == 0.0 && Val3 == 0.0;
-
 
         /// <param name="other"></param>
         /// <returns></returns>
         public bool Equals(Scalar other) => Val0 == other.Val0 && Val1 == other.Val1 && Val2 == other.Val2 && Val3 == other.Val3;
 
-
         public double Val0;
-
 
         public double Val1;
 
-
         public double Val2;
 
-
         public double Val3;
-
 
         public static readonly Scalar AliceBlue = FromRgb(240, 248, 255);
 
         /// <summary>
-        /// #FAEBD7 
+        /// #FAEBD7
         /// </summary>
         public static readonly Scalar AntiqueWhite = FromRgb(250, 235, 215);
 
         /// <summary>
-        /// #00FFFF 
+        /// #00FFFF
         /// </summary>
         public static readonly Scalar Aqua = FromRgb(0, 255, 255);
 
@@ -239,7 +205,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar BlueViolet = FromRgb(138, 43, 226);
 
         /// <summary>
-        /// #A52A2A 
+        /// #A52A2A
         /// </summary>
         public static readonly Scalar Brown = FromRgb(165, 42, 42);
 
@@ -249,12 +215,12 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar BurlyWood = FromRgb(222, 184, 135);
 
         /// <summary>
-        /// #5F9EA0 
+        /// #5F9EA0
         /// </summary>
         public static readonly Scalar CadetBlue = FromRgb(95, 158, 160);
 
         /// <summary>
-        /// #7FFF00 
+        /// #7FFF00
         /// </summary>
         public static readonly Scalar Chartreuse = FromRgb(127, 255, 0);
 
@@ -329,7 +295,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar DarkOliveGreen = FromRgb(85, 107, 47);
 
         /// <summary>
-        /// #FF8C00 
+        /// #FF8C00
         /// </summary>
         public static readonly Scalar DarkOrange = FromRgb(255, 140, 0);
 
@@ -364,7 +330,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar DarkSlateGray = FromRgb(47, 79, 79);
 
         /// <summary>
-        /// #00CED1 
+        /// #00CED1
         /// </summary>
         public static readonly Scalar DarkTurquoise = FromRgb(0, 206, 209);
 
@@ -399,7 +365,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar Firebrick = FromRgb(178, 34, 34);
 
         /// <summary>
-        /// #FFFAF0 
+        /// #FFFAF0
         /// </summary>
         public static readonly Scalar FloralWhite = FromRgb(255, 250, 240);
 
@@ -409,7 +375,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar ForestGreen = FromRgb(34, 139, 34);
 
         /// <summary>
-        /// #FF00FF 
+        /// #FF00FF
         /// </summary>
         public static readonly Scalar Fuchsia = FromRgb(255, 0, 255);
 
@@ -484,7 +450,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar Lavender = FromRgb(230, 230, 250);
 
         /// <summary>
-        /// #FFF0F5 
+        /// #FFF0F5
         /// </summary>
         public static readonly Scalar LavenderBlush = FromRgb(255, 240, 245);
 
@@ -524,7 +490,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar LightGray = FromRgb(211, 211, 211);
 
         /// <summary>
-        /// #90EE90 
+        /// #90EE90
         /// </summary>
         public static readonly Scalar LightGreen = FromRgb(144, 238, 144);
 
@@ -544,7 +510,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar LightSeaGreen = FromRgb(32, 178, 170);
 
         /// <summary>
-        /// #87CEFA 
+        /// #87CEFA
         /// </summary>
         public static readonly Scalar LightSkyBlue = FromRgb(135, 206, 250);
 
@@ -554,7 +520,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar LightSlateGray = FromRgb(119, 136, 153);
 
         /// <summary>
-        /// #B0C4DE 
+        /// #B0C4DE
         /// </summary>
         public static readonly Scalar LightSteelBlue = FromRgb(176, 196, 222);
 
@@ -619,7 +585,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar MediumSlateBlue = FromRgb(123, 104, 238);
 
         /// <summary>
-        /// #00FA9A 
+        /// #00FA9A
         /// </summary>
         public static readonly Scalar MediumSpringGreen = FromRgb(0, 250, 154);
 
@@ -669,7 +635,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar OldLace = FromRgb(253, 245, 230);
 
         /// <summary>
-        /// #808000 
+        /// #808000
         /// </summary>
         public static readonly Scalar Olive = FromRgb(128, 128, 0);
 
@@ -694,7 +660,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar Orchid = FromRgb(218, 112, 214);
 
         /// <summary>
-        /// #EEE8AA 
+        /// #EEE8AA
         /// </summary>
         public static readonly Scalar PaleGoldenrod = FromRgb(238, 232, 170);
 
@@ -714,7 +680,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar PaleVioletRed = FromRgb(219, 112, 147);
 
         /// <summary>
-        /// #FFEFD5 
+        /// #FFEFD5
         /// </summary>
         public static readonly Scalar PapayaWhip = FromRgb(255, 239, 213);
 
@@ -794,7 +760,7 @@ namespace Se7en.OpenCvSharp
         public static readonly Scalar Sienna = FromRgb(160, 82, 45);
 
         /// <summary>
-        /// #C0C0C0 
+        /// #C0C0C0
         /// </summary>
         public static readonly Scalar Silver = FromRgb(192, 192, 192);
 

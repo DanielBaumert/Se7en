@@ -3,13 +3,11 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Se7en.UI
-{
-    internal class PromptedTextBoxBase : System.Windows.Forms.TextBox
-    {
+namespace Se7en.UI {
 
-        public PromptedTextBoxBase()
-        {
+    internal class PromptedTextBoxBase : System.Windows.Forms.TextBox {
+
+        public PromptedTextBoxBase() {
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
         }
 
@@ -19,23 +17,20 @@ namespace Se7en.UI
         public string Cue {
             get => _Cue;
             set {
-                if (_Cue != value)
-                {
+                if (_Cue != value) {
                     _Cue = value;
                     UpdateCue();
                 }
             }
         }
 
-        private void UpdateCue()
-        {
-            if (IsHandleCreated && _Cue != null)
-            {
+        private void UpdateCue() {
+            if (IsHandleCreated && _Cue != null) {
                 SendMessage(Handle, 0x1501, (IntPtr)1, _Cue);
             }
         }
-        protected override void OnHandleCreated(EventArgs e)
-        {
+
+        protected override void OnHandleCreated(EventArgs e) {
             base.OnHandleCreated(e);
             UpdateCue();
         }
