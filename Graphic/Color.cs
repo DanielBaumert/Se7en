@@ -24,7 +24,7 @@ namespace Se7en.Graphic {
             R = r;
             G = g;
             B = b;
-            A = 255;
+            A = a;
         }
 
         public Color(uint value) : this() {

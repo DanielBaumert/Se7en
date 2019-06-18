@@ -31,7 +31,7 @@ namespace Se7en.UI {
                 Interlocked.Exchange(ref path, tmpPath);
             }
         }
-
+        
         public static void CloseIcon(int width, int x, int y, int w, int h, int pl, int pr, int pt, int pb, ref GraphicsPath path) {
             int ch2 = width / 2;
             using (GraphicsPath tmpPath = new GraphicsPath()) {
