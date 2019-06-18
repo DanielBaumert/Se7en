@@ -1,4 +1,5 @@
 ﻿
+using Se7en.Math;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,13 +9,13 @@ namespace Se7en.Graphic {
         [FieldOffset(0)]
         public void* Ptr;
         [FieldOffset(0)]
-        public SPoint2 Position;
+        public Vector2i Position;
         [FieldOffset(0)]
         public int X;
         [FieldOffset(4)]
         public int Y;
         [FieldOffset(8)]
-        public SSize2 Size;
+        public Vector2i Size;
         [FieldOffset(8)]
         public int Width;
         [FieldOffset(12)]
@@ -30,19 +31,19 @@ namespace Se7en.Graphic {
             Height = height;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public SRect2(SPoint2 location, int width, int height) : this() {
+        public SRect2(Vector2i location, int width, int height) : this() {
             Position = location;
             Width = width;
             Height = height;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public SRect2(int x, int y, SSize2 size) : this() {
+        public SRect2(int x, int y, Vector2i size) : this() {
             X = x;
             Y = y;
             Size = size;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public SRect2(SPoint2 location, SSize2 size) : this() {
+        public SRect2(Vector2i location, Vector2i size) : this() {
             Position = location;
             Size = size;
         }

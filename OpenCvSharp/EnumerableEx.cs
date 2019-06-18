@@ -18,7 +18,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> enumerable, Func<TSource, TResult> selector)
+        public static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> enumerable, System.Func<TSource, TResult> selector)
             => enumerable.Select(selector);
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static TResult[] SelectToArray<TSource, TResult>(IEnumerable<TSource> enumerable, Func<TSource, TResult> selector)
+        public static TResult[] SelectToArray<TSource, TResult>(IEnumerable<TSource> enumerable, System.Func<TSource, TResult> selector)
             => enumerable.Select(selector).ToArray<TResult>();
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public static TResult[] SelectToArray<TSource, TResult>(IEnumerable enumerable, Func<TSource, TResult> selector)
+        public static TResult[] SelectToArray<TSource, TResult>(IEnumerable enumerable, System.Func<TSource, TResult> selector)
             => enumerable.Cast<TSource>().Select(selector).ToArray<TResult>();
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IEnumerable<TSource> Where<TSource>(IEnumerable<TSource> enumerable, Func<TSource, bool> predicate) 
+        public static IEnumerable<TSource> Where<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
             => enumerable.Where(predicate);
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static TSource[] WhereToArray<TSource>(IEnumerable<TSource> enumerable, Func<TSource, bool> predicate) 
+        public static TSource[] WhereToArray<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
             => enumerable.Where(predicate).ToArray<TSource>();
 
         /// <summary>
@@ -117,7 +117,8 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static bool Any<TSource>(IEnumerable<TSource> enumerable, Func<TSource, bool> predicate) => enumerable.Any(predicate);
+        public static bool Any<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
+            => enumerable.Any(predicate);
 
         /// <summary>
         /// Enumerable.Any
@@ -141,7 +142,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static bool All<TSource>(IEnumerable<TSource> enumerable, Func<TSource, bool> predicate) 
+        public static bool All<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
             => enumerable.All(predicate);
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="enumerable"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static int Count<TSource>(IEnumerable<TSource> enumerable, Func<TSource, bool> predicate) 
+        public static int Count<TSource>(IEnumerable<TSource> enumerable, System.Func<TSource, bool> predicate) 
             => enumerable.Count(predicate);
 
         /// <summary>

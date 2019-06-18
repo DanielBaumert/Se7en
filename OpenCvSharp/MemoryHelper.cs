@@ -30,7 +30,7 @@ namespace Se7en.OpenCvSharp
             {
                 offset = 3u - offset;
             }
-            offset = Math.Min(offset, inNumOfBytes);
+            offset = System.Math.Min(offset, inNumOfBytes);
             for (uint i = 0u; i < offset; i += 1u)
             {
                 ((byte*)outDest)[i] = 0;

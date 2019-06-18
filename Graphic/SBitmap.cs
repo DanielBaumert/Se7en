@@ -1,4 +1,5 @@
 ﻿
+using Se7en.Math;
 using System.Runtime.InteropServices;
 
 namespace Se7en.Graphic {
@@ -9,7 +10,7 @@ namespace Se7en.Graphic {
         [FieldOffset(0)]
         public uint _Size;
         [FieldOffset(4)]
-        public SSize2 Size;
+        public Vector2i Size;
         /// <summary>
         /// The width of the bitmap, in pixels.
         /// </summary>

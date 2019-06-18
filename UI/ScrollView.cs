@@ -1,4 +1,5 @@
 ﻿using Se7en.Graphic;
+using Se7en.Math;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
@@ -54,7 +55,7 @@ namespace Se7en.UI
                 }
             }
         }
-        public SPoint2 Position {
+        public Vector2i Position {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => _Client.Position;
             set {
@@ -84,7 +85,7 @@ namespace Se7en.UI
                 }
             }
         }
-        public SSize2 Size {
+        public Vector2i Size {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => _Client.Size;
             set {
@@ -120,8 +121,8 @@ namespace Se7en.UI
 
 
         public abstract void OnPaint(PaintEventArgs args);
-        public abstract void OnSizeChanged(SSize2 newSize);
-        public abstract void OnPositionChanged(SPoint2 newSize);
+        public abstract void OnSizeChanged(Vector2i newSize);
+        public abstract void OnPositionChanged(Vector2i newSize);
     }
 
 }

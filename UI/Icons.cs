@@ -10,9 +10,9 @@ namespace Se7en.UI
     {
 
 #if CLOSE_ICON
-        public static void CloseIcon(int width, int x, int y, SSize2 size, ref GraphicsPath path) => CloseIcon(width, x, y, size.Width, size.Height, ref path);
-        public static void CloseIcon(int width, SPoint2 position, int w, int h, ref GraphicsPath path) => CloseIcon(width, position.X, position.Y, w, h, ref path);
-        public static void CloseIcon(int width, SPoint2 position, SSize2 size, ref GraphicsPath path) => CloseIcon(width, position.X, position.Y, size.Width, size.Height, ref path); 
+        public static void CloseIcon(int width, int x, int y, Vector2i size, ref GraphicsPath path) => CloseIcon(width, x, y, size.X, size.Y, ref path);
+        public static void CloseIcon(int width, Vector2i position, int w, int h, ref GraphicsPath path) => CloseIcon(width, position.X, position.Y, w, h, ref path);
+        public static void CloseIcon(int width, Vector2i position, Vector2i size, ref GraphicsPath path) => CloseIcon(width, position.X, position.Y, size.X, size.Y, ref path); 
         public static void CloseIcon(int width, int x, int y, int w, int h, ref GraphicsPath path)
         {
             int ch2 = width / 2;

@@ -9,8 +9,9 @@ namespace Se7en.Graphic {
         None = 0,
         Bit1 = 1,
         Bit4 = 4,
-        BIt8 = 8,
-        BIt16 = 16,
-        Bit32 = 32
+        Bit8 = 8,
+        Bit16 = 16,
+        Bit32 = 32,
+        Bit64 = 64 
     }
 }

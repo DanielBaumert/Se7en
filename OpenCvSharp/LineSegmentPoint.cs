@@ -52,8 +52,8 @@ namespace Se7en.OpenCvSharp
             double num = (double)(f * dy - g * dx) / det;
             return new Point?(new Point
             {
-                X = (int)Math.Round((double)x + (double)f * t),
-                Y = (int)Math.Round((double)y + (double)g * t)
+                X = (int)System.Math.Round((double)x + (double)f * t),
+                Y = (int)System.Math.Round((double)y + (double)g * t)
             });
         }
 

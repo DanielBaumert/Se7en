@@ -1,23 +1,14 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.Runtime.CompilerServices;
 
 namespace Se7en
 {
-    public delegate void Action<T1>(T1 arg1);
-    public delegate void Action<T1, T2>(T1 arg1, T2 arg2);
-    public delegate void Action<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3);
-    public delegate void Action<T1, T2, T3, T4>(T1 arg1, T2 arg2, T3 arg3, T4 arg);
 
     public unsafe delegate void UnsafeAction<T1>(T1* arg1) where T1 : unmanaged;
     public unsafe delegate void UnsafeAction<T1, T2>(T1* arg1, T2 arg2) where T1 : unmanaged;
     public unsafe delegate void UnsafeAction<T1, T2, T3>(T1* arg1, T2 arg2, T3 arg3) where T1 : unmanaged;
     public unsafe delegate void UnsafeAction<T1, T2, T3, T4>(T1* arg1, T2 arg2, T3 arg3, T4 arg) where T1 : unmanaged;
-
-
-    public delegate TOut Func<T1, TOut>(T1 arg1);
-    public delegate TOut Func<T1, T2, TOut>(T1 arg1, T2 arg2);
-    public delegate TOut Func<T1, T2, T3, TOut>(T1 arg1, T2 arg2, T3 arg3);
-    public delegate TOut Func<T1, T2, T3, T4, TOut>(T1 arg1, T2 arg2, T3 arg3, T4 arg);
 
     public unsafe delegate TOut UnsafeFunc<T1, TOut>(T1* arg1) where T1 : unmanaged;
     public unsafe delegate TOut UnsafeFunc<T1, T2, TOut>(T1* arg1, T2 arg2) where T1 : unmanaged;
@@ -29,7 +20,7 @@ namespace Se7en
 
     public static class Utils {
         public static Random Random = new Random();
-         
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe T* GetSourcePtr<T>(this T[] source) where T : unmanaged {
             fixed (T* sourcePtr = source) {
@@ -40,5 +31,15 @@ namespace Se7en
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe int ToInt(this bool value) => *(byte*)&value;
 
+        //TODO Adding multiplay support
+        public static int PixelWidth(this PixelFormat pixelFormat)
+            => pixelFormat switch
+            {
+                PixelFormat.Format24bppRgb => 24,
+                PixelFormat.Format32bppArgb => 32,
+                PixelFormat.Format32bppPArgb => 32,
+                PixelFormat.Format32bppRgb => 32,
+                _ => throw new NotSupportedException(pixelFormat.ToString())
+            };
     }
 }

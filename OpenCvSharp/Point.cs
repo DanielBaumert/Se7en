@@ -110,7 +110,7 @@ namespace Se7en.OpenCvSharp
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        public static double Distance(Point p1, Point p2) => Math.Sqrt(Math.Pow((double)(p2.X - p1.X), 2.0) + Math.Pow((double)(p2.Y - p1.Y), 2.0));
+        public static double Distance(Point p1, Point p2) => System.Math.Sqrt(System.Math.Pow((double)(p2.X - p1.X), 2.0) + System.Math.Pow((double)(p2.Y - p1.Y), 2.0));
 
         /// <summary>
         /// Returns the distance between the specified two points

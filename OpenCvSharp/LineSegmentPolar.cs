@@ -95,19 +95,19 @@ namespace Se7en.OpenCvSharp
         /// <returns></returns>
         public LineSegmentPoint ToSegmentPoint(double scale)
         {
-            double cos = Math.Cos(Theta);
-            double sin = Math.Sin(Theta);
+            double cos = System.Math.Cos(Theta);
+            double sin = System.Math.Sin(Theta);
             double x0 = cos * Rho;
             double y0 = sin * Rho;
             Point p3 = new Point
             {
-                X = (int)Math.Round(x0 + scale * -sin),
-                Y = (int)Math.Round(y0 + scale * cos)
+                X = (int)System.Math.Round(x0 + scale * -sin),
+                Y = (int)System.Math.Round(y0 + scale * cos)
             };
             Point p2 = new Point
             {
-                X = (int)Math.Round(x0 - scale * -sin),
-                Y = (int)Math.Round(y0 - scale * cos)
+                X = (int)System.Math.Round(x0 - scale * -sin),
+                Y = (int)System.Math.Round(y0 - scale * cos)
             };
             return new LineSegmentPoint(p3, p2);
         }
