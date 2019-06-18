@@ -40,7 +40,7 @@ NullByte-Toolkit is a performance optimized toolkit for the .Net-Framework with 
   - [ ] HttpsClient
     - [ ] SSL/TLS Support 
 - [ ] Security
-  - [x] BlowFish
+  - [x] AES
   - [ ] etc.
 - [ ] Math
   - [ ] Vactor calulations
