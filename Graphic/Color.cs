@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 
 namespace Se7en.Graphic {
-    [StructLayout(LayoutKind.Explicit)]
+    [StructLayout(LayoutKind.Explicit, Size = 8)]
     public unsafe struct Color {
         [FieldOffset(0)]
         public int Value;

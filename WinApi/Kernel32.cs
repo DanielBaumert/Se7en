@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Se7en.WinApi
 {
@@ -16,6 +12,8 @@ namespace Se7en.WinApi
 
         [DllImport(ImportKey, EntryPoint = "CopyMemory", SetLastError = true)]
         public static extern void CopyMemory([In]IntPtr dest, [In] IntPtr src, uint count);
+        [DllImport(ImportKey, EntryPoint = "CopyMemory", SetLastError = true)]
+        public unsafe static extern void CopyMemory([In]void* dest, [In]void* src, uint count);
         [DllImport(ImportKey, EntryPoint = "MoveMemory", SetLastError = true)]
         public static extern void MoveMemory([In] IntPtr dest, [In] IntPtr src, uint count);
         [DllImport(ImportKey, EntryPoint = "GlobalAlloc", SetLastError = true)]

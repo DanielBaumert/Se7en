@@ -1,4 +1,5 @@
 ﻿using Se7en.Math;
+using Se7en.WinApi;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -10,45 +11,39 @@ namespace Se7en.Graphic {
     public unsafe struct NativBitmap : IDisposable {
         private byte* _bitmapBuffer;
         private int _pixelCount;
+        private int _pixelWidth;
         private int _byteCount;
         private int _stride;
 
         public int Width { get; }
         public int Height { get; }
         public PixelFormat PixelFormat { get; }
+
+
+        public NativBitmap(Vector2i size, PixelFormat pixelFormat)
+            : this(size.X, size.Y, pixelFormat) {
+        }
         public NativBitmap(int width, int height, PixelFormat pixelFormat) {
             Width = width;
             Height = height;
             PixelFormat = pixelFormat;
+            _pixelWidth = ((int)pixelFormat) / 8;
 
             _pixelCount = Width * Height;
-            _byteCount = _pixelCount * (int)PixelFormat;
-            _stride = Width * (int)PixelFormat;
+            _byteCount = _pixelCount * _pixelWidth;
+            _stride = Width * _pixelWidth;
 
-            _bitmapBuffer = (byte*)Marshal.AllocHGlobal(_byteCount);
+            _bitmapBuffer = (byte*)Kernel32.GlobalAlloc(GlobalAllocFlag.GMEM_FIXED, _byteCount);
         }
 
-        public NativBitmap(Vector2i size, PixelFormat pixelFormat) {
-            Width = size.X;
-            Height = size.Y;
-            PixelFormat = pixelFormat;
-
-            _pixelCount = Width * Height;
-            _byteCount = _pixelCount * (int)PixelFormat;
-            _stride = Width * (int)PixelFormat;
-
-            _bitmapBuffer = (byte*)Marshal.AllocHGlobal(_byteCount);
-        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(Vector2i point, Color color)
             => SetPixel(point.X, point.Y, color);
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(int x, int y, Color color) {
             int offset = x + (y * _stride);
             *(int*)(_bitmapBuffer + offset) = color.Value;
         }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe Color GetPixel(Vector2i point)
             => GetPixel(point.X, point.Y);
@@ -67,10 +62,28 @@ namespace Se7en.Graphic {
             => DrawLine(new StraightLineEquation(xStart, yStart, xEnd, yEnd), xStart, xEnd, color);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void DrawLine(StraightLineEquation line, int xStart, int xEnd, Color color) {
+        public void DrawLine(StraightLineEquation line, int xStart, int xEnd, Color color) {
             Action<int, int, Color> setPixelProxy = SetPixel;
-            for (int x = xStart; x <= xEnd; x++)
-                setPixelProxy(x, (int)line.GetValue(x), color);
+            if (xStart == xEnd) {
+                SetPixel(xStart, (int)line.GetValue(xStart), color);
+            } else {
+                if (xStart < xEnd) {
+                    Parallel.For(xStart, xEnd, x => setPixelProxy(x, (int)line.GetValue(x), color));
+                } else {
+                    Parallel.For(xEnd, xStart, x => setPixelProxy(x, (int)line.GetValue(x), color));
+                }
+            }
+        }
+
+
+        public void Fill(Color color) {
+            Action<int, int, Color> setPixelProxy = SetPixel;
+            int height = Height;
+            int width = Width;
+            Parallel.For(0, height, y
+                => Parallel.For(0, width, x
+                => setPixelProxy(x, y, color)
+            ));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -86,11 +99,11 @@ namespace Se7en.Graphic {
             Rectangle bmpRect = new Rectangle(Point.Empty, bitmap.Size);
             BitmapData bmpData = bitmap.LockBits(bmpRect, ImageLockMode.ReadWrite, bitmap.PixelFormat);
 
-            Buffer.MemoryCopy(_bitmapBuffer, (void*)bmpData.Scan0, _byteCount, _byteCount);
+            Kernel32.CopyMemory((void*)bmpData.Scan0, _bitmapBuffer, (uint)_byteCount);
 
             bitmap.UnlockBits(bmpData);
         }
 
-        public void Dispose() => Marshal.FreeHGlobal((IntPtr)_bitmapBuffer);
+        public void Dispose() => Kernel32.GlobalFree((IntPtr)_bitmapBuffer);
     }
 }
