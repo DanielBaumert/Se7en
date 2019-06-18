@@ -4,8 +4,6 @@ namespace Se7en.Graphic {
     [StructLayout(LayoutKind.Explicit)]
     public unsafe struct Color {
         [FieldOffset(0)]
-        public void* Ptr;
-        [FieldOffset(0)]
         public int Value;
         [FieldOffset(0)]
         public byte A;
@@ -23,8 +21,9 @@ namespace Se7en.Graphic {
             A = 255;
         }
 
-        public Color(uint value) : this()
-            => *(uint*)Ptr = value;
+        public Color(uint value) : this() {
+            Value = (int) value;
+        }
 
         public float GetBrightness() {
             float r = (float)R / 255.0f;

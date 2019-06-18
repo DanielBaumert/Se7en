@@ -6,3 +6,4 @@
 /obj/Release
 /.vs/Se7en/DesignTimeBuild
 /obj
+/bin/Release/net48

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Se7en.Graphic {
-    public unsafe struct NativBitmap : IDisposable{
+    public unsafe struct NativBitmap : IDisposable {
         private byte* _bitmapBuffer;
         private int _pixelCount;
         private int _byteCount;
@@ -46,7 +46,6 @@ namespace Se7en.Graphic {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(int x, int y, Color color) {
             int offset = x + (y * _stride);
-
             *(int*)(_bitmapBuffer + offset) = color.Value;
         }
 
@@ -70,17 +69,18 @@ namespace Se7en.Graphic {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void DrawLine(StraightLineEquation line, int xStart, int xEnd, Color color) {
             Action<int, int, Color> setPixelProxy = SetPixel;
-            Parallel.For(xStart, xEnd, x => setPixelProxy(x, (int)line.GetValue(x), color));
+            for (int x = xStart; x <= xEnd; x++)
+                setPixelProxy(x, (int)line.GetValue(x), color);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void DrawToBitmap(ref Bitmap bitmap) {
+        public void DrawToBitmap(Bitmap bitmap) {
             if (bitmap.Width != Width)
                 throw new ArgumentException("Bitmap.Width != Width");
             if (bitmap.Height != Height)
                 throw new ArgumentException("Bitmap.Height != Height");
 
-            if (bitmap.PixelFormat.PixelWidth() != (int) PixelFormat)
+            if (bitmap.PixelFormat.PixelWidth() != (int)PixelFormat)
                 throw new ArgumentException("Bitmap.PixelWidth != PixelWidth");
 
             Rectangle bmpRect = new Rectangle(Point.Empty, bitmap.Size);
