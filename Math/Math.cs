@@ -6,31 +6,31 @@ namespace Se7en.Math {
     public static class Math {
         public const float PI = 3.1415926535897932384626433832795F;
 
-        public static int Mod(this int n, int m)
-        {
-            return ((int)(n / (float)m) * n);
-        }
+        public static int Mod(this int n, int m) 
+            => ((int)(n / (float)m) * n);
 
-        public static int ModPow2(this int n, int mPow2)
-        {
-            return n & (mPow2 - 1);
-        }
+        public static int ModPow2(this int n, int mPow2) 
+            => n & (mPow2 - 1);
 
-        public static uint Mod2(this uint n) {
-            return ((n << 31) >> 31);
-        }
+        public static uint Mod2(this uint n) 
+            => ((n << 31) >> 31);
 
-        public static uint Mod4(this uint n) {
-            return ((n << 30) >> 30);
-        }
+        public static uint Mod4(this uint n) 
+            => ((n << 30) >> 30);
 
-        public static uint Mod8(this uint n) {
-            return ((n << 29) >> 29);
-        }
+        public static uint Mod8(this uint n) 
+            => ((n << 29) >> 29);
 
-        public static uint Mod16(this uint n) {
-            return ((n << 28) >> 28);
-        }
+        public static uint Mod16(this uint n) 
+            => ((n << 28) >> 28);
+
+        #region Abs
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Abs(this int value)
+            => (value ^ (value >> 31)) - (value >> 31);
+
+        #endregion
 
         #region Min
 

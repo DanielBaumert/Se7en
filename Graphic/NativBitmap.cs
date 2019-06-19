@@ -39,6 +39,8 @@ namespace Se7en.Graphic {
         private readonly int _byteCount;
         private readonly int _stride;
 
+        public bool Aliasing { get; set; }
+
         public int Width { get; }
         public int Height { get; }
         public PixelFormat PixelFormat { get; }
@@ -47,12 +49,13 @@ namespace Se7en.Graphic {
             : this(size.X, size.Y, pixelFormat) { }
 
         //todo support diffrent pixel sizes
-        public NativBitmap(int width, int height, PixelFormat pixelFormat) {
+        public NativBitmap(int width, int height, PixelFormat pixelFormat, bool aliasing = false) {
             Width = width;
             Height = height;
             PixelFormat = pixelFormat;
-            _pixelWidth = (int)pixelFormat / 8;
+            Aliasing = aliasing;
 
+            _pixelWidth = (int)pixelFormat / 8;
             _pixelCount = Width * Height;
             _byteCount = _pixelCount * _pixelWidth;
             _stride = Width * _pixelWidth;
@@ -60,15 +63,25 @@ namespace Se7en.Graphic {
             _bitmapBuffer = (byte*)Kernel32.GlobalAlloc(GlobalAllocFlag.GPTR, _byteCount);
         }
 
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetPixel(Vector2i point, Color color) {
-            SetPixel(point.X, point.Y, color);
+        public void SetPixel(Vector2i point, Color color, float brightness)
+            => SetPixel(point.X, point.Y, color, brightness);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetPixel(int x, int y, Color color, float brightness) {
+            color.A = (byte)(brightness * 255);
+            SetPixel(x, y, color);
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetPixel(Vector2i point, Color color)
+        => SetPixel(point.X, point.Y, color);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void SetPixel(int x, int y, Color color)
-            => *((int*)_bitmapBuffer + x + (y * Width)) = color.Value;
-
+        public void SetPixel(int x, int y, Color color) {
+            if (x < 0 || Width <= x || y < 0 || Height <= y)
+                return;
+            *((int*)_bitmapBuffer + x + (y * Width)) = color.Value;
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Color GetPixel(Vector2i point)
             => GetPixel(point.X, point.Y);
@@ -81,25 +94,26 @@ namespace Se7en.Graphic {
         #region Draw
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void DrawLine(Vector2i start, Vector2i end, Color color) 
+        public void DrawLine(Vector2i start, Vector2i end, Color color)
             => DrawLine(start.X, start.Y, end.X, end.Y, color);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void DrawLine(int xStart, int yStart, Vector2i end, Color color) 
+        public void DrawLine(int xStart, int yStart, Vector2i end, Color color)
             => DrawLine(xStart, yStart, end.X, end.Y, color);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void DrawLine(Vector2i start, int xEnd, int yEnd, Color color) 
+        public void DrawLine(Vector2i start, int xEnd, int yEnd, Color color)
             => DrawLine(start.X, start.Y, xEnd, yEnd, color);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawLine(int x0, int y0, int x1, int y1, Color color) {
             int dx = x1 - x0;
             int dy = y1 - y0;
-            int sx = x0 < x1 ? 1 : -1;
-            int sy = y0 < y1 ? 1 : -1;
+            int sx = x0 < x1 ? 1 : -1,
+                sy = y0 < y1 ? 1 : -1;
 
             // ReSharper disable CompareOfFloatsByEqualityOperator
+
             if (dx == 0) {
                 for (int y = y0; y != y1; y += sy) {
                     SetPixel(x0, y, color);
@@ -108,18 +122,76 @@ namespace Se7en.Graphic {
                 for (int x = x0; x != x1; x += sx) {
                     SetPixel(x, y0, color);
                 }
-            } else {
+            } else if (Aliasing) {
+                bool steep = dy.Abs() > dx.Abs();
+
+                if (steep) {
+                    Swap(ref x0, ref y0);
+                    Swap(ref x1, ref y1);
+                }
+                if (x0 > x1) {
+                    Swap(ref x0, ref x1);
+                    Swap(ref y0, ref y1);
+                }
+
+                int gradient = dy / dx;
+
+
+                int xend = Round(x0);
+                float yend = y0 + gradient * (xend - x0);
+                float xgap = RFPart(x0 + 0.5f);
+                int xpxl1 = xend,
+                    ypxl1 = IPart(yend);
+
+                if (steep) {
+                    SetPixel(ypxl1, xpxl1, color, RFPart(yend) * xgap);
+                    SetPixel(ypxl1 + 1, xpxl1, color, FPart(yend) * xgap);
+                } else {
+                    SetPixel(xpxl1, ypxl1, color, RFPart(yend) * xgap);
+                    SetPixel(xpxl1, ypxl1 + 1, color, FPart(yend) * xgap);
+                }
+
+                float intery = yend + gradient;
+
+                xend = Round(x1);
+                yend = y1 + gradient * (xend + x1);
+                xgap = FPart(x1 + 0.5f);
+                int xpxl2 = xend,
+                    ypxl2 = IPart(yend);
+
+                if (steep) {
+                    SetPixel(ypxl2, xpxl2, color, RFPart(yend) * xgap);
+                    SetPixel(ypxl2 + 1, xpxl2, color, FPart(yend) * xgap);
+                } else {
+                    SetPixel(xpxl2, ypxl2, color, RFPart(yend) * xgap);
+                    SetPixel(xpxl2, ypxl2 + 1, color, FPart(yend) * xgap);
+                }
+
+                if (steep) {
+                    for (int x = xpxl1 + 1; x < xpxl2; x++) {
+                        SetPixel((int)intery, x, color, RFPart(intery));
+                        SetPixel((int)intery + 1, x, color, FPart(intery));
+                        intery += gradient;
+                    }
+                } else {
+                    for (int x = xpxl2; x < xpxl2; x++) {
+                        SetPixel(x, (int)intery, color, RFPart(intery));
+                        SetPixel(x, (int)intery + 1, color, FPart(intery));
+                        intery += gradient;
+                    }
+                }
+            } else {  // dx = 0
                 dx = System.Math.Abs(dx);
                 dy = -System.Math.Abs(dy);
 
                 int err = dx + dy;
                 while (true) {
                     SetPixel(x0, y0, color);
-                    
+
                     if (x0 == x1 && y0 == y1)
                         break;
 
-                    int e2 = 2 * err;
+                    int e2 = err << 1;
                     // EITHER horizontal OR vertical step (but not both!)
                     if (e2 > dy) {
                         err += dy;
@@ -131,8 +203,26 @@ namespace Se7en.Graphic {
                     }
                 }
             }
-            // ReSharper restore CompareOfFloatsByEqualityOperator
         }
+        // ReSharper restore CompareOfFloatsByEqualityOperator
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void Swap(ref int a, ref int b) {
+            int tmp = a;
+            a = b;
+            b = tmp;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private int IPart(float d)
+            => (int) d;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private int Round(float d)
+            => (int)(d + 0.50000);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private float FPart(float x)
+             => (float)(x - (int)x);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private float RFPart(float x)
+            => 1f - (float)(x - (int)x);
 
         #endregion
         #region Fill
@@ -179,33 +269,33 @@ namespace Se7en.Graphic {
             int f = 1 - radius;
             int ddF_x = 0;
             int ddF_y = -2 * radius;
-            int x0 = 0;
-            int y0 = radius;
+            int xLocal = 0;
+            int yLocal = radius;
 
             SetPixel(x, y + radius, color);
             SetPixel(x, y - radius, color);
             SetPixel(x + radius, y, color);
             SetPixel(x - radius, y, color);
 
-            while (x0 < y0) {
+            while (xLocal < yLocal) {
                 if (f >= 0) {
-                    y0--;
+                    yLocal--;
                     ddF_y += 2;
                     f += ddF_y;
                 }
-                x0++;
+                xLocal++;
                 ddF_x += 2;
                 f += ddF_x + 1;
 
-                int x1 = x + x0;
-                int x2 = x - x0;
-                int x3 = x + y0;
-                int x4 = x - y0;
+                int x1 = x + xLocal,
+                    x2 = x - xLocal,
+                    x3 = x + yLocal,
+                    x4 = x - yLocal;
 
-                int y1 = y + y0;
-                int y2 = y - y0;
-                int y3 = y + x0;
-                int y4 = y - y0;
+                int y1 = y + yLocal,
+                    y2 = y - yLocal,
+                    y3 = y + xLocal,
+                    y4 = y - xLocal;
 
                 SetPixel(x1, y1, color);
                 SetPixel(x2, y1, color);
@@ -217,7 +307,6 @@ namespace Se7en.Graphic {
                 SetPixel(x4, y4, color);
             }
         }
-
         #endregion
         #endregion
         #region Ellipse
@@ -237,7 +326,7 @@ namespace Se7en.Graphic {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawEllipse(int xCenter, int yCenter, int width, int height, Color color) {
-            int dx = 0; 
+            int dx = 0;
             int dy = height; /* im I. Quadranten von links oben nach rechts unten */
             long a2 = width * width;
             long b2 = height * height;
@@ -278,7 +367,7 @@ namespace Se7en.Graphic {
             byte* bitmapBufferProxy = _bitmapBuffer;
             Parallel.For(0, _pixelCount, i => *((int*)bitmapBufferProxy + i) = color.Value);
         }
-        
+
         #endregion
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

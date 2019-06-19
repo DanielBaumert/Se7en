@@ -17,7 +17,7 @@ namespace Se7en.Graphic {
         [FieldOffset(2)]
         public byte G;
 
-        [FieldOffset(4)]
+        [FieldOffset(3)]
         public byte B;
 
         public Color(byte r, byte g, byte b, byte a = 255) : this() {
@@ -27,8 +27,12 @@ namespace Se7en.Graphic {
             A = a;
         }
 
-        public Color(uint value) : this() {
-            Value = (int)value;
+        public Color(uint argb) : this() {
+            Value = (int) argb;
+            //A = (byte)((argb >> 24) & 0xff);
+            //R = (byte)((argb >> 16) & 0xff);
+            //G = (byte)((argb >> 8) & 0xff);
+            //G = (byte)((argb >> 0) & 0xff);
         }
 
         public float GetBrightness() {
