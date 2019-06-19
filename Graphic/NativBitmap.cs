@@ -77,11 +77,20 @@ namespace Se7en.Graphic {
         public Color GetPixel(int x, int y)
             => *((Color*)_bitmapBuffer + x + (y * Width));
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void DrawLine(Vector2i start, Vector2i end, Color color) {
-            DrawLine(start.X, start.Y, end.X, end.Y, color);
-        }
+        #region Line
+        #region Draw
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawLine(Vector2i start, Vector2i end, Color color) 
+            => DrawLine(start.X, start.Y, end.X, end.Y, color);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawLine(int xStart, int yStart, Vector2i end, Color color) 
+            => DrawLine(xStart, yStart, end.X, end.Y, color);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawLine(Vector2i start, int xEnd, int yEnd, Color color) 
+            => DrawLine(start.X, start.Y, xEnd, yEnd, color);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawLine(int x0, int y0, int x1, int y1, Color color) {
@@ -125,12 +134,152 @@ namespace Se7en.Graphic {
             // ReSharper restore CompareOfFloatsByEqualityOperator
         }
 
+        #endregion
+        #region Fill
+        //TODO
+        #endregion
+        #endregion
+        #region Rect
+        #region Draw
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Fill(Color color) {
-            for (int i = 0; i < _pixelCount; i++) {
-                *((int*)(_bitmapBuffer) + i) = color.Value;
+        public void DrawRect(Vector2i position, Vector2i size, Color color)
+            => DrawRect(position.X, position.Y, size.X, size.Y, color);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawRect(Vector2i position, int width, int height, Color color)
+            => DrawRect(position.X, position.Y, width, height, color);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawRect(int x, int y, Vector2i size, Color color)
+            => DrawRect(x, y, size.X, size.Y, color);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawRect(int x, int y, int width, int height, Color color) {
+            int x1 = x + width;
+            int y1 = y + height;
+
+            DrawLine(x, y, x1, y, color);
+            DrawLine(x, y, x, y1, color);
+            DrawLine(x1, y1, x1, y, color);
+            DrawLine(x1, y1, x, y1, color);
+        }
+
+        #endregion
+        #region Fill
+        //TODO
+        #endregion
+        #endregion
+        #region Cirle
+        #region Draw
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawCircle(Vector2i position, int radius, Color color)
+            => DrawCircle(position.X, position.Y, radius, color);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawCircle(int x, int y, int radius, Color color) {
+            int f = 1 - radius;
+            int ddF_x = 0;
+            int ddF_y = -2 * radius;
+            int x0 = 0;
+            int y0 = radius;
+
+            SetPixel(x, y + radius, color);
+            SetPixel(x, y - radius, color);
+            SetPixel(x + radius, y, color);
+            SetPixel(x - radius, y, color);
+
+            while (x0 < y0) {
+                if (f >= 0) {
+                    y0--;
+                    ddF_y += 2;
+                    f += ddF_y;
+                }
+                x0++;
+                ddF_x += 2;
+                f += ddF_x + 1;
+
+                int x1 = x + x0;
+                int x2 = x - x0;
+                int x3 = x + y0;
+                int x4 = x - y0;
+
+                int y1 = y + y0;
+                int y2 = y - y0;
+                int y3 = y + x0;
+                int y4 = y - y0;
+
+                SetPixel(x1, y1, color);
+                SetPixel(x2, y1, color);
+                SetPixel(x1, y2, color);
+                SetPixel(x2, y2, color);
+                SetPixel(x3, y3, color);
+                SetPixel(x4, y3, color);
+                SetPixel(x3, y4, color);
+                SetPixel(x4, y4, color);
             }
         }
+
+        #endregion
+        #endregion
+        #region Ellipse
+        #region Draw
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawEllipse(Vector2i positionCenter, Vector2i size, Color color)
+            => DrawEllipse(positionCenter.X, positionCenter.Y, size.X, size.Y, color);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawEllipse(Vector2i positionCenter, int width, int height, Color color)
+            => DrawEllipse(positionCenter.X, positionCenter.Y, width, height, color);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawEllipse(int xCenter, int yCenter, Vector2i size, Color color)
+            => DrawEllipse(xCenter, yCenter, size.X, size.Y, color);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void DrawEllipse(int xCenter, int yCenter, int width, int height, Color color) {
+            int dx = 0; 
+            int dy = height; /* im I. Quadranten von links oben nach rechts unten */
+            long a2 = width * width;
+            long b2 = height * height;
+            long err = b2 - (2 * height - 1) * a2;
+
+            do {
+                SetPixel(xCenter + dx, yCenter + dy, color); /* I. Quadrant */
+                SetPixel(xCenter - dx, yCenter + dy, color); /* II. Quadrant */
+                SetPixel(xCenter - dx, yCenter - dy, color); /* III. Quadrant */
+                SetPixel(xCenter + dx, yCenter - dy, color); /* IV. Quadrant */
+
+                long e2 = 2 * err; /* Fehler im 1. Schritt */
+                if (e2 < (2 * dx + 1) * b2) {
+                    dx++;
+                    err += (2 * dx + 1) * b2;
+                }
+                if (e2 > -(2 * dy - 1) * a2) {
+                    dy--;
+                    err -= (2 * dy - 1) * a2;
+                }
+            } while (dy >= 0);
+
+            while (dx++ < width) { /* fehlerhafter Abbruch bei flachen Ellipsen (b=1) */
+                SetPixel(xCenter + dx, yCenter, color); /* -> Spitze der Ellipse vollenden */
+                SetPixel(xCenter - dx, yCenter, color);
+            }
+        }
+
+        #endregion
+        #region Fill
+        //TODO
+        #endregion
+        #endregion
+        #region Fill
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Fill(Color color) {
+            byte* bitmapBufferProxy = _bitmapBuffer;
+            Parallel.For(0, _pixelCount, i => *((int*)bitmapBufferProxy + i) = color.Value);
+        }
+        
+        #endregion
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawToBitmap(Bitmap bitmap) {
