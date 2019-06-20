@@ -131,7 +131,7 @@ namespace Se7en.Math {
         /// Returns a vector with the same direction as the given vector, but with a length of 1.
         /// </summary>
         /// <param name="value">The vector to normalize.</param>
-        /// <returns>The normalized vector.</returns
+        /// <returns>The normalized vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2i Normalize(Vector2i vector) {
             float invNorm = 1.0f / vector.Amount();
