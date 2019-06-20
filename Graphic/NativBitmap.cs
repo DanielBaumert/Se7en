@@ -39,12 +39,13 @@ namespace Se7en.Graphic {
         private readonly int _byteCount;
         private readonly int _stride;
 
+        private bool _isStartetdPaint;
         public bool Aliasing { get; set; }
 
         public int Width { get; }
         public int Height { get; }
         public PixelFormat PixelFormat { get; }
-
+        public Bitmap Bitmap { get; private set; }
         public NativBitmap(Vector2i size, PixelFormat pixelFormat)
             : this(size.X, size.Y, pixelFormat) { }
 
@@ -54,16 +55,48 @@ namespace Se7en.Graphic {
             Height = height;
             PixelFormat = pixelFormat;
             Aliasing = aliasing;
+            Bitmap = new Bitmap(width, height, ConvertToSysPixelFormat(pixelFormat));
 
+            _isStartetdPaint = false;
             _pixelWidth = (int)pixelFormat / 8;
             _pixelCount = Width * Height;
             _byteCount = _pixelCount * _pixelWidth;
             _stride = Width * _pixelWidth;
 
             _bitmapBuffer = (byte*)Kernel32.GlobalAlloc(GlobalAllocFlag.GPTR, _byteCount);
+
+            System.Drawing.Imaging.PixelFormat ConvertToSysPixelFormat(PixelFormat pixelFormat)
+                => pixelFormat switch {
+                    PixelFormat.Bit32 => System.Drawing.Imaging.PixelFormat.Format32bppArgb,
+                    _                 => throw new NotSupportedException()
+                };
         }
 
+        public void Beginn(Bitmap? bmp = null) {
+            if(bmp != null) {
+                if (bmp.Width != Width) {
+                    throw new ArgumentException("Bitmap.Width != Width");
+                }
+                if (bmp.Height != Height) {
+                    throw new ArgumentException("Bitmap.Height != Height");
+                }
 
+                if (bmp.PixelFormat.PixelWidth() != (int)PixelFormat) {
+                    throw new ArgumentException("Bitmap.PixelWidth != PixelWidth");
+                }
+
+
+            } 
+
+
+
+        }
+
+        public void End() {
+
+        }
+
+        //MultiSupport
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetPixel(Vector2i point, Color color, float brightness)
             => SetPixel(point.X, point.Y, color, brightness);
@@ -107,8 +140,8 @@ namespace Se7en.Graphic {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawLine(int x0, int y0, int x1, int y1, Color color) {
-            int dx = x1 - x0;
-            int dy = y1 - y0;
+            int dx = x1 - x0,
+                dy = y1 - y0;
             int sx = x0 < x1 ? 1 : -1,
                 sy = y0 < y1 ? 1 : -1;
 
@@ -213,7 +246,7 @@ namespace Se7en.Graphic {
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int IPart(float d)
-            => (int) d;
+            => (int)d;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int Round(float d)
             => (int)(d + 0.50000);
@@ -372,17 +405,7 @@ namespace Se7en.Graphic {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawToBitmap(Bitmap bitmap) {
-            if (bitmap.Width != Width) {
-                throw new ArgumentException("Bitmap.Width != Width");
-            }
-            if (bitmap.Height != Height) {
-                throw new ArgumentException("Bitmap.Height != Height");
-            }
-
-            if (bitmap.PixelFormat.PixelWidth() != (int)PixelFormat) {
-                throw new ArgumentException("Bitmap.PixelWidth != PixelWidth");
-            }
-
+           
             Rectangle bmpRect = new Rectangle(Point.Empty, bitmap.Size);
             BitmapData bmpData = bitmap.LockBits(bmpRect, ImageLockMode.WriteOnly, bitmap.PixelFormat);
 
@@ -390,7 +413,6 @@ namespace Se7en.Graphic {
 
             bitmap.UnlockBits(bmpData);
         }
-
         public void Dispose() {
             Kernel32.GlobalFree((IntPtr)_bitmapBuffer);
         }
