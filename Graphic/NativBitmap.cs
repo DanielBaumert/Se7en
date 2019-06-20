@@ -27,7 +27,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
+using Se7en.Exceptions;
 using Se7en.Math;
 using Se7en.WinApi;
 
@@ -38,14 +40,31 @@ namespace Se7en.Graphic {
         private readonly int _pixelWidth;
         private readonly int _byteCount;
         private readonly int _stride;
-
+        private Bitmap? _bitmap;
         private bool _isStartetdPaint;
         public bool Aliasing { get; set; }
-
         public int Width { get; }
         public int Height { get; }
         public PixelFormat PixelFormat { get; }
-        public Bitmap Bitmap { get; private set; }
+        public Bitmap Bitmap {
+            get => _bitmap;
+            private set {
+                if (_bitmap != value) {
+                    if (value.Width != Width) {
+                        throw new ArgumentException("Bitmap.Width != Width");
+                    }
+                    if (value.Height != Height) {
+                        throw new ArgumentException("Bitmap.Height != Height");
+                    }
+
+                    if (value.PixelFormat.PixelWidth() != (int)PixelFormat) {
+                        throw new ArgumentException("Bitmap.PixelWidth != PixelWidth");
+                    }
+
+                    Interlocked.Exchange(ref _bitmap, value)?.Dispose();
+                } 
+            }
+        }
         public NativBitmap(Vector2i size, PixelFormat pixelFormat)
             : this(size.X, size.Y, pixelFormat) { }
 
@@ -55,7 +74,7 @@ namespace Se7en.Graphic {
             Height = height;
             PixelFormat = pixelFormat;
             Aliasing = aliasing;
-            Bitmap = new Bitmap(width, height, ConvertToSysPixelFormat(pixelFormat));
+            _bitmap = null;
 
             _isStartetdPaint = false;
             _pixelWidth = (int)pixelFormat / 8;
@@ -64,36 +83,29 @@ namespace Se7en.Graphic {
             _stride = Width * _pixelWidth;
 
             _bitmapBuffer = (byte*)Kernel32.GlobalAlloc(GlobalAllocFlag.GPTR, _byteCount);
-
-            System.Drawing.Imaging.PixelFormat ConvertToSysPixelFormat(PixelFormat pixelFormat)
-                => pixelFormat switch {
-                    PixelFormat.Bit32 => System.Drawing.Imaging.PixelFormat.Format32bppArgb,
-                    _                 => throw new NotSupportedException()
-                };
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private System.Drawing.Imaging.PixelFormat ConvertToSysPixelFormat(PixelFormat pixelFormat)
+                => pixelFormat switch {
+                    PixelFormat.Bit32 => System.Drawing.Imaging.PixelFormat.Format32bppArgb,
+                    _ => throw new NotSupportedException()
+                };
+   
+
         public void Beginn(Bitmap? bmp = null) {
-            if(bmp != null) {
-                if (bmp.Width != Width) {
-                    throw new ArgumentException("Bitmap.Width != Width");
-                }
-                if (bmp.Height != Height) {
-                    throw new ArgumentException("Bitmap.Height != Height");
-                }
-
-                if (bmp.PixelFormat.PixelWidth() != (int)PixelFormat) {
-                    throw new ArgumentException("Bitmap.PixelWidth != PixelWidth");
-                }
-
-
-            } 
+            if (bmp != null)
+                _bitmap = bmp;
+            else if (_bitmap == null)
+                _bitmap = new Bitmap(Width, Height, ConvertToSysPixelFormat(PixelFormat));
 
 
 
+            _isStartetdPaint = true;
         }
 
         public void End() {
-
+            _isStartetdPaint = false;
         }
 
         //MultiSupport
@@ -111,8 +123,12 @@ namespace Se7en.Graphic {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetPixel(int x, int y, Color color) {
+            if (!_isStartetdPaint)
+                throw new LockedBitmapException("Bevor you can use a draw method pleas user .Beginn() at first");
+
             if (x < 0 || Width <= x || y < 0 || Height <= y)
-                return;
+                 return;
+
             *((int*)_bitmapBuffer + x + (y * Width)) = color.Value;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -405,7 +421,7 @@ namespace Se7en.Graphic {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void DrawToBitmap(Bitmap bitmap) {
-           
+
             Rectangle bmpRect = new Rectangle(Point.Empty, bitmap.Size);
             BitmapData bmpData = bitmap.LockBits(bmpRect, ImageLockMode.WriteOnly, bitmap.PixelFormat);
 
