@@ -48,8 +48,8 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.textBox2.PasswortChar = '\0';
-            this.textBox2.Patter = null;
-            this.textBox2.PatterError = System.Drawing.Color.Red;
+            this.textBox2.Pattern = null;
+            this.textBox2.PatternError = System.Drawing.Color.Red;
             this.textBox2.Size = new System.Drawing.Size(158, 17);
             this.textBox2.TabIndex = 4;
             this.textBox2.Text = null;
@@ -75,8 +75,8 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.textBox3.PasswortChar = '\0';
-            this.textBox3.Patter = null;
-            this.textBox3.PatterError = System.Drawing.Color.Red;
+            this.textBox3.Pattern = null;
+            this.textBox3.PatternError = System.Drawing.Color.Red;
             this.textBox3.Size = new System.Drawing.Size(213, 17);
             this.textBox3.TabIndex = 5;
             this.textBox3.Text = null;

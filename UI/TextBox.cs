@@ -256,28 +256,28 @@ namespace Se7en.UI {
             }
         }
 
-        private string _Patter;
+        private string _pattern;
 
         [Category("Text")]
-        public string Patter {
-            get => _Patter;
+        public string Pattern {
+            get => _pattern;
             set {
-                if (_Patter == value)
+                if (_pattern == value)
                     return;
-                _Patter = value;
+                _pattern = value;
                 Invalidate();
             }
         }
 
-        private Color _PatterError = Color.Red;
+        private Color _patternError = Color.Red;
 
         [Category("Text")]
-        public Color PatterError {
-            get => _PatterError;
+        public Color PatternError {
+            get => _patternError;
             set {
-                if (_PatterError == value)
+                if (_patternError == value)
                     return;
-                _PatterError = value;
+                _patternError = value;
                 Invalidate();
             }
         }
@@ -401,13 +401,13 @@ namespace Se7en.UI {
                 padding.Bottom = LineHeight;
                 Padding = padding;
 
-                if (!string.IsNullOrEmpty(Patter) && !string.IsNullOrEmpty(Text)) {
-                    IsMatch = Regex.IsMatch(Text, Patter);
+                if (!string.IsNullOrEmpty(Pattern) && !string.IsNullOrEmpty(Text)) {
+                    IsMatch = Regex.IsMatch(Text, Pattern);
                     bool tmpchoose = IsMatch;
                     if (IsCompare.HasValue) {
                         tmpchoose &= IsCompare.Value;
                     }
-                    Pen tempPen = new Pen(tmpchoose ? LineColor : PatterError);
+                    Pen tempPen = new Pen(tmpchoose ? LineColor : PatternError);
                     SetPen(tempPen);
                 } else if (string.IsNullOrEmpty(Text)) {
                     Color tempColor = IsntInput != null ? IsntInput.Value : LineColor;
@@ -416,7 +416,7 @@ namespace Se7en.UI {
                 } else {
                     Pen tempPen = new Pen(LineColor, LineHeight);
                     if (IsCompare.HasValue) {
-                        tempPen.Color = IsCompare.Value ? LineColor : PatterError;
+                        tempPen.Color = IsCompare.Value ? LineColor : PatternError;
                     }
                     SetPen(tempPen);
                 }
