@@ -93,13 +93,14 @@ namespace Se7en.Graphic {
                 };
    
 
-        public void Beginn(Bitmap? bmp = null) {
+        public void Beginn(Bitmap bmp = null) {
             if (bmp != null)
                 _bitmap = bmp;
             else if (_bitmap == null)
                 _bitmap = new Bitmap(Width, Height, ConvertToSysPixelFormat(PixelFormat));
 
-
+            
+            
 
             _isStartetdPaint = true;
         }
