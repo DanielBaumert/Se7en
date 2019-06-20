@@ -147,7 +147,11 @@ namespace Se7en.Math {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3f Normalize(Vector3f vector) {
             float invNorm = 1.0f / vector.Amount();
-            return new Vector3f { X = vector.X * invNorm, Y = vector.Y = invNorm, Z = vector.Z * invNorm };
+            return new Vector3f {
+                X = vector.X * invNorm,
+                Y = vector.Y * invNorm,
+                Z = vector.Z * invNorm
+            };
         }
        
         /// <summary>

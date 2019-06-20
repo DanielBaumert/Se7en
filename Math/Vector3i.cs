@@ -146,8 +146,12 @@ namespace Se7en.Math {
         /// <returns>The normalized vector.</returns
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3i Normalize(Vector3i vector) {
-            int invNorm = 1.0f / vector.Amount();
-            return new Vector3i { X = vector.X * invNorm, Y = vector.Y = invNorm, Z = vector.Z * invNorm };
+            float invNorm = 1.0f / vector.Amount();
+            return new Vector3i {
+                X = (int)(vector.X * invNorm),
+                Y = (int)(vector.Y * invNorm),
+                Z = (int)(vector.Z * invNorm)
+            };
         }
 
         /// <summary>
@@ -160,9 +164,9 @@ namespace Se7en.Math {
         public static Vector3i Reflect(Vector3i vector, Vector3i normal) {
             int dot = Dot(vector, normal);
             return new Vector3i {
-                X = vector.X - (2.0f * dot * normal.X),
-                Y = vector.Y - (2.0f * dot * normal.Y),
-                Z = vector.Z - (2.0f * dot * normal.Z)
+                X = (int)(vector.X - (2.0f * dot * normal.X)),
+                Y = (int)(vector.Y - (2.0f * dot * normal.Y)),
+                Z = (int)(vector.Z - (2.0f * dot * normal.Z))
             };
         }
 
@@ -266,11 +270,11 @@ namespace Se7en.Math {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3i operator /(Vector3i vector, int value) {
-            int invDiv = 1.0f / value;
+            float invDiv = 1.0f / value;
             return new Vector3i {
-                X = vector.X * invDiv,
-                Y = vector.Y * invDiv,
-                Z = vector.Z * invDiv
+                X = (int)(vector.X * invDiv),
+                Y = (int)(vector.Y * invDiv),
+                Z = (int)(vector.Z * invDiv)
             };
         }
 
