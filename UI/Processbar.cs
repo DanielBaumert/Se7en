@@ -44,17 +44,18 @@ namespace Se7en.UI {
             }
         }
 
-        private double _Value;
+        private double _value;
 
         public double Value {
-            get => _Value;
+            get => _value;
             set {
                 if (Value < MinValue)
                     throw new IndexOutOfRangeException();
                 if (Value > MaxValue)
                     throw new IndexOutOfRangeException();
-                _Value = value;
+                _value = value;
                 ValueChange?.Invoke(this, value);
+                UpdateRect();
                 Invalidate();
             }
         }
