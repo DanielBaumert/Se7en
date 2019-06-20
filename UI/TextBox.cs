@@ -369,7 +369,7 @@ namespace Se7en.UI {
             LineStateSwitch += TextBox_LineSizeStateSwitch;
             FaceTextBoxBase.TextChanged += FaceTextBoxBase_TextChanged;
             CheckIsCompaterEvent += TextBox_CheckIsCompaterEvent;
-
+            PaddingChanged += TextBox_PaddingChanged;
             void PromptedTextBox_Paint(object sender, PaintEventArgs e) => EventPaint(e);
 
             void TextBox_Resize(object sender, EventArgs e) => EventResize();
@@ -400,6 +400,7 @@ namespace Se7en.UI {
                 Padding padding = Padding;
                 padding.Bottom = LineHeight;
                 Padding = padding;
+
                 if (!string.IsNullOrEmpty(Patter) && !string.IsNullOrEmpty(Text)) {
                     IsMatch = Regex.IsMatch(Text, Patter);
                     bool tmpchoose = IsMatch;
@@ -477,6 +478,12 @@ namespace Se7en.UI {
                     IsCompare = checker;
                     TextBox_LineSizeStateSwitch();
                 }
+            }
+
+            void TextBox_PaddingChanged(object sender, EventArgs e)
+            {
+                FaceTextBoxBase.Height = FaceTextBoxBase.Height - Padding.Top;
+                TextBox_LineSizeStateSwitch();
             }
             #endregion EventHelper
         }
