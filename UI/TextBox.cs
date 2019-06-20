@@ -12,12 +12,12 @@ namespace Se7en.UI {
         private delegate void LineSizeStateSwitchHandle();
 
         #region Setting
-        private Pen LinePen;
+        private Pen _linePen;
         #endregion Setting
 
         #region PrivateEvents
 
-        private event LineSizeStateSwitchHandle LineStateSwitch;
+        private event LineSizeStateSwitchHandle _lineStateSwitch;
 
         #endregion PrivateEvents
 
@@ -32,7 +32,7 @@ namespace Se7en.UI {
             set {
                 if (_LineColor != value) {
                     _LineColor = value;
-                    LineStateSwitch();
+                    _lineStateSwitch();
                     Invalidate();
                 }
             }
@@ -50,7 +50,7 @@ namespace Se7en.UI {
                     Rectangle rectText = FaceTextBoxBase.Bounds;
                     if (!Multiline)
                         Height = rectText.Height + LineMarginToText + LineHeight;
-                    LineStateSwitch();
+                    _lineStateSwitch();
 
                     Invalidate();
                 }
@@ -119,7 +119,7 @@ namespace Se7en.UI {
                     Rectangle rectText = FaceTextBoxBase.Bounds;
                     if (!Multiline)
                         Height = rectText.Height + LineMarginToText + LineHeight;
-                    LineStateSwitch();
+                    _lineStateSwitch();
                     Invalidate();
                 }
             }
@@ -366,7 +366,7 @@ namespace Se7en.UI {
             Paint += PromptedTextBox_Paint;
             Resize += TextBox_Resize;
             FontChanged += TextBox_FontChanged;
-            LineStateSwitch += TextBox_LineSizeStateSwitch;
+            _lineStateSwitch += TextBox_LineSizeStateSwitch;
             FaceTextBoxBase.TextChanged += FaceTextBoxBase_TextChanged;
             CheckIsCompaterEvent += TextBox_CheckIsCompaterEvent;
             PaddingChanged += TextBox_PaddingChanged;
@@ -384,13 +384,13 @@ namespace Se7en.UI {
                 Rectangle rectText = FaceTextBoxBase.Bounds;
 
                 #region UnderLine
-                LinePen.Width = LineHeight;
+                _linePen.Width = LineHeight;
                 int lineXStart = LineMarginLeft;
                 int lineXEnd = rect.Width - LineMarginRight;
                 int lineYEnd = rectText.Height + LineMarginToText;
                 Point lineStartLoc = new Point(lineXStart, lineYEnd);
                 Point lineEndLoc = new Point(lineXEnd, lineYEnd);
-                graphics.DrawLine(LinePen, lineStartLoc, lineEndLoc);
+                graphics.DrawLine(_linePen, lineStartLoc, lineEndLoc);
                 #endregion UnderLine
 
                 EventResize();
@@ -401,7 +401,7 @@ namespace Se7en.UI {
                 padding.Bottom = LineHeight;
                 Padding = padding;
 
-                if (!string.IsNullOrEmpty(Pattern) && !string.IsNullOrEmpty(Text)) {
+                if (!string.IsNullOrEmpty(Pattern)) {
                     IsMatch = Regex.IsMatch(Text, Pattern);
                     bool tmpchoose = IsMatch;
                     if (IsCompare.HasValue) {
@@ -422,13 +422,13 @@ namespace Se7en.UI {
                 }
 
                 void SetPen(Pen pen) {
-                    if (LinePen == null) {
-                        LinePen = pen;
+                    if (_linePen == null) {
+                        _linePen = pen;
                         Invalidate();
                         return;
                     }
-                    if (LinePen.Color != pen.Color) {
-                        LinePen = pen;
+                    if (_linePen.Color != pen.Color) {
+                        _linePen = pen;
                         Invalidate();
                     }
                 }
