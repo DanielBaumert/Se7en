@@ -18,7 +18,6 @@ namespace Se7en.Math {
         public T this[int index] {
             get => *(Ptr + index);
             set {
-                if()
                 *(Ptr + index) = value;
             }
         }
