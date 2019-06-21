@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Se7en.Math {
+namespace Se7en.Mathematic {
 
     [StructLayout(LayoutKind.Explicit, Size = 8)]
     public struct Vector2i {

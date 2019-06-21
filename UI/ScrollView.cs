@@ -1,5 +1,5 @@
 ﻿using Se7en.Graphic;
-using Se7en.Math;
+using Se7en.Mathematic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;

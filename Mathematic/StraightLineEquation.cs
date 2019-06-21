@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Se7en.Math {
+namespace Se7en.Mathematic {
 
     public struct StraightLineEquation {
         private readonly float Slop;

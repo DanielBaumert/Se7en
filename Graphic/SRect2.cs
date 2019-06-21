@@ -1,4 +1,4 @@
-﻿using Se7en.Math;
+﻿using Se7en.Mathematic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 

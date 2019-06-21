@@ -30,7 +30,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Se7en.Exceptions;
-using Se7en.Math;
+using Se7en.Mathematic;
 using Se7en.WinApi;
 
 namespace Se7en.Graphic {

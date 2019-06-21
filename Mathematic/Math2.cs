@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Se7en.Math {
-
+namespace Se7en.Mathematic {
     public static class Math2 {
         public const float PI = 3.1415926535897932384626433832795F;
 

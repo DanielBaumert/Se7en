@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Se7en.Math {
+namespace Se7en.Mathematic {
     public struct Vector2fEquation {
 
         public readonly Vector2f PositionVector;

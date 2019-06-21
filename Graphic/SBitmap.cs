@@ -1,4 +1,4 @@
-﻿using Se7en.Math;
+﻿using Se7en.Mathematic;
 using System.Runtime.InteropServices;
 
 namespace Se7en.Graphic {

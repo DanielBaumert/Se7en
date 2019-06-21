@@ -1,6 +1,6 @@
 ﻿#define CLOSE_ICON
 
-using Se7en.Math;
+using Se7en.Mathematic;
 using System.Drawing.Drawing2D;
 using System.Threading;
 
