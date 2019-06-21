@@ -401,8 +401,9 @@ namespace Se7en.UI {
                 padding.Bottom = LineHeight;
                 Padding = padding;
 
-                if (!string.IsNullOrEmpty(Pattern)) {
-                    bool tmpchoose = Regex.IsMatch(Text, Pattern);
+                if (!string.IsNullOrEmpty(Pattern) && !string.IsNullOrEmpty(Text)) {
+                    IsMatch = Regex.IsMatch(Text, Pattern);
+                    bool tmpchoose = IsMatch;
                     if (IsCompare.HasValue) {
                         tmpchoose &= IsCompare.Value;
                     }
