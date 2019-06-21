@@ -402,8 +402,7 @@ namespace Se7en.UI {
                 Padding = padding;
 
                 if (!string.IsNullOrEmpty(Pattern)) {
-                    IsMatch = Regex.IsMatch(Text, Pattern);
-                    bool tmpchoose = IsMatch;
+                    bool tmpchoose = Regex.IsMatch(Text, Pattern);
                     if (IsCompare.HasValue) {
                         tmpchoose &= IsCompare.Value;
                     }
