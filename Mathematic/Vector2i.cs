@@ -7,10 +7,10 @@ namespace Se7en.Mathematic {
     [StructLayout(LayoutKind.Explicit, Size = 8)]
     public struct Vector2i {
 
-        public readonly static Vector2i Zero = new Vector2i { X = 0, Y = 0 };
-        public readonly static Vector2i One = new Vector2i { X = 1, Y = 1 };
-        public readonly static Vector2i UnitX = new Vector2i { X = 1, Y = 0 };
-        public readonly static Vector2i UnitY = new Vector2i { X = 0, Y = 1 };
+        public static readonly Vector2i Zero = new Vector2i { X = 0, Y = 0 };
+        public static readonly Vector2i One = new Vector2i { X = 1, Y = 1 };
+        public static readonly Vector2i UnitX = new Vector2i { X = 1, Y = 0 };
+        public static readonly Vector2i UnitY = new Vector2i { X = 0, Y = 1 };
 
         [FieldOffset(0)]
         public int X;
