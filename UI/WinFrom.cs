@@ -23,7 +23,7 @@ namespace Se7en.UI {
 
         public WinFrom() {
             InitializeComponent();
-            new DragAndDroper(this, Lb_WinFormTitle);
+            DragAndDroper.Init(this, Lb_WinFormTitle);
         }
 
         private void Bt_WinFromClose_Click(object sender, System.EventArgs e) {

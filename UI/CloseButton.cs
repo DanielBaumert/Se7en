@@ -10,10 +10,10 @@ namespace Se7en.UI {
         public bool ScaleOutHoverEffect { get; set; }
 
         public int CrossWidth {
-            get => _CrossWidth;
+            get => _crossWidth;
             set {
-                if (_CrossWidth != value) {
-                    _CrossWidth = value;
+                if (_crossWidth != value) {
+                    _crossWidth = value;
                     CalcSizes();
                     Invalidate();
                 }
@@ -34,33 +34,29 @@ namespace Se7en.UI {
 
         protected override void OnSizeChanged(EventArgs e) {
             CalcSizes();
-            base.OnSizeChanged(e);
         }
 
         protected override void OnPaint(PaintEventArgs e) {
-            base.OnPaint(e);
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.CompositingQuality = CompositingQuality.HighQuality;
             graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
             graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
-            if (this.IsMouseEnter && this.HoverEffect != null && this.HoverEffect.Value != Color.Transparent) {
+            if (this._isMouseEnter && this.HoverEffect != null && this.HoverEffect.Value != Color.Transparent) {
                 graphics.Clear(this.HoverEffect.Value);
             }
-            graphics.FillPath(new SolidBrush(this.ForeColor), this.LeftBlank);
-            graphics.FillPath(new SolidBrush(this.ForeColor), this.RightBlank);
+            graphics.FillPath(new SolidBrush(this.ForeColor), this._leftBlank);
+            graphics.FillPath(new SolidBrush(this.ForeColor), this._rightBlank);
         }
 
         protected override void OnMouseEnter(EventArgs e) {
-            base.OnMouseEnter(e);
-            IsMouseEnter = true;
+            _isMouseEnter = true;
             CalcSizes();
             Invalidate();
         }
 
         protected override void OnMouseLeave(EventArgs e) {
-            base.OnMouseLeave(e);
-            IsMouseEnter = false;
+            _isMouseEnter = false;
             CalcSizes();
             Invalidate();
         }
@@ -72,14 +68,13 @@ namespace Se7en.UI {
         }
 
         private void InitializeStyle() {
-            ControlStyles flag = ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor | ControlStyles.OptimizedDoubleBuffer;
-            SetStyle(flag, true);
+            SetStyle(ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor | ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         private void CalcSizes() {
             int num = CrossWidth / 2;
             Padding padding = Padding;
-            if (IsMouseEnter && ScaleOutHoverEffect) {
+            if (_isMouseEnter && ScaleOutHoverEffect) {
                 padding.All = Padding.All - HoverScaleOutWidth;
             }
             GraphicsPath graphicsPath = new GraphicsPath();
@@ -93,13 +88,13 @@ namespace Se7en.UI {
             graphicsPath2.AddLine(padding.Left + num, Height - padding.Bottom, Width - padding.Right, padding.Top + num);
             graphicsPath2.AddLine(Width - padding.Right, padding.Top + num, Width - (padding.Right + num), padding.Top);
             graphicsPath2.CloseFigure();
-            LeftBlank = graphicsPath;
-            RightBlank = graphicsPath2;
+            _leftBlank = graphicsPath;
+            _rightBlank = graphicsPath2;
         }
 
-        private bool IsMouseEnter;
-        private GraphicsPath LeftBlank;
-        private GraphicsPath RightBlank;
-        private int _CrossWidth;
+        private bool _isMouseEnter;
+        private GraphicsPath _leftBlank;
+        private GraphicsPath _rightBlank;
+        private int _crossWidth;
     }
 }
