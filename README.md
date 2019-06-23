@@ -1,5 +1,5 @@
 # Se7en-Toolkit
-NullByte-Toolkit is a performance optimized toolkit for the .Net-Framework with nativ WIN-API call Library*
+NullByte-Toolkit is a performance optimized toolkit for the .Net-Framework with native WIN-API call Library*
 
 
 - [ ] AI
@@ -17,7 +17,7 @@ NullByte-Toolkit is a performance optimized toolkit for the .Net-Framework with 
   - [x] ToggleButton
   - [x] CloseButton
   - [x] Custom WinForm
-  - [x] Custom Button
+  - [x] Custom Button/SimpleButton
   - [ ] ScrollView
   - [ ] Node - Wire Modul
 - [ ] Network
@@ -43,11 +43,16 @@ NullByte-Toolkit is a performance optimized toolkit for the .Net-Framework with 
   - [x] AES
   - [ ] etc.
 - [ ] Math
-  - [ ] Vactor calulations
+  - [ ] Vector
+    - [ ] Vector2
+    - [ ] Vector3
+    - [ ] Vactor calulations
   - [ ] 3D Stuff
   - [ ] Analyse stuff
+- [ ] OpenCV
+  - [x] Canny
+  - [ ] CSVColor
 - [ ] Performace Pack
   - [x] Unsafe linq
-  - [x] Custom list - (MemoryList<T> : unmanaged )
-  - [x] Custom Pointer - (struct Ptr)
+  - [ ] Custom list - (MemoryList<T> : unmanaged )
 - [ ]  Custom Drawing tools
