@@ -25,7 +25,6 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;

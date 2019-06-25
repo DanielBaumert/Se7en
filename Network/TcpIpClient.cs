@@ -75,6 +75,8 @@ namespace Se7en.Network {
         }
 
         private void ResiveSteamMessage(IAsyncResult result) {
+
+
             try {
                 string message = _ReadStreamFun.EndInvoke(result);
                 ResiveMessage?.Invoke(this, message);

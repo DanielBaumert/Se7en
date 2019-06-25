@@ -19,7 +19,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="UI\Button.cs">
+    <Compile Update="UI\SimpleButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="UI\CircleBar.cs">
@@ -28,16 +28,7 @@
     <Compile Update="UI\CloseButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="UI\FileExplorer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="UI\FileExplorer.Designer.cs">
-      <DependentUpon>FileExplorer.cs</DependentUpon>
-    </Compile>
     <Compile Update="UI\ListView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="UI\MinimizeButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="UI\Processbar.cs">
@@ -77,9 +68,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Update="UI\FileExplorer.resx">
-      <DependentUpon>FileExplorer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Update="UI\TextBox.resx">
       <DependentUpon>TextBox.cs</DependentUpon>
     </EmbeddedResource>

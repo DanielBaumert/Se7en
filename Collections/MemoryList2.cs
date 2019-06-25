@@ -34,7 +34,7 @@ namespace Se7en.Collections {
             Kernel32.GlobalFree((IntPtr) Ptr);
             Ptr = newPtr;
         }
-        public void AddAt(T item, int index) {
+        public void AddAt(T item, int index) { //TODO
             throw new NotSupportedException();
 
             Count++;
@@ -49,7 +49,7 @@ namespace Se7en.Collections {
             Ptr = newPtr;
         }
 
-        public void AddRange(T[] array) {
+        public void AddRange(T[] array) { //TODO
             throw new NotSupportedException();
             Count += array.Length;
             int arrayByteCount = ItemSize * array.Length;
@@ -64,6 +64,8 @@ namespace Se7en.Collections {
             Kernel32.GlobalFree((IntPtr)Ptr);
             Ptr = newPtr;
         }
+
+
 
     }
 }

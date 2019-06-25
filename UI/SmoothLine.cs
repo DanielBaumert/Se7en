@@ -54,6 +54,7 @@ namespace Se7en.UI {
                 if (_orientation != value) {
                     _orientation = value;
                     UpdateAnchor();
+                    UpdateLinearGrandientBrush();
                     Invalidate();
                 }
             }

@@ -1,4 +1,4 @@
-﻿namespace WindowsClean.UI {
+﻿namespace Se7en.UI {
     partial class ToggleTextButton {
         /// <summary> 
         /// Required designer variable.

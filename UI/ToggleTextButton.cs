@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace WindowsClean.UI {
+namespace Se7en.UI {
     public partial class ToggleTextButton : UserControl {
         private string _OnText;
         private string _OffText;
