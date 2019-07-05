@@ -2,8 +2,7 @@
 using System.Runtime.InteropServices;
 
 namespace Se7en.WinApi {
-
-    public class Gdi32 {
+    public static class Gdi32 {
         private const string IMPORTKEY = "gdi32.dll";
 
         /// <summary>
@@ -83,6 +82,16 @@ namespace Se7en.WinApi {
         /// <returns>If the function succeeds, the return value is a handle to a bitmap.</returns>
         [DllImport(IMPORTKEY, SetLastError = true)]
         public static extern IntPtr CreateBitmap(int nWidth, int nHeight, uint nPlanes, uint nBitCount, IntPtr lpBits);
+        /// <summary>
+        /// BitBlt
+        /// </summary>
+        [DllImport(IMPORTKEY, ExactSpelling = true, SetLastError = true)]
+        public static extern Bool BitBlt(IntPtr hObject,  int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hObjSource, int nXSrc,  int nYSrc, TernaryRasterOperations dwRop);
+        /// <summary>
+        /// DeleteDC
+        /// </summary>
+        [DllImport(IMPORTKEY, ExactSpelling = true, SetLastError = true)]
+        public static extern Bool DeleteDC(IntPtr hdc);
 
         [DllImport(IMPORTKEY, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
