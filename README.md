@@ -73,3 +73,6 @@ NullByte-Toolkit is a performance optimized toolkit for the .Net-Framework with 
   - [x] Unsafe linq
   - [ ] Custom list - (MemoryList<T> : unmanaged )
 - [ ]  Custom Drawing tools
+- AttributeExtensions
+- Process
+- Utils
