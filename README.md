@@ -4,7 +4,10 @@ NullByte-Toolkit is a performance optimized toolkit for the .Net-Framework with 
 
 - [ ] AI
   - Source: https://github.com/NMZivkovic/SimpleNeuralNetworkInCSharp
-  - [ ] ##### Black-Box #####
+- Environment
+  - Utils
+    - IsUserAdministrator
+    
 - [ ] WinApi 
   - [ ] Kernel32
   - [ ] User32
@@ -41,17 +44,31 @@ NullByte-Toolkit is a performance optimized toolkit for the .Net-Framework with 
     - [ ] SSL/TLS Support 
 - [ ] Security
   - [x] AES
-  - [ ] etc.
-- [ ] Math
-  - [ ] Vector
-    - [ ] Vector2
-    - [ ] Vector3
-    - [ ] Vactor calulations
-  - [ ] 3D Stuff
-  - [ ] Analyse stuff
-- [ ] OpenCV
-  - [x] Canny
-  - [ ] CSVColor
+- Mathematic
+  - Math2
+  - Matrix
+  - NativMatrix
+  - PolyFit
+  - Rect
+  - Vector
+    - Vector2i
+    - Vector2f
+    - Vector3i
+    - Vector3F
+  - Vector2fEquation 
+- OpenCvSharp
+  - Cv2
+    - AddWeighted
+    - CvtColor
+    - Canny
+    - GaussianBlur
+    - HoughLines
+    - HoughLinesP
+    - Erode
+    - Line
+    - GetCudaEnabledDeviceCount
+  - UtilMap
+  - Point
 - [ ] Performace Pack
   - [x] Unsafe linq
   - [ ] Custom list - (MemoryList<T> : unmanaged )
