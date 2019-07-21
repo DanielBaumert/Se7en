@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Se7en.Network {
 
-    public class Socks5Client : INet {
+    public class Socks5Client : Net {
         private const SocksVerion VERSION = SocksVerion.Version5;
         private const ConnectionMode CONNECTION_MODE = ConnectionMode.TcpIpStream;
 

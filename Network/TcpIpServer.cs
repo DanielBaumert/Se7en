@@ -34,7 +34,7 @@ namespace Se7en.Network {
             TcpIpClient ipClient = new TcpIpClient(client);
             if (AccessRequest(ipClient)) {
                 _Clients.Add(ipClient);
-                ipClient.ResiveMessage += ClienMessageResieve;
+                ipClient.ServerMessaged += ClienMessageResieve;
                 ipClient.ClientDisconnected += IpClient_ClientDisconnected;
                 ;
                 ipClient.ClientDisconnected += ClientDisconnected;

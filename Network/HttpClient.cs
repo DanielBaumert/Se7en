@@ -1,48 +1,47 @@
-﻿using System;
-using System.IO;
-using System.Net.Sockets;
-using System.Text.RegularExpressions;
+﻿using System.Net;
+using System.Net.Http;
+using System.Text;
+using HttpClient = System.Net.Http.HttpClient;
 
 namespace Se7en.Network {
-    public class HttpClient : INet {
-        //todo useragent
-        //private readonly UserAgent _userAgent;
-        
-        private readonly string NewLine = "\r\n";
-        private readonly Regex _DomainSrc = new Regex(@"^(?:https?:\/\/)?((?!\_|\-)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9])");
-        public TcpClient Client { get; private set; }
-        public NetworkStream NetworkStream { get; private set; }
-        public BinaryWriter StreamWriter { get; private set; }
-        public BinaryReader StreamReader { get; private set; }
+    public class WebClient : Net {
+        private static CookieContainer CookieContainer { get; set; }
+        public static string SendRequest(string url,
+                                   WebRequestType method = WebRequestType.GET,
+                                   string parameter = "",
+                                   (string key, string value)[] requestHeaderOption = null,
+                                   string contentType = "application/json"
+        ) {
+            using HttpClientHandler clientHandler = new HttpClientHandler() {
+                CookieContainer = CookieContainer,
+                ClientCertificateOptions = ClientCertificateOption.Automatic
+            };
+            using (HttpClient client = new HttpClient(clientHandler)) {
 
-        //public HttpClient(UserAgent userAgent = null)
-        //{
-        //    _userAgent = userAgent ?? UserAgent.CreateRandom();
-        //}
-        
+                if (requestHeaderOption != null)
+                    foreach ((string key, string value) in requestHeaderOption)
+                        client.DefaultRequestHeaders.Add(key, value);
 
-        public void Request(string methode, string webpage) {
-            webpage = webpage.Trim();
-            if (_DomainSrc.IsMatch(webpage)) {
-                string domain = _DomainSrc.Match(webpage).Groups[1].Value;
-                string path = webpage.Length != domain.Length
-                    ? webpage.Substring(domain.Length + 1)
-                    : string.Empty;
+                HttpMethod methodType = method switch
+                {
+                    WebRequestType.GET => HttpMethod.Get,
+                    WebRequestType.POST => HttpMethod.Post,
+                    WebRequestType.PUT => HttpMethod.Put,
+                    WebRequestType.DELETE => HttpMethod.Delete,
+                    WebRequestType.HEAD => HttpMethod.Head,
+                    _ => throw new System.Exception()
+                };
 
-                if (webpage[5] != 's') {
-                    domain = domain.Substring(7);
-                    StreamWriter.Write($"{methode} /{path} HTTP/1.1{NewLine}");
-                    StreamWriter.Write($"Host: {domain}{NewLine}");
-                    StreamWriter.Write($"{NewLine}");
+                HttpRequestMessage request = new HttpRequestMessage(methodType, url) {
+                    Content = new StringContent(parameter, Encoding.UTF8, contentType)
+                };
 
-                    while (NetworkStream.DataAvailable) {
-                        Console.WriteLine(StreamReader.ReadString());
-                    }
-                } else {
+                try {
+                    return client.SendAsync(request).Result.Content.ReadAsStringAsync().Result;
+                } catch {
+                    return string.Empty;
                 }
             }
         }
-
-        public static explicit operator HttpClient(Socks5Client client) => (HttpClient)client;
     }
 }

@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace Se7en.Network {
 
-    public interface INet {
+    public abstract class Net {
         TcpClient Client { get; }
         NetworkStream NetworkStream { get; }
         BinaryWriter StreamWriter { get; }

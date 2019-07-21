@@ -7,46 +7,55 @@ using System.Text;
 namespace Se7en.Network {
 
     public class TcpIpClient {
-        private TcpClient _Client;
-        private NetworkStream _NetworkStream;
-        private BinaryReader _StreamReader;
-        private BinaryWriter _StreamWriter;
-        private Func<string> _ReadStreamFun;
 
-        public event Action<TcpIpClient, string> ResiveMessage;
+        public readonly TcpClient Client;
+        public readonly NetworkStream Stream;
+        public readonly BinaryReader Reader;
+        public readonly BinaryWriter Writer;
 
+        public event Action<TcpIpClient, string> ServerMessaged;
         public event Action<TcpIpClient> ClientDisconnected;
 
-        internal TcpIpClient(TcpClient client) {
-            _Client = client;
-            _NetworkStream = client.GetStream();
-            _StreamWriter = new BinaryWriter(_NetworkStream);
-            _StreamReader = new BinaryReader(_NetworkStream);
+        public TcpIpClient(TcpClient client) {
+            Client = client;
+            Stream = Client.GetStream();
+            Reader = new BinaryReader(Stream);
+            Writer = new BinaryWriter(Stream);
+            ServerMessaged = null;
 
-            _ReadStreamFun = _StreamReader.ReadString;
-            _ReadStreamFun.BeginInvoke(ResiveSteamMessage, null);
+            GetMessage();
         }
 
-        public TcpIpClient() {
-        }
-
-        public bool Connect(string host, int port) {
+        public static bool Connect(string host, int port, out TcpIpClient ipcClient) {
             if (GetIP(host, out IPAddress entry)) {
-                _Client = new TcpClient();
-                _Client.Connect(entry, port);
-
-                _NetworkStream = _Client.GetStream();
-                _StreamWriter = new BinaryWriter(_NetworkStream);
-                _StreamReader = new BinaryReader(_NetworkStream);
-
-                _ReadStreamFun = _StreamReader.ReadString;
-                _ReadStreamFun.BeginInvoke(ResiveSteamMessage, null);
+                TcpClient client = new TcpClient();
+                client.Connect(entry, port);
+                ipcClient = new TcpIpClient(client);
                 return true;
             }
+            ipcClient = null;
             return false;
         }
+        public void SendMessage(string msg) {
+            byte[] buffer = Encoding.UTF8.GetBytes(msg);
+            Writer.Write(buffer);
+        }
 
-        private bool GetIP(string host, out IPAddress address) {
+        private async void GetMessage() {
+            const int BUFFER_LENGTH = 1024;
+            byte[] buffer = new byte[BUFFER_LENGTH];
+            while (Client.Connected) {
+                using (MemoryStream memoryStream = new MemoryStream(buffer)) {
+                    int count = -1;
+                    while ((count = Reader.Read(buffer, 0, BUFFER_LENGTH)) != -1) {
+                        await memoryStream.WriteAsync(buffer, 0, count);
+                    }
+                    ServerMessaged?.Invoke(this, Encoding.UTF8.GetString(memoryStream.ToArray()));
+                }
+            }
+        }
+
+        private static bool GetIP(string host, out IPAddress address) {
             address = null;
             if (!IPAddress.TryParse(host, out address)) {
                 try {
@@ -58,39 +67,18 @@ namespace Se7en.Network {
                                 return true;
                             }
                         }
-                    } else {
-                        return false;
                     }
                 } catch {
-                    return false;
+
                 }
             }
-            return true;
+            return false;
         }
 
         public void Disconnect() {
-            if (_Client != null) {
-                _Client.Close();
+            if (Client != null) {
+                Client.Close();
             }
-        }
-
-        private void ResiveSteamMessage(IAsyncResult result) {
-
-
-            try {
-                string message = _ReadStreamFun.EndInvoke(result);
-                ResiveMessage?.Invoke(this, message);
-
-                _ReadStreamFun.BeginInvoke(ResiveSteamMessage, null);
-            } catch {
-                ClientDisconnected?.Invoke(this);
-            }
-        }
-
-        public void SendMessage(string message) {
-            byte[] buffer = Encoding.UTF8.GetBytes(message);
-            _StreamWriter.Write(buffer, 0, buffer.Length);
-            _StreamWriter.Flush();
         }
     }
 }
