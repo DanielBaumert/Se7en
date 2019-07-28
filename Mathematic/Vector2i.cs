@@ -58,15 +58,15 @@ namespace Se7en.Mathematic {
             => (float) System.Math.Sqrt((X * X) + (Y * Y));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2i Add(int valueX = 0, int valueY = 0, int valueZ = 0)
+        public Vector2i Add(int valueX = 0, int valueY = 0)
           => new Vector2i { X = X + valueX, Y = Y + valueY };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2i Sub(int valueX = 0, int valueY = 0, int valueZ = 0)
+        public Vector2i Sub(int valueX = 0, int valueY = 0)
             => new Vector2i { X = X - valueX, Y = Y - valueY };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2i Mul(int valueX = 1, int valueY = 1, int valueZ = 1)
+        public Vector2i Mul(int valueX = 1, int valueY = 1)
             => new Vector2i { X = X * valueX, Y = Y * valueY };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

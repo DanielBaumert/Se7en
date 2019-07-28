@@ -192,7 +192,7 @@ namespace Se7en.UI {
         }
 
         [Category("Text"), DisplayName("PasswortChar")]
-        public char PasswortChar {
+        public char PasswordChar {
             get => FaceTextBoxBase.PasswordChar;
             set {
                 if (FaceTextBoxBase.PasswordChar == value)

@@ -96,5 +96,8 @@ namespace Se7en.WinApi {
         [DllImport(IMPORTKEY, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject([In] IntPtr hObject);
+
+        [DllImport(IMPORTKEY)]
+        public static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFont);
     }
 }

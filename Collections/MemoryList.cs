@@ -229,14 +229,10 @@ namespace Se7en.Collections
 
         //Contains
         public bool Contains(T item)
-        {
-            return Contains(item, 0, _Count);
-        }
+            => Contains(item, 0, _Count);
 
-        public bool Contains(T item, int start)
-        {
-            return Contains(item, start, _Count);
-        }
+        public bool Contains(T item, int start) 
+            => Contains(item, start, _Count);
 
         public bool Contains(T item, int start, int end)
         {

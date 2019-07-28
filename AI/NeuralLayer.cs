@@ -12,9 +12,16 @@ namespace Se7en.AI {
         /// Connecting two layers.
         /// </summary>
         public void ConnectLayers(NeuralLayer inputLayer) {
-            foreach (var item in Neurons.SelectMany(neuron => inputLayer.Neurons, (neuron, input) => new { neuron, input })) {
-                item.neuron.AddInputNeuron(item.neuron);
+
+
+            foreach (var input in Neurons) {
+                foreach (var output in inputLayer.Neurons) {
+                    input.AddInputNeuron(output);
+                }
             }
+            //foreach (var item in Neurons.SelectMany(neuron => inputLayer.Neurons, (neuron, input) => new { neuron, input })) {
+                //item.neuron.AddInputNeuron(item.neuron);
+            //}
         }
     }
 }

@@ -71,9 +71,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Update="UI\TextBox.resx">
-      <DependentUpon>TextBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Update="UI\WinFrom.resx">
       <DependentUpon>WinFrom.cs</DependentUpon>
     </EmbeddedResource>
