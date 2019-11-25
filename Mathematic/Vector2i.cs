@@ -196,7 +196,6 @@ namespace Se7en.Mathematic {
 
         #endregion
 
-
         #region Compare
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

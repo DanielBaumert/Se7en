@@ -90,6 +90,9 @@ namespace Se7en.WinApi {
         public static extern IntPtr GetActiveWindow();
 
         [DllImport(ImportKey, CharSet = CharSet.Auto, SetLastError = true), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr CreateWindowExA(ExtendedWindowStyle dwExStyle, string lpClassName, string lpWindowName, WindowStyle dwStyle, int x, int y, int nHeight, int nWidth, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam);
+
+        [DllImport(ImportKey, CharSet = CharSet.Auto, SetLastError = true), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, IntPtr wParam, StringBuilder lParam);
 
         [DllImport(ImportKey, CharSet = CharSet.Auto, SetLastError = true), MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -164,9 +167,8 @@ namespace Se7en.WinApi {
         public static extern bool GetClientRect(IntPtr hwnd, out Rect windowRect);
         [DllImport(ImportKey, CharSet = CharSet.Auto, SetLastError = true), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern IntPtr GetDesktopWindow();
+
         #region SystemParametersInfo
-
-
         [DllImport(ImportKey, CharSet = CharSet.Auto, SetLastError = true), MethodImpl(MethodImplOptions.AggressiveInlining)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SystemParametersInfo(SPI uiAction, uint uiParam, IntPtr pvParam, SPIF fWinIni);
@@ -184,6 +186,15 @@ namespace Se7en.WinApi {
         public static extern bool SystemParametersInfo(SPI uAction, int uParam, string lpvParam, SPIF fuWinIni);
         [DllImport(ImportKey, CharSet = CharSet.Auto, SetLastError = true), MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static extern int SystemParametersInfo(SPI uAction, int uParam, StringBuilder lpvParam, SPIF fuWinIni);
+        #endregion
+
+        #region Monotors
+        [DllImport(ImportKey, CharSet = CharSet.Auto, SetLastError = true), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern IntPtr EnumDisplayMonitors(IntPtr hdc, IntPtr lprcClip, EnumDisplayMonitorsCallback lpfnEnum, IntPtr dwData);
+        [DllImport(ImportKey, EntryPoint = "GetMonitorInfoA", CharSet = CharSet.Auto, SetLastError = true), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern bool WinGetMonitorInfo(IntPtr hMonitor, ref MonitorInfo monitorInfo);
+        [DllImport(ImportKey, EntryPoint = "GetMonitorInfoA", CharSet = CharSet.Auto, SetLastError = true), MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static extern bool WinGetMonitorInfo(IntPtr hMonitor, ref MonitorInfoEx monitorInfo);
         #endregion
     }
 }

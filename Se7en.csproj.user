@@ -11,6 +11,9 @@
     <Compile Update="UI\ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="UI\ToggleTextButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="UI\WinFrom.cs">
       <SubType>Form</SubType>
     </Compile>

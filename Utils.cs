@@ -31,6 +31,12 @@ namespace Se7en {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe int ToInt(this bool value) => *(byte*)&value;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe uint ToUint(this bool value) => *(uint*)&value;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe bool ToBool(this uint value) => *(bool*)&value;
+
         //TODO Adding multiplay support
         public static int PixelWidth(this PixelFormat pixelFormat)
             => pixelFormat switch
@@ -41,5 +47,8 @@ namespace Se7en {
                 PixelFormat.Format32bppRgb => 32,
                 _ => throw new NotSupportedException(pixelFormat.ToString())
             };
+ 
+        
     }
+
 }
