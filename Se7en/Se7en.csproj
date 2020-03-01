@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;netcoreapp3.0;net48</TargetFrameworks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWindowsForms>true</UseWindowsForms>
+
+
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Authors>Daniel Baumert</Authors>
+    <Company>Se7en Software</Company>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="d3d11.dll" />
+    <None Remove="OpenCl.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="d3d11.dll" />
+    <EmbeddedResource Include="OpenCl.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Hardware\" />
+  </ItemGroup>
+
+</Project>
