@@ -556,6 +556,17 @@ namespace Se7en.Windows.Api.Native
 
         #endregion
 
+        /// <summary>
+        /// Releases the mouse capture from a window in the current thread and restores normal mouse input processing.<br/>
+        /// A window that has captured the mouse receives all mouse input, regardless of the position of the cursor, except when a mouse button is clicked while the cursor hot spot is in the window of another thread.
+        /// </summary>
+        /// <returns>
+        /// If the function succeeds, the return value is nonzero.<br/>
+        /// If the function fails, the return value is zero. To get extended error information, call GetLastError.
+        /// </returns>
+        [DllImport(ExternDll.User32)]
+        public static extern bool ReleaseCapture();
+
         [DllImport(ExternDll.User32)]
         public static extern bool GetClientRect(HWnd hWnd, out Rect windowRect);
 
