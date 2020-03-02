@@ -50,12 +50,19 @@ namespace Se7en.Mathematic {
         }
 
         /// <summary>
-        /// Returns the amount of the vector.
+        /// Get the magnitude of the vector.
+        /// </summary>
+        /// <returns>The vector's magnitude.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public double Magnitude()
+            => (double)Math.Pow((X * X) + (Y * Y), 0.5);
+
+        /// <summary>
+        /// Same as Magnitude
         /// </summary>
         /// <returns>The vector's amount.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float Amount()
-            => (float)System.Math.Sqrt((X * X) + (Y * Y));
+        public double Amount() => Magnitude();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2f Add(float valueX = 0, float valueY = 0)
@@ -97,8 +104,8 @@ namespace Se7en.Mathematic {
         /// <summary>
         /// Computes the cross product of two vectors. !! isnt a real cross
         /// </summary>
-        /// <param name="vector1">The first vector.</param>
-        /// <param name="vector2">The second vector.</param>
+        /// <param name="vectorA">The first vector.</param>
+        /// <param name="vectorB">The second vector.</param>
         /// <returns>The cross product.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2f Cross(Vector2f vectorA, Vector2f vectorB)
@@ -117,8 +124,8 @@ namespace Se7en.Mathematic {
         /// <summary>
         /// Returns the Euclidean distance between the two given points.
         /// </summary>
-        /// <param name="value1">The first point.</param>
-        /// <param name="value2">The second point.</param>
+        /// <param name="vectorA">The first point.</param>
+        /// <param name="vectorB">The second point.</param>
         /// <returns>The distance.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Distance(Vector2f vectorA, Vector2f vectorB) {
@@ -130,11 +137,11 @@ namespace Se7en.Mathematic {
         /// <summary>
         /// Returns a vector with the same direction as the given vector, but with a length of 1.
         /// </summary>
-        /// <param name="value">The vector to normalize.</param>
+        /// <param name="vector">The vector to normalize.</param>
         /// <returns>The normalized vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2f Normalize(Vector2f vector) {
-            float invNorm = 1.0f / vector.Amount();
+            float invNorm = (float)(1.0d / vector.Magnitude());
             return new Vector2f { X = vector.X * invNorm, Y = vector.Y = invNorm, };
         }
 
@@ -180,8 +187,8 @@ namespace Se7en.Mathematic {
         /// <summary>
         /// Linearly interpolates between two vectors based on the given weighting.
         /// </summary>
-        /// <param name="value1">The first source vector.</param>
-        /// <param name="value2">The second source vector.</param>
+        /// <param name="vectorA">The first source vector.</param>
+        /// <param name="vectorB">The second source vector.</param>
         /// <param name="amount">Value between 0 and 1 indicating the weight of the second source vector.</param>
         /// <returns>The interpolated vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -192,6 +199,7 @@ namespace Se7en.Mathematic {
             };
 
         #endregion
+
 
         #region Compare
 

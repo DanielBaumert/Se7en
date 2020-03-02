@@ -53,7 +53,6 @@ namespace Se7en.OpenCl
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="argIndex"></param>
         /// <param name="length">length in bytes</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

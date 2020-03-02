@@ -4,13 +4,14 @@ using System.Runtime.InteropServices;
 
 namespace Se7en.Mathematic {
 
-    [StructLayout(LayoutKind.Explicit, Size = 8)]
-    public struct Vector2i {
+    [StructLayout(LayoutKind.Explicit, Size = 12)]
+    public struct Vector3i {
 
-        public static readonly Vector2i Zero = new Vector2i { X = 0, Y = 0 };
-        public static readonly Vector2i One = new Vector2i { X = 1, Y = 1 };
-        public static readonly Vector2i UnitX = new Vector2i { X = 1, Y = 0 };
-        public static readonly Vector2i UnitY = new Vector2i { X = 0, Y = 1 };
+        public readonly static Vector3i Zero = new Vector3i { X = 0, Y = 0, Z = 0 };
+        public readonly static Vector3i One = new Vector3i { X = 1, Y = 1, Z = 1 };
+        public readonly static Vector3i UnitX = new Vector3i { X = 1, Y = 0, Z = 0 };
+        public readonly static Vector3i UnitY = new Vector3i { X = 0, Y = 1, Z = 0 };
+        public readonly static Vector3i UnitZ = new Vector3i { X = 0, Y = 0, Z = 1 };
 
         [FieldOffset(0)]
         public int X;
@@ -18,12 +19,16 @@ namespace Se7en.Mathematic {
         [FieldOffset(4)]
         public int Y;
 
+        [FieldOffset(8)]
+        public int Z;
+
         public int this[int index] {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => index switch
             {
                 0 => X,
                 1 => Y,
+                2 => Z,
                 _ => throw new IndexOutOfRangeException("index")
             };
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -35,18 +40,22 @@ namespace Se7en.Mathematic {
                     case 1:
                         Y = value;
                         break;
+                    case 2:
+                        Z = value;
+                        break;
                     default:
                         throw new IndexOutOfRangeException("index");
                 };
             }
         }
 
-        public Vector2i(int value) : this(value, value) {
+        public Vector3i(int value) : this(value, value, value) {
         }
 
-        public Vector2i(int x = 0, int y = 0) {
+        public Vector3i(int x = 0, int y = 0, int z = 0) {
             X = x;
             Y = y;
+            Z = z;
         }
 
         /// <summary>
@@ -55,7 +64,7 @@ namespace Se7en.Mathematic {
         /// <returns>The vector's magnitude.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Magnitude()
-            => (double) Math.Pow((X * X) + (Y * Y), 0.5);
+            => Math.Pow((X * X) + (Y * Y) + (Z * Z), 0.5);
 
         /// <summary>
         /// Same as Magnitude
@@ -66,60 +75,62 @@ namespace Se7en.Mathematic {
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2i Add(int valueX = 0, int valueY = 0)
-          => new Vector2i { X = X + valueX, Y = Y + valueY };
+        public Vector3i Add(int valueX = 0, int valueY = 0, int valueZ = 0)
+          => new Vector3i { X = X + valueX, Y = Y + valueY, Z = Z + valueZ };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2i Sub(int valueX = 0, int valueY = 0)
-            => new Vector2i { X = X - valueX, Y = Y - valueY };
+        public Vector3i Sub(int valueX = 0, int valueY = 0, int valueZ = 0)
+            => new Vector3i { X = X - valueX, Y = Y - valueY, Z = Z - valueZ };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2i Mul(int valueX = 1, int valueY = 1)
-            => new Vector2i { X = X * valueX, Y = Y * valueY };
+        public Vector3i Mul(int valueX = 1, int valueY = 1, int valueZ = 1)
+            => new Vector3i { X = X * valueX, Y = Y * valueY, Z = Z * valueZ };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2i Div(int valueX = 1, int valueY = 1, int valueZ = 1)
-            => new Vector2i { X = X / valueX, Y = Y / valueY };
+        public Vector3i Div(int valueX = 1, int valueY = 1, int valueZ = 1)
+            => new Vector3i { X = X / valueX, Y = Y / valueY, Z = Z / valueZ };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-           => $"({X}, {Y})";
+           => $"({X}, {Y}, {Z})";
 
         #region Public static methods 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Dot(Vector2i vectorA, Vector2i vectorB)
-           => (vectorA.X * vectorB.X) + (vectorA.Y * vectorB.Y);
+        public static int Dot(Vector3i vectorA, Vector3i vectorB)
+           => (vectorA.X * vectorB.X) + (vectorA.Y * vectorB.Y) + (vectorA.Z * vectorB.Z);
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static bool IsKomplanar(Vector2i vectorA, Vector2i vectorB, Vector2i vectorC) {
-        //    double v1 = vectorA.X * vectorB.Y * vectorC.Z,
-        //           v2 = vectorB.X * vectorC.Y * vectorA.Z,
-        //           v3 = vectorC.X * vectorA.Y * vectorB.Z,
-        //           v4 = vectorA.Z * vectorB.Y * vectorC.X,
-        //           v5 = vectorB.Z * vectorC.Y * vectorA.X,
-        //           v6 = vectorC.Z * vectorA.Y * vectorB.X;
-        //    return v1 + v2 + v3 - v4 - v5 - v6 == 0;
-        //}
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsKomplanar(Vector3i vectorA, Vector3i vectorB, Vector3i vectorC) {
+            double v1 = vectorA.X * vectorB.Y * vectorC.Z,
+                   v2 = vectorB.X * vectorC.Y * vectorA.Z,
+                   v3 = vectorC.X * vectorA.Y * vectorB.Z,
+                   v4 = vectorA.Z * vectorB.Y * vectorC.X,
+                   v5 = vectorB.Z * vectorC.Y * vectorA.X,
+                   v6 = vectorC.Z * vectorA.Y * vectorB.X;
+            return v1 + v2 + v3 - v4 - v5 - v6 == 0;
+        }
 
         /// <summary>
-        /// Computes the cross product of two vectors. !! isnt a real cross
+        /// Computes the cross product of two vectors.
         /// </summary>
         /// <param name="vectorA">The first vector.</param>
         /// <param name="vectorB">The second vector.</param>
         /// <returns>The cross product.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i Cross(Vector2i vectorA, Vector2i vectorB)
-            => new Vector2i {
-                X = (vectorA.Y * vectorB.X) - (vectorA.X - vectorB.Y),
-                Y = -((vectorA.X - vectorB.Y) - (vectorA.Y * vectorB.X))
+        public static Vector3i Cross(Vector3i vectorA, Vector3i vectorB)
+            => new Vector3i {
+                X = (vectorA.Y * vectorB.Z) - (vectorA.Z * vectorB.Y),
+                Y = -((vectorA.Z * vectorB.X) - (vectorA.X * vectorB.Z)),
+                Z = (vectorA.X * vectorB.Y) - (vectorA.Y * vectorB.X)
             };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i Abs(Vector2i vector)
-            => new Vector2i {
-                X = System.Math.Abs(vector.X),
-                Y = System.Math.Abs(vector.Y)
+        public static Vector3i Abs(Vector3i vector)
+            => new Vector3i {
+                X = Math.Abs(vector.X),
+                Y = Math.Abs(vector.Y),
+                Z = Math.Abs(vector.Z),
             };
 
         /// <summary>
@@ -129,10 +140,11 @@ namespace Se7en.Mathematic {
         /// <param name="vectorB">The second point.</param>
         /// <returns>The distance.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Distance(Vector2i vectorA, Vector2i vectorB) {
+        public static int Distance(Vector3i vectorA, Vector3i vectorB) {
             int dx = vectorA.X - vectorB.X,
-                dy = vectorA.Y - vectorB.Y;
-            return (int)System.Math.Sqrt((dx * dx) + (dy * dy));
+                  dy = vectorA.Y - vectorB.Y,
+                  dz = vectorA.Z - vectorB.Z;
+            return (int)System.Math.Sqrt((dx * dx) + (dy * dy) + (dz + dz));
         }
 
         /// <summary>
@@ -141,11 +153,12 @@ namespace Se7en.Mathematic {
         /// <param name="vector">The vector to normalize.</param>
         /// <returns>The normalized vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i Normalize(Vector2i vector) {
-            float invNorm = (float) (1.0d / vector.Magnitude());
-            return new Vector2i {
-                X = (int)(vector.X * invNorm), 
-                Y = (int)(vector.Y * invNorm)
+        public static Vector3i Normalize(Vector3i vector) {
+            float invNorm = (float)(1.0d / vector.Magnitude());
+            return new Vector3i {
+                X = (int)(vector.X * invNorm),
+                Y = (int)(vector.Y * invNorm),
+                Z = (int)(vector.Z * invNorm)
             };
         }
 
@@ -156,11 +169,12 @@ namespace Se7en.Mathematic {
         /// <param name="normal">The normal of the surface being reflected off.</param>
         /// <returns>The reflected vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i Reflect(Vector2i vector, Vector2i normal) {
+        public static Vector3i Reflect(Vector3i vector, Vector3i normal) {
             int dot = Dot(vector, normal);
-            return new Vector2i {
+            return new Vector3i {
                 X = (int)(vector.X - (2.0f * dot * normal.X)),
-                Y = (int)(vector.Y - (2.0f * dot * normal.Y))
+                Y = (int)(vector.Y - (2.0f * dot * normal.Y)),
+                Z = (int)(vector.Z - (2.0f * dot * normal.Z))
             };
         }
 
@@ -172,7 +186,7 @@ namespace Se7en.Mathematic {
         /// <param name="max">The maximum value.</param>
         /// <returns>The restricted vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i Clamp(Vector2i value1, Vector2i min, Vector2i max) {
+        public static Vector3i Clamp(Vector3i value1, Vector3i min, Vector3i max) {
             int x = (value1.X > max.X)
                         ? max.X
                         : (value1.X < min.X)
@@ -185,7 +199,13 @@ namespace Se7en.Mathematic {
                             ? min.Y
                             : value1.Y;
 
-            return new Vector2i { X = x, Y = y };
+            int z = (value1.Z > max.Z)
+                        ? max.Z
+                        : (value1.Z < min.Z)
+                            ? min.Z
+                            : value1.Z;
+
+            return new Vector3i(x, y, z);
         }
 
         /// <summary>
@@ -196,110 +216,112 @@ namespace Se7en.Mathematic {
         /// <param name="amount">Value between 0 and 1 indicating the weight of the second source vector.</param>
         /// <returns>The interpolated vector.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i Lerp(Vector2i vectorA, Vector2i vectorB, int amount)
-            => new Vector2i {
+        public static Vector3i Lerp(Vector3i vectorA, Vector3i vectorB, int amount)
+            => new Vector3i {
                 X = vectorA.X + (vectorB.X - vectorA.X) * amount,
-                Y = vectorA.Y + (vectorB.Y - vectorA.Y) * amount
+                Y = vectorA.Y + (vectorB.Y - vectorA.Y) * amount,
+                Z = vectorA.Z + (vectorB.Z - vectorA.Z) * amount,
             };
 
         #endregion
 
+
         #region Compare
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Vector2i left, Vector2i right)
-            => left.X == right.X && left.Y == right.Y;
+        public static bool operator ==(Vector3i left, Vector3i right)
+            => left.X == right.X && left.Y == right.Y && left.Z == right.Z;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Vector2i left, Vector2i right)
-            => left.X != right.X || left.Y != right.Y;
+        public static bool operator !=(Vector3i left, Vector3i right)
+            => left.X != right.X || left.Y != right.Y || left.Z != right.Z;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
-            => obj is Vector2i ? (Vector2i)obj == this : false;
+            => obj is Vector3i ? (Vector3i)obj == this : false;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector2i other)
-            => X == other.X && Y == other.Y;
+        public bool Equals(Vector3i other)
+            => X == other.X && Y == other.Y && Z == other.Z;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
-            => X.GetHashCode() ^ Y.GetHashCode();
+            => X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
 
         #endregion Compare
 
-        #region operator (Vector2i vector, int value)
+        #region operator (Vector3i vector, int value)
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i operator +(Vector2i vector, int value)
-            => new Vector2i {
+        public static Vector3i operator +(Vector3i vector, int value)
+            => new Vector3i {
                 X = vector.X + value,
-                Y = vector.Y + value
+                Y = vector.Y + value,
+                Z = vector.Z + value
             };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i operator -(Vector2i vector, int value)
-            => new Vector2i {
+        public static Vector3i operator -(Vector3i vector, int value)
+            => new Vector3i {
                 X = vector.X - value,
-                Y = vector.Y - value
+                Y = vector.Y - value,
+                Z = vector.Z - value
             };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i operator *(Vector2i vector, int value)
-            => new Vector2i {
+        public static Vector3i operator *(Vector3i vector, int value)
+            => new Vector3i {
                 X = vector.X * value,
-                Y = vector.Y * value
+                Y = vector.Y * value,
+                Z = vector.Z * value
             };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i operator /(Vector2i vector, int value) {
+        public static Vector3i operator /(Vector3i vector, int value) {
             float invDiv = 1.0f / value;
-            return new Vector2i {
+            return new Vector3i {
                 X = (int)(vector.X * invDiv),
-                Y = (int)(vector.Y * invDiv)
+                Y = (int)(vector.Y * invDiv),
+                Z = (int)(vector.Z * invDiv)
             };
         }
 
-        #endregion operator (Vector2i vector, int value)
+        #endregion operator (Vector3i vector, int value)
 
-        #region operator (Vector2i vector, Vector2i value)
+        #region operator (Vector3i vector, Vector3i value)
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i operator +(Vector2i vector, Vector2i value)
-            => new Vector2i {
+        public static Vector3i operator +(Vector3i vector, Vector3i value)
+            => new Vector3i {
                 X = vector.X + value.X,
                 Y = vector.Y + value.Y,
+                Z = vector.Z + value.Z
             };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i operator -(Vector2i vector, Vector2i value)
-            => new Vector2i {
+        public static Vector3i operator -(Vector3i vector, Vector3i value)
+            => new Vector3i {
                 X = vector.X - value.X,
                 Y = vector.Y - value.Y,
+                Z = vector.Z - value.Z
             };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i operator *(Vector2i vector, Vector2i value)
-            => new Vector2i {
+        public static Vector3i operator *(Vector3i vector, Vector3i value)
+            => new Vector3i {
                 X = vector.X * value.X,
                 Y = vector.Y * value.Y,
+                Z = vector.Z * value.Z
             };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2i operator /(Vector2i vector, Vector2i value)
-            => new Vector2i {
+        public static Vector3i operator /(Vector3i vector, Vector3i value)
+            => new Vector3i {
                 X = vector.X / value.X,
                 Y = vector.Y / value.Y,
-
+                Z = vector.Z / value.Z
             };
 
-        #endregion operator (Vector2i vector, Vector2i value)
-
-        #region Convert
-
-        public static implicit operator Vector2f(Vector2i vector)
-                => new Vector2f { X = vector.X, Y = vector.Y };
-
-        #endregion Convert
+        #endregion operator (Vector3i vector, Vector3i value)
     }
 }

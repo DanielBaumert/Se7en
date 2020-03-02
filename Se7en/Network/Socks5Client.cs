@@ -102,7 +102,7 @@ namespace Se7en.Network {
                         (byte) VERSION, // Socks version [VER]
                         (byte) CONNECTION_MODE, // Connection mode [CMD]
                         (byte) 0x00, // reserved [RSV]
-                        (byte) AddressType.Domain, // address type of following address
+                        (byte) addressType, // address type of following address
                     });
 
             switch (addressType) {
@@ -164,7 +164,7 @@ namespace Se7en.Network {
 
             if ((SocksError)replay != SocksError.RequestGranted) {
                 Client.Close();
-                throw new SocksConnectionException($"{replay}-v.{version}-port:{bindPort}");
+                throw new SocksConnectionException($"Error-result:{replay}-v.{version}-port:{bindPort}");
             }
         }
     }
