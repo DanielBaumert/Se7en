@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 
 
 namespace Se7en.Windows.Api.Enum
@@ -89,3 +90,4 @@ namespace Se7en.Windows.Api.Enum
         WS_VSCROLL = 0x200000
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 namespace Se7en.Windows.Api.Enum
 {
     /// <summary>
@@ -46,3 +47,4 @@ namespace Se7en.Windows.Api.Enum
         CAPTUREBLT = 0x40000000
     }
 }
+#endif

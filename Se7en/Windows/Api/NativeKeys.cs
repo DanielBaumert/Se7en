@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api
+﻿#if Windows
+namespace Se7en.Windows.Api
 {
     public class NativeKeys
     {
@@ -7,3 +8,4 @@
 
     }
 }
+#endif

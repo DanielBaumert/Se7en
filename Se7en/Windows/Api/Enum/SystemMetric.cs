@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Enum
+﻿#if Windows
+namespace Se7en.Windows.Api.Enum
 {
     public enum SystemMetric
     {
@@ -472,3 +473,4 @@
         SM_YVIRTUALSCREEN = 77
     }
 }
+#endif

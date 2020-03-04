@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32.SafeHandles;
+﻿#if Windows
+using Microsoft.Win32.SafeHandles;
 using Se7en.Windows.Api.Enum;
 using System;
 using System.Collections.Generic;
@@ -127,3 +128,4 @@ namespace Se7en.Windows.Api.Native
     }
 
 }
+#endif

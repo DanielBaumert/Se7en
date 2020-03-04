@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 using System.Runtime.InteropServices;
 
 namespace Se7en.Windows.Api.Native
@@ -20,3 +21,4 @@ namespace Se7en.Windows.Api.Native
         #endregion
     }
 }
+#endif

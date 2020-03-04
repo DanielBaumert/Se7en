@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Enum
+﻿#if Windows
+namespace Se7en.Windows.Api.Enum
 {
     public enum BlendOpType
     {
@@ -8,3 +9,4 @@
         AC_SRC_OVER = 0x00,
     }
 }
+#endif

@@ -1,10 +1,8 @@
-﻿using Microsoft.Win32;
+﻿#if Windows
+using Microsoft.Win32;
 using Se7en.Windows.Api.Enum;
 using Se7en.Windows.Api.Native;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Se7en.Windows
 {
@@ -123,3 +121,4 @@ namespace Se7en.Windows
 
     }
 }
+#endif

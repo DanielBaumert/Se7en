@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,3 +17,4 @@ namespace Se7en.Windows.Api.Enum
         LLMHF_LOWER_IL_INJECTED = 0x00000002
     }
 }
+#endif

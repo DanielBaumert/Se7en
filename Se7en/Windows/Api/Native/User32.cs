@@ -1,4 +1,5 @@
-﻿using Se7en.Mathematic;
+﻿#if Windows
+using Se7en.Mathematic;
 using Se7en.Windows.Api.Enum;
 using System;
 using System.Runtime.InteropServices;
@@ -9,8 +10,8 @@ namespace Se7en.Windows.Api.Native
     public static class User32
     {
 
-        #region winuser.h
-        #region ShowWindow
+#region winuser.h
+#region ShowWindow
         /// <summary>
         /// Sets the specified window's show state.
         /// </summary>
@@ -49,8 +50,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ShowWindow([In] HWnd hWnd, [In] [MarshalAs(UnmanagedType.I4)] OldShowWindowCommands cmdShow);
-        #endregion
-        #region AnimateWindow
+#endregion
+#region AnimateWindow
         /// <summary>
         /// Enables you to produce special effects when showing or hiding windows.<br/>
         /// There are four types of animation: roll, slide, collapse or expand, and alpha-blended fade.
@@ -79,8 +80,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "AnimateWindow")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool AnimateWindow([In] HWnd hWnd, [In] [MarshalAs(UnmanagedType.I4)] int dwTime, [In] [MarshalAs(UnmanagedType.I4)] WindowAnimateFlags dwFlags);
-        #endregion
-        #region SetForegroundWindow
+#endregion
+#region SetForegroundWindow
         /// <summary>
         /// Brings the thread that created the specified window into the foreground and activates the window.<br/>
         /// Keyboard input is directed to the window, and various visual cues are changed for the user.<br/>
@@ -96,8 +97,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "SetForegroundWindow")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetForegroundWindow([In] HWnd hWnd);
-        #endregion
-        #region AllowSetForegroundWindow
+#endregion
+#region AllowSetForegroundWindow
         /// <summary>
         /// Enables the specified process to set the foreground window using the SetForegroundWindow function.<br/>
         /// The calling process must already be able to set the foreground window.<br/>
@@ -114,8 +115,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetForegroundWindow([In] [MarshalAs(UnmanagedType.I4)] int dwProcessId);
-        #endregion
-        #region LockSetForegroundWindow
+#endregion
+#region LockSetForegroundWindow
         /// <summary>
         /// The foreground process can call the LockSetForegroundWindow function to disable calls to the SetForegroundWindow function.
         /// </summary>
@@ -129,8 +130,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "LockSetForegroundWindow")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool LockSetForegroundWindow([In] [MarshalAs(UnmanagedType.U4)] LockCode uLockCode);
-        #endregion
-        #region GetWindowDC
+#endregion
+#region GetWindowDC
         /// <summary>
         /// The GetWindowDC function retrieves the device context (DC) for the entire window, including title bar, menus, and scroll bars.<br/>
         /// A window device context permits painting anywhere in a window, because the origin of the device context is the upper-left corner of the window instead of the client area.<para/>
@@ -148,8 +149,8 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32, EntryPoint = "GetWindowDC")]
         public static extern HDc GetWindowDC(HWnd hwnd);
-        #endregion
-        #region ReleaseDC
+#endregion
+#region ReleaseDC
         /// <summary>
         /// The ReleaseDC function releases a device context (DC), freeing it for use by other applications.<br/>
         /// The effect of the ReleaseDC function depends on the type of DC.<br/>
@@ -168,8 +169,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "ReleaseDC")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ReleaseDC(HWnd hWnd, [In] HDc hDC);
-        #endregion
-        #region BeginPaint
+#endregion
+#region BeginPaint
         /// <summary>
         /// The BeginPaint function prepares the specified window for painting and fills a PAINTSTRUCT structure with information about the painting.
         /// </summary>
@@ -185,8 +186,8 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32, EntryPoint = "BeginPaint")]
         public static extern HDc BeginPaint([In] HWnd hWnd, [Out] out PaintStruct lpPaint);
-        #endregion
-        #region EndPaint
+#endregion
+#region EndPaint
         /// <summary>
         /// The EndPaint function marks the end of painting in the specified window.<br/>
         /// This function is required for each call to the BeginPaint function, but only after painting is complete.
@@ -203,8 +204,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "EndPaint")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EndPaint([In] HWnd hWnd, [In] ref PaintStruct hDC);
-        #endregion
-        #region GetUpdateRect
+#endregion
+#region GetUpdateRect
         /// <summary>
         /// The GetUpdateRect function retrieves the coordinates of the smallest rectangle that completely encloses the update region of the specified window.<br/>
         /// GetUpdateRect retrieves the rectangle in logical coordinates.<br/>
@@ -231,8 +232,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "GetUpdateRect")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetUpdateRect([In] HWnd hWnd, [Out] out Rect lpRect, [In][MarshalAs(UnmanagedType.Bool)] bool erase);
-        #endregion
-        #region GetUpdateRgn
+#endregion
+#region GetUpdateRgn
         /// <summary>
         /// The GetUpdateRgn function retrieves the update region of a window by copying it into the specified region.<br/>
         /// The coordinates of the update region are relative to the upper-left corner of the window (that is, they are client coordinates).
@@ -252,8 +253,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "GetUpdateRgn")]
         [return: MarshalAs(UnmanagedType.I4)]
         public static extern RgnStatus GetUpdateRgn([In] HWnd hWnd, [In] HRng hRgn, [In][MarshalAs(UnmanagedType.Bool)] bool erase);
-        #endregion
-        #region SetWindowRgn
+#endregion
+#region SetWindowRgn
         /// <summary>
         /// he SetWindowRgn function sets the window region of a window. The window region determines the area within the window where the system permits drawing.<br/>
         /// The system does not display any portion of a window that lies outside of the window region
@@ -277,8 +278,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "SetWindowRgn")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowRgn([In] HWnd hWnd, [Out] out HRng hRgn, [In][MarshalAs(UnmanagedType.Bool)] bool bRedraw);
-        #endregion
-        #region GetWindowRgn
+#endregion
+#region GetWindowRgn
         /// <summary>
         /// The GetWindowRgn function obtains a copy of the window region of a window.<br/>
         /// The window region of a window is set by calling the SetWindowRgn function.<br/>
@@ -297,8 +298,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "GetWindowRgn")]
         [return: MarshalAs(UnmanagedType.I4)]
         public static extern RgnStatus GetWindowRgn([In] HWnd hWnd, [In] HRng hRgn);
-        #endregion
-        #region GetWindowRgnBox
+#endregion
+#region GetWindowRgnBox
         /// <summary>
         /// The GetWindowRgnBox function retrieves the dimensions of the tightest bounding rectangle for the window region of a window.
         /// </summary>
@@ -314,8 +315,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "GetWindowRgnBox")]
         [return: MarshalAs(UnmanagedType.I4)]
         public static extern RgnStatus GetWindowRgnBox([In] HWnd hWnd, [Out] out Rect lprc);
-        #endregion
-        #region ExcludeUpdateRgn
+#endregion
+#region ExcludeUpdateRgn
         /// <summary>
         /// The ExcludeUpdateRgn function prevents drawing within invalid areas of a window by excluding an updated region in the window from a clipping region.
         /// </summary>
@@ -331,8 +332,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "ExcludeUpdateRgn")]
         [return: MarshalAs(UnmanagedType.I4)]
         public static extern RgnStatus ExcludeUpdateRgn([In] HDc hDC, [In] HWnd hWnd);
-        #endregion
-        #region InvalidateRect
+#endregion
+#region InvalidateRect
         /// <summary>
         /// The InvalidateRect function adds a rectangle to the specified window's update region.<br/>
         /// The update region represents the portion of the window's client area that must be redrawn.
@@ -359,8 +360,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "InvalidateRect")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool InvalidateRect([In] HWnd hWnd, [In] ref Rect lpRect, [In] bool bErase);
-        #endregion
-        #region ValidateRect
+#endregion
+#region ValidateRect
         /// <summary>
         /// The ValidateRect function validates the client area within a rectangle by removing the rectangle from the update region of the specified window.
         /// </summary>
@@ -379,9 +380,9 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "ValidateRect")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ValidateRect([In] HWnd hWnd, [In] ref Rect lpRect);
-        #endregion
+#endregion
         // ...
-        #region WindowFromDC
+#region WindowFromDC
         /// <summary>
         /// The WindowFromDC function returns a handle to the window associated with the specified display device context (DC). Output functions that use the specified device context draw into this window.
         /// </summary>
@@ -394,8 +395,8 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32, EntryPoint = "WindowFromDC")]
         public static extern IntPtr WindowFromDC([In] IntPtr hDC);
-        #endregion
-        #region GetDC
+#endregion
+#region GetDC
         /// <summary>
         /// The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.<br/>
         /// You can use the returned handle in subsequent GDI functions to draw in the DC.<br/>
@@ -411,9 +412,9 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32)]
         public static extern IntPtr GetDC([In] IntPtr hWnd);
-        #endregion
+#endregion
         // ...
-        #region SetFocus
+#region SetFocus
         /// <summary>
         /// Sets the keyboard focus to the specified window. The window must be attached to the calling thread's message queue.
         /// </summary>
@@ -427,8 +428,8 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32, EntryPoint = "SetFocus")]
         public static extern HWnd SetFocus(HWnd hWnd);
-        #endregion
-        #region GetActiveWindow 
+#endregion
+#region GetActiveWindow 
         /// <summary>
         /// Retrieves the window handle to the active window attached to the calling thread's message queue.
         /// </summary>
@@ -438,9 +439,9 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32, EntryPoint = "GetActiveWindow")]
         public static extern HWnd GetActiveWindow();
-        #endregion
+#endregion
 
-        #region GetDesktopWindow 
+#region GetDesktopWindow 
         /// <summary>
         /// Retrieves a handle to the desktop window.<br/>
         /// The desktop window covers the entire screen.<br/>
@@ -451,8 +452,8 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32, EntryPoint = "GetDesktopWindow")]
         public static extern HWnd GetDesktopWindow();
-        #endregion
-        #region GetKBCodePage
+#endregion
+#region GetKBCodePage
         /// <summary>
         /// Retrieves the current code page.
         /// </summary>
@@ -462,8 +463,8 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32, EntryPoint = "GetKBCodePage")]
         public static extern uint GetKBCodePage();
-        #endregion
-        #region GetKeyState
+#endregion
+#region GetKeyState
         /// <summary>
         /// Retrieves the status of the specified virtual key.<br/>
         /// The status specifies whether the key is up, down, or toggled (on, off—alternating each time the key is pressed).
@@ -481,8 +482,8 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32, EntryPoint = "GetKeyState")]
         public static extern short GetKeyState([In] [MarshalAs(UnmanagedType.I4)] VirtualKey virtualKey);
-        #endregion
-        #region GetWindowRect
+#endregion
+#region GetWindowRect
         /// <summary>
         /// Retrieves the dimensions of the bounding rectangle of the specified window.<br/>
         /// The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
@@ -500,8 +501,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, EntryPoint = "GetWindowRect")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowRect([In] HWnd hWnd, [Out] out Rect lpRect);
-        #endregion
-        #region SetCursorPos
+#endregion
+#region SetCursorPos
         /// <summary>
         /// Moves the cursor to the specified screen coordinates.<br/>
         /// If the new coordinates are not within the screen rectangle set by the most recent ClipCursor function call, the system automatically adjusts the coordinates so that the cursor stays within the rectangle.
@@ -529,8 +530,8 @@ namespace Se7en.Windows.Api.Native
         /// Returns nonzero if successful or zero otherwise. To get extended error information, call GetLastError.
         /// </returns>
         public static bool SetCursorPos(Vector2i pos) => SetCursorPos(pos.X, pos.Y);
-        #endregion
-        #region GetWindowRect
+#endregion
+#region GetWindowRect
         /// <summary>
         /// Retrieves the dimensions of the bounding rectangle of the specified window. The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
         /// </summary>
@@ -547,14 +548,14 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetCursorPos(HWnd hWnd,  [Out] out Rect lpRect);
-        #endregion
+#endregion
         //TODO: doku
-        #region FindWindow
+#region FindWindow
         [DllImport(ExternDll.User32, CharSet = CharSet.Auto)]
         public static extern HWnd FindWindow(string className, string windowName);
-        #endregion
+#endregion
 
-        #endregion
+#endregion
 
         /// <summary>
         /// Releases the mouse capture from a window in the current thread and restores normal mouse input processing.<br/>
@@ -579,7 +580,7 @@ namespace Se7en.Windows.Api.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
-        #region Window Updater
+#region Window Updater
 
         [DllImport(ExternDll.User32)]
         public static extern bool UpdateWindow(HWnd hwnd);
@@ -588,11 +589,11 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32)]
         public static extern bool RedrawWindow(IntPtr hWnd, IntPtr lprcUpdate, IntPtr hrgnUpdate, RedrawWindowFlags flags);
 
-        #endregion
+#endregion
 
-        #region HookLowLevelMouseHookCallback
+#region HookLowLevelMouseHookCallback
 
-        #region SetWindowsHookEx
+#region SetWindowsHookEx
         /// <summary>
         /// Installs an application-defined hook procedure into a hook chain. You would install a hook procedure to monitor the system for certain types of events.<br/>
         /// These events are associated either with a specific thread or with all threads in the same desktop as the calling thread.
@@ -677,7 +678,7 @@ namespace Se7en.Windows.Api.Native
         /// </returns>
         [DllImport(ExternDll.User32, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr SetWindowsHookEx([MarshalAs(UnmanagedType.I4)] HookTyp hookType, LowLevelMouseHookCallback lpfn, IntPtr hMod, uint dwThreadId);
-        #endregion
+#endregion
 
 
 
@@ -686,7 +687,7 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
-        #endregion
+#endregion
 
         [DllImport(ExternDll.User32, EntryPoint = "SetWindowLong")]
         private static extern int SetWindowLong32(HandleRef hWnd, [In] [MarshalAs(UnmanagedType.I4)] WindowLongParam nIndex, int dwNewLong);
@@ -718,9 +719,9 @@ namespace Se7en.Windows.Api.Native
         }
 
 
-        #region Message
+#region Message
 
-        #region Send
+#region Send
         [DllImport(ExternDll.User32, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
 
@@ -736,8 +737,8 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, int lParam);
 
-        #endregion
-        #region Post
+#endregion
+#region Post
 
         [DllImport(ExternDll.User32, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
@@ -753,12 +754,12 @@ namespace Se7en.Windows.Api.Native
 
         [DllImport(ExternDll.User32, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool PostMessage(IntPtr hWnd, WindowsMessage Msg, int wParam, int lParam);
-        #endregion
+#endregion
 
-        #endregion
+#endregion
         //[DllImport(ExternDll.User32, CharSet = CharSet.Auto)]
         //public static extern HWnd FindWindow(string className, string windowName);
-        #region Monotors
+#region Monotors
         [DllImport(ExternDll.User32, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr EnumDisplayMonitors(IntPtr hdc, IntPtr lprcClip, EnumDisplayMonitorsCallback lpfnEnum, IntPtr dwData);
         [DllImport(ExternDll.User32, EntryPoint = "GetMonitorInfoA", CharSet = CharSet.Auto, SetLastError = true)]
@@ -769,9 +770,9 @@ namespace Se7en.Windows.Api.Native
         [DllImport(ExternDll.User32, ExactSpelling = true)]
         [ResourceExposure(ResourceScope.None)]
         public static extern int GetSystemMetrics(int nIndex);
-        #endregion
+#endregion
 
-        #region SytemParametersInfo
+#region SytemParametersInfo
 
         [DllImport(ExternDll.User32, ExactSpelling = true)]
         [ResourceExposure(ResourceScope.None)]
@@ -796,7 +797,7 @@ namespace Se7en.Windows.Api.Native
         //[ResourceExposure(ResourceScope.None)]
         //public static extern bool SystemParametersInfo(int nAction, int nParam, [In, Out] NativeMethods.NONCLIENTMETRICS metrics, int nUpdate);
 
-        #endregion
+#endregion
         [DllImport(ExternDll.User32)]
         [ResourceExposure(ResourceScope.None)]
         public static extern int GetDoubleClickTime();
@@ -820,3 +821,4 @@ namespace Se7en.Windows.Api.Native
         public static extern IntPtr GetFocus();
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using Se7en.Windows.Api.Enum;
+﻿#if Windows
+using Se7en.Windows.Api.Enum;
 using System.Runtime.InteropServices;
 
 namespace Se7en.Windows.Api
@@ -51,3 +52,4 @@ namespace Se7en.Windows.Api
         public ulong DwExtraInfo;
     }
 }
+#endif

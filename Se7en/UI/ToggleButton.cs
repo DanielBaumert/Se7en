@@ -126,18 +126,18 @@ namespace Se7en.UI {
             DoubleClick += ToggleButton_Click;
 
             void ToggleButton_Resize(object sender, EventArgs e) {
-                ///Setting
-                ///
+                // Setting
+                //
                 int x = ToggleScanner(4, Width - Height + 4);
-                ///Back
-                ///
+                // Back
+                //
                 GraphicsPath backgraphicsPath = new GraphicsPath();
                 backgraphicsPath.AddArc(0, 0, Height, Height, 90, 180);
                 backgraphicsPath.AddArc(Width - Height, 0, Height, Height, 270, 180);
                 backgraphicsPath.CloseFigure();
                 BackGraphicPath = backgraphicsPath;
-                ///Fore
-                ///
+                // Fore
+                //
                 GraphicsPath foregraphicsPath = new GraphicsPath();
                 foregraphicsPath.StartFigure();
                 foregraphicsPath.AddArc(x, 4, Height - 8, Height - 8, 0, 360);
@@ -146,19 +146,19 @@ namespace Se7en.UI {
             }
 
             void ToggleButton_Paint(object sender, PaintEventArgs e) {
-                ///Setting
-                ///
+                // Setting
+                //
                 Graphics graphics = e.Graphics;
                 graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
                 graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
-                ///back
-                ///
+                // back
+                //
                 if (BackGraphicPath != null)
                     graphics.FillPath(new SolidBrush(ToggleScanner(OnColor, OffColor)), BackGraphicPath);
-                ///Fore
-                ///
+                // Fore
+                //
                 if (ForeGraphicsPath != null)
                     graphics.FillPath(new SolidBrush(ToggleColor), ForeGraphicsPath);
             }

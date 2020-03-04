@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Native
+﻿#if Windows
+namespace Se7en.Windows.Api.Native
 {
     public class ExternDll
     {
@@ -12,3 +13,4 @@
         public const string Gdiplus = "gdiplus.dll";
     }
 }
+#endif

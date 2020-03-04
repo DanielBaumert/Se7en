@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Enum
+﻿#if Windows
+namespace Se7en.Windows.Api.Enum
 {
     /// <summary>
     /// Specifies the mode to start the computer
@@ -22,3 +23,4 @@
         FailSafeWithNetwork = 2,
     }
 }
+#endif

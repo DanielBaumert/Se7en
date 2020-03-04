@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 
 namespace Se7en.Windows.Api.Enum
 {
@@ -58,3 +59,4 @@ namespace Se7en.Windows.Api.Enum
         DCX_VALIDATE = 0x00200000,
     }
 }
+#endif

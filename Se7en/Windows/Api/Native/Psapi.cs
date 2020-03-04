@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text;
@@ -30,3 +31,4 @@ namespace Se7en.Windows.Api.Native
         public static extern int GetModuleFileNameEx(IntPtr processHandle, HandleRef moduleHandle, StringBuilder baseName, int size);
     }
 }
+#endif

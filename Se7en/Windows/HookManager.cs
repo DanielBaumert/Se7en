@@ -1,4 +1,5 @@
-﻿using Se7en.Windows.Api;
+﻿#if Windows
+using Se7en.Windows.Api;
 using Se7en.Windows.Api.Enum;
 using Se7en.Windows.Api.Native;
 using System;
@@ -83,3 +84,4 @@ namespace Se7en.Windows
 
     }
 }
+#endif

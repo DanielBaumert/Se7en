@@ -1,4 +1,5 @@
-﻿using Se7en.Mathematic;
+﻿#if Windows
+using Se7en.Mathematic;
 using System.Runtime.InteropServices;
 
 namespace Se7en.Windows.Api
@@ -37,3 +38,4 @@ namespace Se7en.Windows.Api
         public byte[] rgbReserved;
     }
 }
+#endif

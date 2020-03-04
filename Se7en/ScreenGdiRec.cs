@@ -1,4 +1,5 @@
-﻿using Se7en.Mathematic;
+﻿#if Windows
+using Se7en.Mathematic;
 using Se7en.Windows.Api;
 using Se7en.Windows.Api.Enum;
 using Se7en.Windows.Api.Native;
@@ -7,6 +8,7 @@ using System.Drawing;
 
 namespace Se7en
 {
+
     public static class ScreenGdiRec
     {
 
@@ -64,3 +66,4 @@ namespace Se7en
         public static void Stop() => recording = false;
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿
+﻿#if Windows
+
 namespace Se7en.Windows.Api.Enum
 {
     public enum LowLevelKeyHookFlag
@@ -25,3 +26,4 @@ namespace Se7en.Windows.Api.Enum
         LLKHF_UP = (KeyFlags.KF_UP >> 8)
     }
 }
+#endif

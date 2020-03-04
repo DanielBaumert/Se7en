@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows
+﻿#if Windows
+namespace Se7en.Windows
 {
     public enum WallpaperStyle : int
     {
@@ -10,3 +11,4 @@
         Fill
     }
 }
+#endif

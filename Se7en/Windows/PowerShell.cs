@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 using System.Diagnostics;
 
 namespace Se7en.Windows
@@ -35,3 +36,4 @@ namespace Se7en.Windows
         }
     }
 }
+#endif

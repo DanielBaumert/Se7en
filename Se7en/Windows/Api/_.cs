@@ -1,4 +1,5 @@
-﻿using Se7en.Mathematic;
+﻿#if Windows
+using Se7en.Mathematic;
 using Se7en.Windows.Api.Enum;
 using System;
 using System.Runtime.InteropServices;
@@ -87,3 +88,4 @@ namespace Se7en.Windows.Api
         public unsafe static explicit operator HBitmap(IntPtr ptr) => *((HBitmap*)&ptr);
     }
 }
+#endif

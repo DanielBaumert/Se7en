@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Enum
+﻿#if Windows
+namespace Se7en.Windows.Api.Enum
 {
     /// <summary>
     /// The way the source and destination bitmaps are interpreted
@@ -16,3 +17,4 @@
         AC_SRC_ALPHA = 0x01
     }
 }
+#endif

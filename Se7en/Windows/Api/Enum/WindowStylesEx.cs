@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 
 
 namespace Se7en.Windows.Api.Enum
@@ -152,3 +153,4 @@ namespace Se7en.Windows.Api.Enum
         WS_EX_WINDOWEDGE = 0x00000100
     }
 }
+#endif

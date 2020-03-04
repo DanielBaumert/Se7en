@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Enum
+﻿#if Windows
+namespace Se7en.Windows.Api.Enum
 {
     public enum VirtualKey : int
     {
@@ -948,3 +949,4 @@
         OemClear = 0xFE,
     }
 }
+#endif

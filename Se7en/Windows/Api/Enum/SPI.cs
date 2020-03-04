@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Enum
+﻿#if Windows
+namespace Se7en.Windows.Api.Enum
 {
     /// <summary>
     /// SPI_ System-wide parameter - Used in SystemParametersInfo function
@@ -1204,3 +1205,4 @@
     }
 
 }
+#endif

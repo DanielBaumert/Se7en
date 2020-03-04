@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿#if Windows
+using System.Runtime.InteropServices;
 
 namespace Se7en.Windows.Api
 {
@@ -25,3 +26,4 @@ namespace Se7en.Windows.Api
         public bool bInheritHandle;
     }
 }
+#endif

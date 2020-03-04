@@ -1,4 +1,5 @@
-﻿
+﻿#if Windows
+
 namespace Se7en.Windows.Api.Enum
 {
     /// <summary>
@@ -51,3 +52,4 @@ namespace Se7en.Windows.Api.Enum
 
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Enum
+﻿#if Windows
+namespace Se7en.Windows.Api.Enum
 {
     public enum WindowLongParam : int
     {
@@ -39,3 +40,4 @@
         DWLP_DLGPROC = 4
     }
 }
+#endif

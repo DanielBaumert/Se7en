@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 namespace Se7en
 {
     static class InternalLibLoader
     {
+#if Windows
         public const string OpenCL = "OpenCL.dll";
-        public const string D3D11 = "d3d11.dll";
+#elif Linux
+        public const string OpenCL = "libOpenCL.so";
+#endif
 
         static InternalLibLoader()
         {
@@ -18,7 +19,6 @@ namespace Se7en
                 return e.Name switch
                 {
                     OpenCL => LoadLib(sender, OpenCL),
-                    D3D11 => LoadLib(sender, D3D11),
                     _ => null,
                 };
             };

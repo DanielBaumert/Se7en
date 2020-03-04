@@ -1,8 +1,11 @@
-﻿using Se7en.Mathematic;
+﻿#if Windows
+
+using Se7en.Mathematic;
 using Se7en.Windows.Api;
 using Se7en.Windows.Api.Native;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Se7en.Windows
 {
@@ -13,25 +16,26 @@ namespace Se7en.Windows
         public static bool MultiMonitorSupport => MonitorCount != 0;
         public static Rect VirtualScreen => SystemInformation.VirtualScreen;
 
-        public static MonitorInfoEx[] AllMonitors {
+        public static MonitorInfo[] AllMonitors {
             get {
 
-                ArrayList monitorArry = new ArrayList(MonitorCount);
+                List<MonitorInfo> monitors = new List<MonitorInfo>();
                 User32.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, MonitorExEnumProc, IntPtr.Zero);
-                return (MonitorInfoEx[])monitorArry.ToArray(typeof(MonitorInfoEx));
+                return monitors.ToArray();
 
                 unsafe bool MonitorExEnumProc(IntPtr hMonitor, IntPtr hdc, ref Rect lpRect, IntPtr lpParam)
                 {
 
-                    MonitorInfoEx monitorInfo = new MonitorInfoEx();
+                    MonitorInfo monitorInfo = new MonitorInfo();
                     monitorInfo.Init();
 
                     User32.WinGetMonitorInfo(hMonitor, ref monitorInfo);
 
-                    monitorArry.Add(monitorInfo);
+                    monitors.Add(monitorInfo);
                     return true;
                 }
             }
         }
     }
 }
+#endif

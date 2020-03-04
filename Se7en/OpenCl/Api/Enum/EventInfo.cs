@@ -11,7 +11,7 @@
 }
 
 
-/**
+/*
  * \[DllImport\(Library\)\]\s*\n\s+((?:[^\s]+\s){4})(cl([^(]+))
  * [DllImport(Library, EntryPoint = "$2")]\n$1$3
- **/
+ */

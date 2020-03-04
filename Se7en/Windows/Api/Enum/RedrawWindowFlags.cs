@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 
 namespace Se7en.Windows.Api.Enum
 {
@@ -52,3 +53,4 @@ namespace Se7en.Windows.Api.Enum
         NoFrame = 0x800
     }
 }
+#endif

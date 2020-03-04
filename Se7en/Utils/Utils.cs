@@ -3,52 +3,12 @@ using System.Runtime.CompilerServices;
 
 namespace Se7en.Utils
 {
-
-    
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'The character(s) '$' cannot be used at this location.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'The character(s) ']' cannot be used at this location.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'The character(s) ']' cannot be used at this location.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'The character(s) '$' cannot be used at this location.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'The character(s) '(' cannot be used at this location.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'The character(s) '(' cannot be used at this location.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'The character(s) ']' cannot be used at this location.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'The character(s) ']' cannot be used at this location.'
-///=>[^<]+([^>]+)[^<]+([^>]+)>\(([^,]+), out _\)\[0\];
-    ///Utils.GetTInfo<$1, $2>(_handle, $3, _getInfoHandler, out _).First();
-    ///=>[^<]+<([^>]+)[^<]+<([^>]+)>\(([^,]+), out _\)\.ToStrg\(\);
-    ///=> Utils.GetTInfo<$1, $2>(_handle, $3, _getInfoHandler, out _).ToStrg();
-    ///((IHandleObjInfo<DeviceInfo>)this).GetTInfo<uint>(DeviceInfo.PreferredLocalAtomicAlignment, out _)[0];
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'DeviceInfo'.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element ''.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'uint'.'
+    // =>[^<]+([^>]+)[^<]+([^>]+)>\(([^,]+), out _\)\[0\];
+    // Utils.GetTInfo<$1, $2>(_handle, $3, _getInfoHandler, out _).First();
+    // =>[^<]+<([^>]+)[^<]+<([^>]+)>\(([^,]+), out _\)\.ToStrg\(\);
+    // => Utils.GetTInfo<$1, $2>(_handle, $3, _getInfoHandler, out _).ToStrg();
+    // ((IHandleObjInfo<DeviceInfo>)this).GetTInfo<uint>(DeviceInfo.PreferredLocalAtomicAlignment, out _)[0];
     public static class Utils
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'DeviceInfo'.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'The character(s) ']' cannot be used at this location.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element ''.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'The character(s) ']' cannot be used at this location.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'The character(s) '(' cannot be used at this location.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'The character(s) '(' cannot be used at this location.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'The character(s) '$' cannot be used at this location.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'uint'.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'The character(s) ']' cannot be used at this location.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'The character(s) ']' cannot be used at this location.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'The character(s) '$' cannot be used at this location.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'An identifier was expected.'
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static string ToStrg(this byte[] source)

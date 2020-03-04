@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 
 namespace Se7en.Windows.Api.Enum
 {
@@ -43,3 +44,4 @@ namespace Se7en.Windows.Api.Enum
         AW_BLEND = 0x00080000
     }
 }
+#endif

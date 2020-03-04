@@ -1,4 +1,5 @@
-﻿using Se7en.Windows.Api.Enum;
+﻿#if Windows
+using Se7en.Windows.Api.Enum;
 using Se7en.Windows.Api.Native;
 using System.Windows.Forms;
 
@@ -16,3 +17,4 @@ namespace Se7en.UI.Utils {
         }
     }
 }
+#endif

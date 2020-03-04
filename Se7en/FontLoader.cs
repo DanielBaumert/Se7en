@@ -1,4 +1,5 @@
-﻿using Se7en.Windows.Api.Native;
+﻿#if Windows
+using Se7en.Windows.Api.Native;
 using System;
 using System.Drawing;
 using System.Drawing.Text;
@@ -7,7 +8,6 @@ using System.Runtime.InteropServices;
 
 namespace Se7en
 {
-
     public static class FontLoader {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Font GetFromBytes(byte[] fontData, float emSize, bool gdiVerticalFont)
@@ -38,3 +38,4 @@ namespace Se7en
 
     }
 }
+#endif

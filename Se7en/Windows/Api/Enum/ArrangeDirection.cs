@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 using System.Runtime.InteropServices;
 
 namespace Se7en.Windows.Api.Enum
@@ -29,3 +30,4 @@ namespace Se7en.Windows.Api.Enum
         Up = 0x0004,
     }
 }
+#endif

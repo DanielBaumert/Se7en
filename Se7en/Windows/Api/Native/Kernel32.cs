@@ -1,4 +1,5 @@
-﻿using Se7en.Windows.Api.Enum;
+﻿#if Windows
+using Se7en.Windows.Api.Enum;
 using System;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
@@ -316,3 +317,4 @@ namespace Se7en.Windows.Api.Native
 
     }
 }
+#endif

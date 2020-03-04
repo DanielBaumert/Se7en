@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netcoreapp3.0;net48</TargetFrameworks>
+    <Language>en-US</Language>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    
+    <TargetFrameworks>netcoreapp3.1;netcoreapp3.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <PlatformTarget>x64</PlatformTarget>
@@ -13,16 +16,76 @@
     <Authors>Daniel Baumert</Authors>
     <Company>Se7en Software</Company>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+   
+    <Platforms>x64</Platforms>
+    <Configurations>Windows;Windows-Obfuscate;Windows-Debug;Linux;Linux-Obfuscate;Linux-Debug</Configurations>
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition="'$(Configuration)'=='Windows'">
+    <DefineConstants>Windows</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Windows-Obfuscate'">
+    <DefineConstants>Windows</DefineConstants>
+    <Obfuscate>true</Obfuscate>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Windows-Debug'">
+    <DefineConstants>TRACE;DEBUG;Windows</DefineConstants>
+    <Optimization>false</Optimization>
+    <Obfuscate>false</Obfuscate>
+  </PropertyGroup>
+  
+  
+  <PropertyGroup Condition="'$(Configuration)'=='Linux'">
+    <DefineConstants>Linux</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Linux-Obfuscate'">
+    <DefineConstants>Linux</DefineConstants>
+    <Obfuscate>true</Obfuscate>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Linux-Debug'">
+    <DefineConstants>TRACE;DEBUG;Linux</DefineConstants>
+    <Optimization>false</Optimization>
+    <Obfuscate>false</Obfuscate>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <None Remove="d3d11.dll" />
+    <None Remove="libOpenCL.so" />
+    <None Remove="libOpenCL.so.1" />
+    <None Remove="libOpenCL.so.1.2" />
     <None Remove="OpenCl.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="d3d11.dll" />
+    <EmbeddedResource Include="libOpenCL.so" />
+    <EmbeddedResource Include="libOpenCL.so.1" />
+    <EmbeddedResource Include="libOpenCL.so.1.2" />
     <EmbeddedResource Include="OpenCl.dll" />
   </ItemGroup>
 
+
+  <PropertyGroup>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Windows-Obfuscate|netcoreapp3.1|x64'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Linux-Obfuscate|netcoreapp3.1|x64'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Windows|netcoreapp3.1|x64'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Linux|netcoreapp3.1|x64'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  
 </Project>

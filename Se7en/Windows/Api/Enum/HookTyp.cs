@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Enum
+﻿#if Windows
+namespace Se7en.Windows.Api.Enum
 {
     public enum HookTyp
     {
@@ -58,11 +59,8 @@
         WH_FOREGROUNDIDLE = 11,
         /// <summary>
         /// Installs a hook procedure that monitors messages after they have been processed by the destination window procedure.
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
-#pragma warning disable CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
+        /// </summary>
         WH_CALLWNDPROCRET = 12,
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
-#pragma warning restore CS1570 // XML comment has badly formed XML -- 'Expected an end tag for element 'summary'.'
         /// <summary>
         /// Installs a hook procedure that monitors low-level keyboard input events.
         /// </summary>
@@ -73,3 +71,4 @@
         WH_MOUSE_LL = 14
     }
 }
+#endif

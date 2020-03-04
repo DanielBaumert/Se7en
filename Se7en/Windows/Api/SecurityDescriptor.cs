@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if Windows
+using System;
 using System.Runtime.InteropServices;
 
 namespace Se7en.Windows.Api
@@ -21,3 +22,4 @@ namespace Se7en.Windows.Api
         public IntPtr dacl;
     }
 }
+#endif

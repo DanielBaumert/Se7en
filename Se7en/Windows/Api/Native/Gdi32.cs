@@ -1,4 +1,5 @@
-﻿
+﻿#if Windows
+
 using Se7en.Windows.Api.Enum;
 using System;
 using System.Runtime.InteropServices;
@@ -247,3 +248,4 @@ namespace Se7en.Windows.Api.Native
         public static extern IntPtr CreateDC(string lpszDriver, string lpszDevice, string lpszOutput, IntPtr lpInitData);
     }
 }
+#endif

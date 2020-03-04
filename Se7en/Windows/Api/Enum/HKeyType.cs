@@ -1,4 +1,5 @@
-﻿namespace Se7en.Windows.Api.Enum
+﻿#if Windows
+namespace Se7en.Windows.Api.Enum
 {
     public enum HKeyType : int
     {
@@ -11,3 +12,4 @@
         DYN_DATA            = unchecked((int)0x80000006),
     }
 }
+#endif
