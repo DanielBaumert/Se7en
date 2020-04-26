@@ -21,7 +21,7 @@ namespace Se7en.Windows
         public static string RunCommand(string argument)
         {
             if (argument.Contains(@""""))
-                throw new NotSupportedException(@"use ' instat of """);
+                throw new NotSupportedException(@"use ' instead of """);
 
             ProcessStartInfo.Arguments = argument;
 
