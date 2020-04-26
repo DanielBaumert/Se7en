@@ -8,7 +8,7 @@ namespace Se7en.Windows
     {
         const string POWERSHELL_PATH = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
 
-        private static readonly ProcessStartInfo ProcessStartInfo = new ProcessStartInfo()
+        private static readonly ProcessStartInfo ProcessStartInfo = new ProcessStartInfo
         {
             FileName = POWERSHELL_PATH,
             CreateNoWindow = true,
@@ -25,14 +25,17 @@ namespace Se7en.Windows
 
             ProcessStartInfo.Arguments = argument;
 
-            using Process proc = new Process() { StartInfo = ProcessStartInfo };
-            proc.Start();
-            while (!proc.StandardOutput.EndOfStream)
+            using (Process proc = new Process
             {
-                string result = proc.StandardOutput.ReadToEnd();
-                return result;
+                StartInfo = ProcessStartInfo
+            })
+            {
+                proc.Start();
+               
+               var s =proc.StandardOutput.ReadToEnd();
+                proc.WaitForExit();
+                return s;
             }
-            return string.Empty;
         }
     }
 }
